@@ -14,7 +14,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainerFactory;
 import org.eclipse.ecf.core.identity.Namespace;
-import org.eclipse.ecf.core.util.LogHelper;
 import org.eclipse.ecf.core.util.SystemLogService;
 import org.eclipse.ecf.discovery.IDiscoveryAdvertiser;
 import org.eclipse.ecf.discovery.IDiscoveryLocator;
@@ -27,9 +26,9 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
 import org.osgi.framework.ServiceFactory;
-import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.log.LogService;
+import org.osgi.service.log.Logger;
 import org.osgi.util.tracker.ServiceTracker;
 
 @SuppressWarnings("rawtypes")
@@ -69,7 +68,7 @@ public class Activator implements BundleActivator {
 
 		final Hashtable props = new Hashtable();
 		props.put(IDiscoveryLocator.CONTAINER_NAME, Etcd3DiscoveryContainerInstantiator.NAME);
-		props.put(Constants.SERVICE_RANKING, new Integer(500));
+		props.put(Constants.SERVICE_RANKING, 500);
 		final Etcd3DiscoveryContainerConfig config = new Etcd3DiscoveryContainerConfig();
 		context.registerService(
 				new String[] { IDiscoveryAdvertiser.class.getName(), IDiscoveryLocator.class.getName() },
@@ -102,7 +101,7 @@ public class Activator implements BundleActivator {
 			} catch (Exception e) {
 				LogUtility.logError("getEtcdContainer", DebugOptions.DEBUG, this.getClass(), //$NON-NLS-1$
 						"Etcd discovery setup failed", e); //$NON-NLS-1$
-			    container = null;
+				container = null;
 			}
 		}
 		return container;
@@ -143,22 +142,26 @@ public class Activator implements BundleActivator {
 		return logService;
 	}
 
+	public Logger getLogger() {
+		return getLogService().getLogger(PLUGIN_ID);
+	}
+
 	public void log(IStatus status) {
-		if (logService == null)
-			logService = getLogService();
-		if (logService != null)
-			logService.log(null, LogHelper.getLogCode(status), LogHelper.getLogMessage(status), status.getException());
-	}
-
-	public void log(ServiceReference sr, IStatus status) {
-		log(sr, LogHelper.getLogCode(status), LogHelper.getLogMessage(status), status.getException());
-	}
-
-	public void log(ServiceReference sr, int level, String message, Throwable t) {
-		if (logService == null)
-			logService = getLogService();
-		if (logService != null)
-			logService.log(sr, level, message, t);
+		Logger logger = getLogger();
+		if (logger != null) {
+			switch (status.getCode()) {
+			case IStatus.ERROR:
+				logger.error(status.getMessage(), status.getException());
+				break;
+			case IStatus.INFO:
+				logger.info(status.getMessage());
+				break;
+			case IStatus.WARNING:
+				logger.warn(status.getMessage());
+			default:
+				logger.trace(status.getMessage());
+			}
+		}
 	}
 
 }
