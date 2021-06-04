@@ -1,12 +1,9 @@
-# bndtools.workspace
-Bndtools Remote Service Workspace Template
+# Etcd3 Discovery Provider
 
-NEW: [This is a video tutorial](https://www.youtube.com/watch?v=rqWTHB17Pc4) showing how to create a bndtools workspace for remote services development.
+This project contains an OSGi bundle implementing an ECF Discovery Provider for discovering [OSGi Remote Services](https://wiki.eclipse.org/OSGi_Remote_Services_and_ECF) based upon [Etcd](https://etcd.io/) version 3.
 
-NOTE:  There is now a branch named minimal, which when provided as the branch for the workspace template as described in video and documentation below, will provide a *minimal* workspace template, with only a small subset of the workspace repos and project templates.   The minimal branch is useful to use for an initial exposure to [ECF Remote Services](https://wiki.eclipse.org/ECF).
+Etcd3 provides a popular server/service to reliably store, retrieve, and watch key-value pairs and is used in [Kubernetes](https://kubernetes.io/).   
 
-NOTE: There is a branch named grpc, which when provided as the branch for the workspace template as described in video and documentation below, will provide only the grpc workspace template. The grpc branch is useful to use for an initial exposure to ECF gRPC Remote Services Distribution Provider.
+This discovery provider allows an Etcd3 server to be used to publish and discover OSGi Remote Service endpoints via Etcd3 client->server protocols.   
 
-For more documentation about how to install/use this workspace template see here:  https://wiki.eclipse.org/Bndtools_Support_for_Remote_Services_Development 
-
-For a tutorial on using the Remote Services workspace templates see here:  https://wiki.eclipse.org/Using_the_Bndtools_Remote_Services_Project_Templates
+With this bundle OSGi Remote Services will automatically be published to an Etcd3 server and discovered by other OSGi Remote Service consumers that are using the same Etcd3 server.
