@@ -6,20 +6,22 @@
  * 
  * Contributors: Scott Lewis - initial API and implementation
  ******************************************************************************/
-package org.eclipse.ecf.provider.etcd3.itentity;
-
-import java.net.URI;
+package org.eclipse.ecf.provider.etcd3.identity;
 
 import org.eclipse.ecf.core.identity.Namespace;
 import org.eclipse.ecf.discovery.identity.IServiceTypeID;
-import org.eclipse.ecf.discovery.identity.ServiceID;
+import org.eclipse.ecf.discovery.identity.ServiceTypeID;
 
-public class Etcd3ServiceID extends ServiceID {
+public class Etcd3ServiceTypeID extends ServiceTypeID {
 
-	private static final long serialVersionUID = -1416677955466105800L;
+	private static final long serialVersionUID = -7363999880119812453L;
 
-	public Etcd3ServiceID(Namespace namespace, IServiceTypeID type, URI anURI) {
-		super(namespace, type, anURI);
+	public Etcd3ServiceTypeID(Namespace ns, IServiceTypeID id) {
+		super(ns, id);
+	}
+
+	public Etcd3ServiceTypeID(Namespace namespace, String aType) {
+		super(namespace, aType);
 	}
 
 }

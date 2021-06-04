@@ -17,8 +17,8 @@ import org.eclipse.ecf.core.identity.IDFactory;
 import org.eclipse.ecf.discovery.DiscoveryContainerConfig;
 import org.eclipse.ecf.discovery.identity.IServiceTypeID;
 import org.eclipse.ecf.discovery.identity.ServiceIDFactory;
-import org.eclipse.ecf.provider.etcd3.itentity.Etcd3Namespace;
-import org.eclipse.ecf.provider.etcd3.itentity.Etcd3ServiceID;
+import org.eclipse.ecf.provider.etcd3.identity.Etcd3Namespace;
+import org.eclipse.ecf.provider.etcd3.identity.Etcd3ServiceID;
 
 public class Etcd3DiscoveryContainerConfig extends DiscoveryContainerConfig {
 

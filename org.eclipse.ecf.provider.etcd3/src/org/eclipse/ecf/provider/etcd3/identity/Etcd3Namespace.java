@@ -6,7 +6,7 @@
  * 
  * Contributors: Scott Lewis - initial API and implementation
  ******************************************************************************/
-package org.eclipse.ecf.provider.etcd3.itentity;
+package org.eclipse.ecf.provider.etcd3.identity;
 
 import java.net.URI;
 

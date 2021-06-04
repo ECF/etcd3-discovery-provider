@@ -21,7 +21,7 @@ import org.eclipse.ecf.discovery.IDiscoveryLocator;
 import org.eclipse.ecf.provider.etcd3.container.Etcd3DiscoveryContainer;
 import org.eclipse.ecf.provider.etcd3.container.Etcd3DiscoveryContainerConfig;
 import org.eclipse.ecf.provider.etcd3.container.Etcd3DiscoveryContainerInstantiator;
-import org.eclipse.ecf.provider.etcd3.itentity.Etcd3Namespace;
+import org.eclipse.ecf.provider.etcd3.identity.Etcd3Namespace;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;

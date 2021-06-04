@@ -21,7 +21,7 @@ import org.eclipse.ecf.discovery.ServiceInfo;
 import org.eclipse.ecf.discovery.ServiceProperties;
 import org.eclipse.ecf.discovery.identity.IServiceTypeID;
 import org.eclipse.ecf.discovery.identity.ServiceIDFactory;
-import org.eclipse.ecf.provider.etcd3.itentity.Etcd3Namespace;
+import org.eclipse.ecf.provider.etcd3.identity.Etcd3Namespace;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

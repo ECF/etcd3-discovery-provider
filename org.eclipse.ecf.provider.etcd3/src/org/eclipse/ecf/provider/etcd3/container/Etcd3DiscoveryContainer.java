@@ -61,8 +61,8 @@ import org.eclipse.ecf.provider.etcd3.grpc.api.kv.KeyValue;
 import org.eclipse.ecf.provider.etcd3.grpc.client.KVServiceClient;
 import org.eclipse.ecf.provider.etcd3.grpc.client.LeaseServiceClient;
 import org.eclipse.ecf.provider.etcd3.grpc.client.WatchServiceClient;
-import org.eclipse.ecf.provider.etcd3.itentity.Etcd3Namespace;
-import org.eclipse.ecf.provider.etcd3.itentity.Etcd3ServiceID;
+import org.eclipse.ecf.provider.etcd3.identity.Etcd3Namespace;
+import org.eclipse.ecf.provider.etcd3.identity.Etcd3ServiceID;
 import org.json.JSONException;
 
 import com.google.protobuf.ByteString;
