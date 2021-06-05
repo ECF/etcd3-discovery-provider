@@ -37,10 +37,7 @@ import org.eclipse.ecf.discovery.ServiceTypeContainerEvent;
 import org.eclipse.ecf.discovery.identity.IServiceID;
 import org.eclipse.ecf.discovery.identity.IServiceTypeID;
 import org.eclipse.ecf.provider.etcd3.Activator;
-import org.eclipse.ecf.provider.etcd3.DebugOptions;
-import org.eclipse.ecf.provider.etcd3.LogUtility;
 import org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeRequest;
-import org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeResponse;
 import org.eclipse.ecf.provider.etcd3.grpc.api.KVService;
 import org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantRequest;
 import org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantResponse;
@@ -154,15 +151,22 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 		try {
 			siString = si.serializeToJsonString();
 		} catch (JSONException e) {
-			logEtcdError("registerService", "Cannot serialize serviceInfo="+si+" for etcd3 publish", e);
+			logEtcdError("registerService", "Cannot serialize serviceInfo=" + si + " for etcd3 publish", e);
 			throw new IllegalArgumentException("Exception serializing serviceInfo=" + si, e); //$NON-NLS-1$
 		}
 		synchronized (services) {
-			grpcPutKeyValue(getKeyPrefix() + "/" + siKey.getFullKey(), siString);
+			// First put into etcd remote key store
+			grpcPutKeyValue(getFullKey(siKey), siString);
+			// then put into local services map
 			services.put(siKey, si);
 		}
+		// Fire events
 		fireServiceTypeDiscovered(si.getServiceID().getServiceTypeID());
 		fireServiceDiscovered(siKey.getFullKey(), si);
+	}
+
+	private String getFullKey(EtcdServiceInfoKey siKey) {
+		return getKeyPrefix() + "/" + siKey.getFullKey();
 	}
 
 	public void unregisterService(IServiceInfo serviceInfo) {
@@ -172,14 +176,15 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 			logEtcdError("unregisterService", "Could not find serviceInfo=" + serviceInfo, null); //$NON-NLS-1$ //$NON-NLS-2$
 			return;
 		}
-		String fullKey = siKey.getFullKey();
 		Etcd3ServiceInfo si = null;
 		synchronized (services) {
+			// Delete from etcd3 remote key store
+			etcd3DeleteKey(getFullKey(siKey), false);
+			// And remove from local services map
 			si = services.remove(siKey);
-			etcd3DeleteKey(fullKey, false);
 		}
 		if (si != null)
-			fireServiceUndiscovered(fullKey, si);
+			fireServiceUndiscovered(siKey.getFullKey(), si);
 	}
 
 	private ByteString getByteString(String s) {
@@ -191,8 +196,7 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 		if (prefix) {
 			b.setRangeEnd(getByteString(key + "\\0"));
 		}
-		DeleteRangeResponse resp = this.kvService.deleteRange(Single.just(b.build())).blockingGet();
-		trace("etcd3DeleteKey", "delete response=" + resp);
+		this.kvService.deleteRange(Single.just(b.build())).blockingGet();
 	}
 
 	@Override
@@ -296,12 +300,8 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 		fireContainerEvent(new ContainerConnectedEvent(this.getID(), aTargetID));
 	}
 
-	protected RangeRequest.Builder createRangeRequestBuilder() {
-		return RangeRequest.newBuilder();
-	}
-
 	protected List<KeyValue> grpcGetKeyValueList(String key, boolean prefix) {
-		RangeRequest.Builder builder = createRangeRequestBuilder().setKey(ByteString.copyFromUtf8(key));
+		RangeRequest.Builder builder = RangeRequest.newBuilder().setKey(ByteString.copyFromUtf8(key));
 		if (prefix) {
 			builder.setRangeEnd(ByteString.copyFromUtf8(prefix + "\\0"));
 		}
@@ -318,7 +318,7 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 			// Make blocking call here
 			kvService.put(Single.just(builder.build())).blockingGet();
 		} catch (Exception e) {
-			String message = "grpc  not put key=" + key + ",value=" + value + " into etdc3 store";
+			String message = "grpc did not put key=" + key + ",value=" + value + " into etdc3 store";
 			logEtcdError("grpcPutKeyValue", message, e);
 			throw new RuntimeException(message, e);
 		}
@@ -405,15 +405,18 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 		String key = keyValue.getKey().toStringUtf8();
 		EtcdServiceInfoKey siKey = parseServiceInfoKey(key);
 		if (siKey != null) {
-			Etcd3ServiceInfo si = null;
-			synchronized (services) {
-				si = services.remove(siKey);
+			if (!siKey.matchSessionId(getSessionId())) {
+				Etcd3ServiceInfo si = null;
+				synchronized (services) {
+					si = services.remove(siKey);
+				}
+				if (si != null)
+					fireServiceUndiscovered(siKey.getFullKey(), si);
+			} else {
+				debug("handleDeleteWatchEvent", "Ignoring delete for key from this sessionId=" + getSessionId());
 			}
-			if (si != null)
-				fireServiceUndiscovered(siKey.getFullKey(), si);
-
 		} else {
-			logEtcdError("handleDeleteWatchEvent", "Could not find EtcdServiceInfoKey for key=" + key); //$NON-NLS-1$ //$NON-NLS-2$
+			debug("handleDeleteWatchEvent", "Ignoring delete watch for key=" + key);
 		}
 	}
 
@@ -487,16 +490,12 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 	}
 
 	private void trace(String methodName, String message) {
-		System.out.println("methodName=" + methodName + ",message=" + message);
+		//System.out.println("methodName=" + methodName + ",message=" + message);
 		// LogUtility.trace(methodName, DebugOptions.DEBUG, getClass(), message);
 	}
 
 	private void logEtcdError(String method, String message, Throwable e) {
-		LogUtility.logError(method, DebugOptions.EXCEPTIONS_THROWING, getClass(), message, e);
-	}
-
-	private void logEtcdError(String method, String message) {
-		logEtcdError(method, message, null);
+		System.out.println("ERROR: methodName=" + method + ",message=" + message + ((e == null) ? "" : e.getMessage()));
 	}
 
 	public IServiceInfo getServiceInfo(IServiceID aServiceID) {

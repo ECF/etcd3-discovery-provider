@@ -55,7 +55,11 @@ Bundle-Activator: org.eclipse.ecf.provider.etcd3.Activator
 	bnd.identity;id='io.netty.handler',\
 	bnd.identity;id='io.netty.handler-proxy',\
 	bnd.identity;id='io.netty.resolver',\
-	bnd.identity;id='io.netty.transport'
+	bnd.identity;id='io.netty.transport',\
+	bnd.identity;id='com.mycorp.examples.timeservice.async',\
+	bnd.identity;id='com.mycorp.examples.timeservice.host',\
+	bnd.identity;id='org.eclipse.equinox.event',\
+	bnd.identity;id='org.eclipse.ecf.provider.remoteservice'
 -runbundles: \
 	com.google.guava;version='[26.0.0,26.0.1)',\
 	com.google.protobuf;version='[4.0.0,4.0.1)',\
@@ -98,5 +102,13 @@ Bundle-Activator: org.eclipse.ecf.provider.etcd3.Activator
 	io.netty.handler;version='[4.1.52,4.1.53)',\
 	io.netty.handler-proxy;version='[4.1.52,4.1.53)',\
 	io.netty.resolver;version='[4.1.52,4.1.53)',\
-	io.netty.transport;version='[4.1.52,4.1.53)'
+	io.netty.transport;version='[4.1.52,4.1.53)',\
+	com.mycorp.examples.timeservice.async;version='[2.1.100,2.1.101)',\
+	com.mycorp.examples.timeservice.host;version='[1.1.400,1.1.401)',\
+	org.eclipse.equinox.event;version='[1.4.300,1.4.301)',\
+	org.eclipse.ecf.provider;version='[4.8.301,4.8.302)',\
+	org.eclipse.ecf.provider.remoteservice;version='[4.4.201,4.4.202)',\
+	org.eclipse.ecf.sharedobject;version='[2.6.100,2.6.101)'
 -runprogramargs: -console -consoleLog
+Bundle-Name: ECF Etcd3 Discovery Provider
+Bundle-Vendor: Eclipse.org - ECF
