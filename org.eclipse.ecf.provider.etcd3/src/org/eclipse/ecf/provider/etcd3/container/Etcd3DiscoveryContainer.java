@@ -21,8 +21,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.ecf.core.ContainerConnectException;
 import org.eclipse.ecf.core.events.ContainerConnectedEvent;
 import org.eclipse.ecf.core.events.ContainerConnectingEvent;
@@ -32,11 +30,14 @@ import org.eclipse.ecf.core.identity.ID;
 import org.eclipse.ecf.core.security.IConnectContext;
 import org.eclipse.ecf.discovery.AbstractDiscoveryContainerAdapter;
 import org.eclipse.ecf.discovery.IServiceInfo;
+import org.eclipse.ecf.discovery.IServiceListener;
+import org.eclipse.ecf.discovery.IServiceTypeListener;
 import org.eclipse.ecf.discovery.ServiceContainerEvent;
 import org.eclipse.ecf.discovery.ServiceTypeContainerEvent;
 import org.eclipse.ecf.discovery.identity.IServiceID;
 import org.eclipse.ecf.discovery.identity.IServiceTypeID;
-import org.eclipse.ecf.provider.etcd3.Activator;
+import org.eclipse.ecf.provider.etcd3.DebugOptions;
+import org.eclipse.ecf.provider.etcd3.LogUtility;
 import org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeRequest;
 import org.eclipse.ecf.provider.etcd3.grpc.api.KVService;
 import org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantRequest;
@@ -130,8 +131,12 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 	private WatchService watchService;
 	private long leaseId;
 	private Scheduler leaseKeepAliveScheduler;
+
 	private long watchId = -1;
 	private CountDownLatch watchLatch;
+
+	private boolean initializedFromServer = false;
+	private Object connectLock = new Object();
 
 	public Etcd3DiscoveryContainer(Etcd3DiscoveryContainerConfig config) {
 		super(Etcd3Namespace.NAME, config);
@@ -187,14 +192,10 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 			fireServiceUndiscovered(siKey.getFullKey(), si);
 	}
 
-	private ByteString getByteString(String s) {
-		return ByteString.copyFromUtf8(s);
-	}
-
 	private void etcd3DeleteKey(String key, boolean prefix) {
-		DeleteRangeRequest.Builder b = DeleteRangeRequest.newBuilder().setKey(getByteString(key));
+		DeleteRangeRequest.Builder b = DeleteRangeRequest.newBuilder().setKey(ByteString.copyFromUtf8(key));
 		if (prefix) {
-			b.setRangeEnd(getByteString(key + "\\0"));
+			b.setRangeEnd(ByteString.copyFromUtf8(key + "\\0"));
 		}
 		this.kvService.deleteRange(Single.just(b.build())).blockingGet();
 	}
@@ -210,6 +211,17 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 
 	private String getSessionKey() {
 		return getEtcdConfig().getSessionKey();
+	}
+
+	private void initializeFromServer() {
+		synchronized (connectLock) {
+			if (!initializedFromServer) {
+				grpcGetKeyValueList(getKeyPrefix(), true).forEach(kv -> {
+					handlePutWatchEvent(kv);
+				});
+				this.initializedFromServer = true;
+			}
+		}
 	}
 
 	public void connect(ID aTargetID, IConnectContext connectContext) throws ContainerConnectException {
@@ -256,10 +268,12 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 				// trace("keepAlive", "received keepAlive response=" + lkar);
 			});
 
-			// Setup watch create
+			// put session key
+			grpcPutKeyValue(getSessionKey(), getSessionId());
+
 			String keyPrefix = getKeyPrefix();
 			WatchCreateRequest.Builder watchCreateRequestBuilder = WatchCreateRequest.newBuilder()
-					.setKey(getByteString(keyPrefix)).setRangeEnd(getByteString(keyPrefix + "\\0"));
+					.setKey(ByteString.copyFromUtf8(keyPrefix)).setRangeEnd(ByteString.copyFromUtf8(keyPrefix + "\\0"));
 			// Create watch latch so that watch cancel request can be sent
 			this.watchLatch = new CountDownLatch(2);
 			Flowable<WatchRequest> watchRequestFlowable = Flowable.create(new FlowableOnSubscribe<WatchRequest>() {
@@ -281,26 +295,21 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 
 				}
 			}, BackpressureStrategy.BUFFER).subscribeOn(Schedulers.newThread(), false);
+			// setup watch
 			watchService.watch(watchRequestFlowable).subscribe(watchResponse -> {
 				if (watchResponse.getCreated() && this.watchId == -1) {
 					this.watchId = watchResponse.getWatchId();
-					trace("watch", "watchId=" + this.watchId);
 					this.watchLatch.countDown();
 				}
 				watchResponse.getEventsList().forEach(e -> handleWatchEvent(e));
 			});
-			// put session key
-			grpcPutKeyValue(getSessionKey(), getSessionId());
-			// Now get existing keys from remote store
-			grpcGetKeyValueList(keyPrefix, true).forEach(kv -> {
-				handlePutWatchEvent(kv);
-			});
+			this.initializedFromServer = false;
 		}
 		// Fire container connected event
 		fireContainerEvent(new ContainerConnectedEvent(this.getID(), aTargetID));
 	}
 
-	protected List<KeyValue> grpcGetKeyValueList(String key, boolean prefix) {
+	private List<KeyValue> grpcGetKeyValueList(String key, boolean prefix) {
 		RangeRequest.Builder builder = RangeRequest.newBuilder().setKey(ByteString.copyFromUtf8(key));
 		if (prefix) {
 			builder.setRangeEnd(ByteString.copyFromUtf8(prefix + "\\0"));
@@ -308,27 +317,21 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 		return kvService.range(Single.just(builder.build())).blockingGet().getKvsList();
 	}
 
-	protected void grpcPutKeyValue(String key, String value) {
-		try {
-			PutRequest.Builder builder = PutRequest.newBuilder().setKey(ByteString.copyFromUtf8(key));
-			// setup lease
-			builder.setLease(this.leaseId);
-			// set value
-			builder.setValue(ByteString.copyFromUtf8(value));
-			// Make blocking call here
-			kvService.put(Single.just(builder.build())).blockingGet();
-		} catch (Exception e) {
-			String message = "grpc did not put key=" + key + ",value=" + value + " into etdc3 store";
-			logEtcdError("grpcPutKeyValue", message, e);
-			throw new RuntimeException(message, e);
-		}
+	private void grpcPutKeyValue(String key, String value) {
+		PutRequest.Builder builder = PutRequest.newBuilder().setKey(ByteString.copyFromUtf8(key));
+		// setup lease
+		builder.setLease(this.leaseId);
+		// set value
+		builder.setValue(ByteString.copyFromUtf8(value));
+		// Make blocking call here
+		kvService.put(Single.just(builder.build())).blockingGet();
 	}
 
 	private Etcd3ServiceID getTargetID() {
 		return getEtcdConfig().getTargetID();
 	}
 
-	void handleWatchEvent(Event event) {
+	private void handleWatchEvent(Event event) {
 		EventType eventType = event.getType();
 		if (eventType == EventType.DELETE) {
 			handleDeleteWatchEvent(event.getKv());
@@ -338,47 +341,49 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 	}
 
 	private EtcdServiceInfoKey parseServiceInfoKey(String key) {
-		if (key != null && !"".equals(key)) {
-			String[] splitKey = key.split("/");
-			if (splitKey.length >= 1) {
-				// valid key has <prefix>/<sessionId>
-				if (splitKey[0].equals(getKeyPrefix())) {
-					if (splitKey.length > 2) {
-						String sessionKey = splitKey[1];
-						String siKey = splitKey[2];
-						try {
-							UUID.fromString(sessionKey);
-						} catch (IllegalArgumentException e) {
-							logEtcdError("parseServiceInfoKey",
-									"Could not parse sessionKey=" + sessionKey + " into UUID", e);
-							return null;
-						}
-						try {
-							UUID.fromString(siKey);
-						} catch (IllegalArgumentException e) {
-							logEtcdError("parseServiceInfoKey", "Could not parse siKey=" + siKey + " into UUID", e);
-							return null;
-						}
-						return new EtcdServiceInfoKey(sessionKey, siKey);
-					} else {
-						debug("parseServiceInfoKey", "Ignoring session key=" + key);
-					}
+		String[] splitKey = key.split("/");
+		switch (splitKey.length) {
+		case 0:
+		case 1:
+			// The key has no '/'s...so it's invalid
+			debug("parseServiceInfoKey", "Ignoring invalid key=" + key);
+			return null;
+		case 2:
+			if (getKeyPrefix().equals(splitKey[0])) {
+				if (getSessionId().equals(splitKey[1])) {
+					debug("parseServiceInfoKey", "Ignoring local sessionId=" + splitKey[1]);
 				} else {
-					debug("parseServiceInfoKey", "Ignoring as keyPrefix=" + splitKey[0]
-							+ " does not match this containers keyPrefix=" + getKeyPrefix());
+					debug("parseServiceInfoKey", "Ignoring remote sessionId=" + splitKey[1]);
 				}
 			} else {
-				debug("parseServiceInfoKey", "Ignoring invalid key=" + key);
+				debug("parseServiceInfoKey", "Ignoring invalid keyPrefix=" + splitKey[0]);
 			}
+			return null;
+		case 3:
+		default:
+			String sessionKey = splitKey[1];
+			String siKey = splitKey[2];
+			try {
+				UUID.fromString(sessionKey);
+			} catch (IllegalArgumentException e) {
+				debug("parseServiceInfoKey", "Could not parse sessionKey=" + sessionKey + " into UUID");
+				return null;
+			}
+			try {
+				UUID.fromString(siKey);
+			} catch (IllegalArgumentException e) {
+				debug("parseServiceInfoKey", "Could not parse siKey=" + siKey + " into UUID");
+				return null;
+			}
+			return new EtcdServiceInfoKey(sessionKey, siKey);
 		}
-		return null;
 	}
 
 	private void debug(String string, String string2) {
-		trace(string, string2);
+		LogUtility.logInfo(string, DebugOptions.DEBUG, getClass(), string2);
 	}
 
-	protected void handlePutWatchEvent(KeyValue keyValue) {
+	private void handlePutWatchEvent(KeyValue keyValue) {
 		String key = keyValue.getKey().toStringUtf8();
 		EtcdServiceInfoKey siKey = parseServiceInfoKey(key);
 		if (siKey != null) {
@@ -392,16 +397,17 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 					fireServiceTypeDiscovered(si.getServiceID().getServiceTypeID());
 					fireServiceDiscovered(siKey.getFullKey(), si);
 				} catch (JSONException e) {
-					logEtcdError("handleEtcdServiceInfoAdd", "Error deserializing value for keyValue=" + keyValue, //$NON-NLS-1$ //$NON-NLS-2$
+					logEtcdError("handleEtcdServiceInfoAdd", //$NON-NLS-1$
+							"Error deserializing serviceInfo for key=" + siKey.getFullKey(), //$NON-NLS-1$
 							e);
 				}
 			} else {
-				debug("handlePutWatchEvent", "Ignoring since key=" + key + " is from this session");
+				debug("handlePutWatchEvent", "Ignoring serviceInfo from local sessionId=" + getSessionId());
 			}
 		}
 	}
 
-	protected void handleDeleteWatchEvent(KeyValue keyValue) {
+	private void handleDeleteWatchEvent(KeyValue keyValue) {
 		String key = keyValue.getKey().toStringUtf8();
 		EtcdServiceInfoKey siKey = parseServiceInfoKey(key);
 		if (siKey != null) {
@@ -413,10 +419,8 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 				if (si != null)
 					fireServiceUndiscovered(siKey.getFullKey(), si);
 			} else {
-				debug("handleDeleteWatchEvent", "Ignoring delete for key from this sessionId=" + getSessionId());
+				debug("handleDeleteWatchEvent", "Ignoring delete for local sessionId=" + getSessionId());
 			}
-		} else {
-			debug("handleDeleteWatchEvent", "Ignoring delete watch for key=" + key);
 		}
 	}
 
@@ -424,16 +428,7 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 		return getEtcdConfig().getKeepAliveUpdateTime();
 	}
 
-	private void leaseRevoke() {
-		try {
-			this.leaseService.leaseRevoke(Single.just(LeaseRevokeRequest.newBuilder().setID(this.leaseId).build()))
-					.blockingGet();
-		} catch (Exception e) {
-			logEtcdError("grpcLeaseRevoke", "Could not revoke lease for leaseId=" + this.leaseId, e);
-		}
-	}
-
-	Etcd3DiscoveryContainerConfig getEtcdConfig() {
+	private Etcd3DiscoveryContainerConfig getEtcdConfig() {
 		return (Etcd3DiscoveryContainerConfig) getConfig();
 	}
 
@@ -445,8 +440,6 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 		return getEtcdConfig().getSessionId();
 	}
 
-	private Object connectLock = new Object();
-
 	public void disconnect() {
 		fireContainerEvent(new ContainerDisconnectingEvent(this.getID(), getConnectedID()));
 		synchronized (connectLock) {
@@ -457,7 +450,9 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 			}
 			// revoke lease. This will delete all keys in etcd server for this session
 			// including both the sessionKey and any EtcdServiceInfo instances
-			leaseRevoke();
+			this.leaseService.leaseRevoke(Single.just(LeaseRevokeRequest.newBuilder().setID(this.leaseId).build()))
+					.blockingGet();
+
 			// Finally send watch cancel request
 			if (this.watchLatch != null) {
 				this.watchLatch.countDown();
@@ -465,14 +460,6 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 			}
 		}
 		fireContainerEvent(new ContainerDisconnectedEvent(this.getID(), getConnectedID()));
-	}
-
-	IStatus createErrorStatus(String message) {
-		return new Status(IStatus.ERROR, Activator.PLUGIN_ID, message);
-	}
-
-	IStatus createErrorStatus(String message, Throwable t) {
-		return new Status(IStatus.ERROR, Activator.PLUGIN_ID, message, t);
 	}
 
 	private void fireServiceUndiscovered(String key, IServiceInfo iinfo) {
@@ -490,7 +477,7 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 	}
 
 	private void trace(String methodName, String message) {
-		//System.out.println("methodName=" + methodName + ",message=" + message);
+		System.out.println("methodName=" + methodName + ",message=" + message);
 		// LogUtility.trace(methodName, DebugOptions.DEBUG, getClass(), message);
 	}
 
@@ -549,4 +536,26 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 			}).findFirst().get();
 		}
 	}
+	
+	public void addServiceListener(final IServiceListener aListener) {
+		synchronized (services) {
+			initializeFromServer();
+		}
+		super.addServiceListener(aListener);
+	}
+
+	public void addServiceListener(final IServiceTypeID aType, final IServiceListener aListener) {
+		synchronized (services) {
+			initializeFromServer();
+		}
+		super.addServiceListener(aType, aListener);
+	}
+
+	public void addServiceTypeListener(IServiceTypeListener aListener) {
+		synchronized (services) {
+			initializeFromServer();
+		}
+		super.addServiceTypeListener(aListener);
+	}
+
 }

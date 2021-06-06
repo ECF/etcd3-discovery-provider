@@ -28,7 +28,6 @@ import org.osgi.framework.Constants;
 import org.osgi.framework.ServiceFactory;
 import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.log.LogService;
-import org.osgi.service.log.Logger;
 import org.osgi.util.tracker.ServiceTracker;
 
 @SuppressWarnings("rawtypes")
@@ -142,25 +141,25 @@ public class Activator implements BundleActivator {
 		return logService;
 	}
 
-	public Logger getLogger() {
-		return getLogService().getLogger(PLUGIN_ID);
-	}
-
+	@SuppressWarnings("deprecation")
 	public void log(IStatus status) {
-		Logger logger = getLogger();
-		if (logger != null) {
-			switch (status.getCode()) {
-			case IStatus.ERROR:
-				logger.error(status.getMessage(), status.getException());
-				break;
-			case IStatus.INFO:
-				logger.info(status.getMessage());
-				break;
-			case IStatus.WARNING:
-				logger.warn(status.getMessage());
-			default:
-				logger.trace(status.getMessage());
-			}
+		int statusCode = status.getCode();
+		String logMessage = status.getMessage();
+		Throwable t = status.getException();
+		LogService logService = getLogService();
+		switch (statusCode) {
+		case IStatus.OK:
+		case IStatus.INFO:
+			logService.log(LogService.LOG_INFO, logMessage);
+			break;
+		case IStatus.WARNING:
+			logService.log(LogService.LOG_WARNING, logMessage);
+			break;
+		case IStatus.ERROR:
+			logService.log(LogService.LOG_ERROR, logMessage, t);
+			break;
+		default:
+			logService.log(LogService.LOG_DEBUG, logMessage);
 		}
 	}
 }
