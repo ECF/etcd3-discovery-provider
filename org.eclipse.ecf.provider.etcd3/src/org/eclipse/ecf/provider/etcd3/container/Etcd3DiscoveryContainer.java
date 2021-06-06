@@ -137,6 +137,7 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 
 	private boolean initializedFromServer = false;
 	private Object connectLock = new Object();
+	private Etcd3ServiceID connectedID;
 
 	public Etcd3DiscoveryContainer(Etcd3DiscoveryContainerConfig config) {
 		super(Etcd3Namespace.NAME, config);
@@ -304,6 +305,7 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 				watchResponse.getEventsList().forEach(e -> handleWatchEvent(e));
 			});
 			this.initializedFromServer = false;
+			this.connectedID = getEtcdConfig().getTargetID();
 		}
 		// Fire container connected event
 		fireContainerEvent(new ContainerConnectedEvent(this.getID(), aTargetID));
@@ -433,7 +435,7 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 	}
 
 	public ID getConnectedID() {
-		return getEtcdConfig().getTargetID();
+		return this.connectedID;
 	}
 
 	public String getSessionId() {
@@ -441,25 +443,29 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 	}
 
 	public void disconnect() {
-		fireContainerEvent(new ContainerDisconnectingEvent(this.getID(), getConnectedID()));
-		synchronized (connectLock) {
-			// Stop keep alive scheduler first
-			if (this.leaseKeepAliveScheduler != null) {
-				this.leaseKeepAliveScheduler.shutdown();
-				this.leaseKeepAliveScheduler = null;
+		ID connectedID = getConnectedID();
+		if (connectedID != null) {
+			fireContainerEvent(new ContainerDisconnectingEvent(this.getID(), connectedID));
+			synchronized (connectLock) {
+				// Stop keep alive scheduler first
+				if (this.leaseKeepAliveScheduler != null) {
+					this.leaseKeepAliveScheduler.shutdown();
+					this.leaseKeepAliveScheduler = null;
+				}
+				// send watch cancel request
+				if (this.watchLatch != null) {
+					this.watchLatch.countDown();
+					this.watchLatch = null;
+				}
+				// revoke lease. This will delete all keys in etcd server for this session
+				// including both the sessionKey and any EtcdServiceInfo instances
+				this.leaseService.leaseRevoke(Single.just(LeaseRevokeRequest.newBuilder().setID(this.leaseId).build()))
+						.blockingGet();
+				this.connectedID = null;
+				this.leaseId = -1;
 			}
-			// revoke lease. This will delete all keys in etcd server for this session
-			// including both the sessionKey and any EtcdServiceInfo instances
-			this.leaseService.leaseRevoke(Single.just(LeaseRevokeRequest.newBuilder().setID(this.leaseId).build()))
-					.blockingGet();
-
-			// Finally send watch cancel request
-			if (this.watchLatch != null) {
-				this.watchLatch.countDown();
-				this.watchLatch = null;
-			}
+			fireContainerEvent(new ContainerDisconnectedEvent(this.getID(), connectedID));
 		}
-		fireContainerEvent(new ContainerDisconnectedEvent(this.getID(), getConnectedID()));
 	}
 
 	private void fireServiceUndiscovered(String key, IServiceInfo iinfo) {
@@ -536,7 +542,7 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 			}).findFirst().get();
 		}
 	}
-	
+
 	public void addServiceListener(final IServiceListener aListener) {
 		synchronized (services) {
 			initializeFromServer();
