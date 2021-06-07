@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2014 Composent, Inc. All rights reserved. This
+ * Copyright (c) 2021 Composent, Inc. All rights reserved. This
  * program and the accompanying materials are made available under the terms of
  * the Eclipse Public License v1.0 which accompanies this distribution, and is
  * available at http://www.eclipse.org/legal/epl-v10.html
@@ -24,13 +24,11 @@ import org.eclipse.ecf.provider.etcd3.identity.Etcd3Namespace;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.Constants;
 import org.osgi.framework.ServiceFactory;
 import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.log.LogService;
 import org.osgi.util.tracker.ServiceTracker;
 
-@SuppressWarnings("rawtypes")
 public class Activator implements BundleActivator {
 
 	public static final String PLUGIN_ID = "org.eclipse.ecf.provider.etcd3"; //$NON-NLS-1$
@@ -47,63 +45,55 @@ public class Activator implements BundleActivator {
 		return context;
 	}
 
-	private ContainerTypeDescription ctd = new ContainerTypeDescription(Etcd3DiscoveryContainerInstantiator.NAME,
-			new Etcd3DiscoveryContainerInstantiator(), "Etcd Discovery Container", true, false); //$NON-NLS-1$
-
 	// Logging
-	private ServiceTracker logServiceTracker = null;
+	private ServiceTracker<LogService, LogService> logServiceTracker = null;
 	private LogService logService = null;
 	private Etcd3DiscoveryContainer container;
-	private ServiceTracker cfTracker;
+	private ServiceTracker<IContainerFactory, IContainerFactory> cfTracker;
 
 	@SuppressWarnings("unchecked")
 	public void start(BundleContext ctxt) throws Exception {
 		plugin = this;
 		context = ctxt;
+		// Only create/setup if not disabled
+		if (!Boolean.parseBoolean(System.getProperty(Etcd3DiscoveryContainerConfig.ETCD_DISABLED_PROP, "false"))) {
+			// Register Namespace
+			context.registerService(Namespace.class, new Etcd3Namespace(), null);
+			// register ContainerTypeDescription
+			context.registerService(ContainerTypeDescription.class,
+					new ContainerTypeDescription(Etcd3DiscoveryContainerInstantiator.NAME,
+							new Etcd3DiscoveryContainerInstantiator(), "Etcd3 Discovery Container", true, false),
+					null);
+			@SuppressWarnings("rawtypes")
+			final Hashtable props = new Hashtable();
+			props.put(IDiscoveryLocator.CONTAINER_NAME, Etcd3DiscoveryContainerInstantiator.NAME);
+			context.registerService(
+					new String[] { IDiscoveryAdvertiser.class.getName(), IDiscoveryLocator.class.getName() },
+					new ServiceFactory<Etcd3DiscoveryContainer>() {
+						public Etcd3DiscoveryContainer getService(Bundle bundle,
+								ServiceRegistration<Etcd3DiscoveryContainer> registration) {
+							if (container == null) {
+								try {
+									container = (Etcd3DiscoveryContainer) getContainerFactory()
+											.createContainer(Etcd3DiscoveryContainerInstantiator.NAME);
+									container.connect(null, null);
+								} catch (Exception e) {
+									container = null;
+								}
+							}
+							return container;
+						}
 
-		// Register Namespace and ContainerTypeDescription first
-		context.registerService(Namespace.class, new Etcd3Namespace(), null);
-		context.registerService(ContainerTypeDescription.class, ctd, null);
-
-		final Hashtable props = new Hashtable();
-		props.put(IDiscoveryLocator.CONTAINER_NAME, Etcd3DiscoveryContainerInstantiator.NAME);
-		props.put(Constants.SERVICE_RANKING, 500);
-		final Etcd3DiscoveryContainerConfig config = new Etcd3DiscoveryContainerConfig();
-		context.registerService(
-				new String[] { IDiscoveryAdvertiser.class.getName(), IDiscoveryLocator.class.getName() },
-				new ServiceFactory() {
-					public Object getService(Bundle bundle, ServiceRegistration registration) {
-						return getEtcdContainer(config);
-					}
-
-					public void ungetService(Bundle bundle, ServiceRegistration registration, Object service) {
-						ungetEtcdContainer();
-					}
-				}, props);
-	}
-
-	synchronized void ungetEtcdContainer() {
-		if (container != null) {
-			container.disconnect();
-			container = null;
+						public void ungetService(Bundle bundle,
+								ServiceRegistration<Etcd3DiscoveryContainer> registration,
+								Etcd3DiscoveryContainer service) {
+							if (container != null) {
+								container.disconnect();
+								container = null;
+							}
+						}
+					}, props);
 		}
-	}
-
-	synchronized Etcd3DiscoveryContainer getEtcdContainer(Etcd3DiscoveryContainerConfig config) {
-		if (container == null) {
-			try {
-				container = (Etcd3DiscoveryContainer) getContainerFactory().createContainer(ctd,
-						(Object[]) new Object[] { config });
-				container.connect(null, null);
-				LogUtility.logInfo("getEtcdContainer", DebugOptions.DEBUG, this.getClass(), //$NON-NLS-1$
-						"Discovery connected to Etcd server at url=" + config.getTargetID().getLocation().toString()); //$NON-NLS-1$
-			} catch (Exception e) {
-				LogUtility.logError("getEtcdContainer", DebugOptions.DEBUG, this.getClass(), //$NON-NLS-1$
-						"Etcd discovery setup failed", e); //$NON-NLS-1$
-				container = null;
-			}
-		}
-		return container;
 	}
 
 	public void stop(BundleContext context) throws Exception {
@@ -123,16 +113,16 @@ public class Activator implements BundleActivator {
 	@SuppressWarnings("unchecked")
 	IContainerFactory getContainerFactory() {
 		if (cfTracker == null) {
-			cfTracker = new ServiceTracker(context, IContainerFactory.class, null);
+			cfTracker = new ServiceTracker<IContainerFactory, IContainerFactory>(context, IContainerFactory.class,
+					null);
 			cfTracker.open();
 		}
 		return (IContainerFactory) cfTracker.getService();
 	}
 
-	@SuppressWarnings("unchecked")
 	public LogService getLogService() {
 		if (logServiceTracker == null) {
-			logServiceTracker = new ServiceTracker(context, LogService.class.getName(), null);
+			logServiceTracker = new ServiceTracker<LogService, LogService>(context, LogService.class.getName(), null);
 			logServiceTracker.open();
 		}
 		logService = (LogService) logServiceTracker.getService();

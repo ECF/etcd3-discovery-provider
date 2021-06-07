@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2014 Composent, Inc. All rights reserved. This
+ * Copyright (c) 2021 Composent, Inc. All rights reserved. This
  * program and the accompanying materials are made available under the terms of
  * the Eclipse Public License v1.0 which accompanies this distribution, and is
  * available at http://www.eclipse.org/legal/epl-v10.html
@@ -8,9 +8,7 @@
  ******************************************************************************/
 package org.eclipse.ecf.provider.etcd3.container;
 
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -36,8 +34,6 @@ import org.eclipse.ecf.discovery.ServiceContainerEvent;
 import org.eclipse.ecf.discovery.ServiceTypeContainerEvent;
 import org.eclipse.ecf.discovery.identity.IServiceID;
 import org.eclipse.ecf.discovery.identity.IServiceTypeID;
-import org.eclipse.ecf.provider.etcd3.DebugOptions;
-import org.eclipse.ecf.provider.etcd3.LogUtility;
 import org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeRequest;
 import org.eclipse.ecf.provider.etcd3.grpc.api.KVService;
 import org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantRequest;
@@ -64,7 +60,6 @@ import org.json.JSONException;
 import com.google.protobuf.ByteString;
 
 import io.grpc.Channel;
-import io.grpc.ManagedChannelBuilder;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
@@ -75,7 +70,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 
-	public class EtcdServiceInfoKey {
+	protected class EtcdServiceInfoKey {
 		private final String sessId;
 		private final String serviceInfoId;
 		private final String fullKey;
@@ -125,26 +120,22 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 	}
 
 	// services
-	private final Map<EtcdServiceInfoKey, Etcd3ServiceInfo> services = new HashMap<EtcdServiceInfoKey, Etcd3ServiceInfo>();
-	private LeaseService leaseService;
-	private KVService kvService;
-	private WatchService watchService;
-	private long leaseId;
-	private Scheduler leaseKeepAliveScheduler;
+	protected final Map<EtcdServiceInfoKey, Etcd3ServiceInfo> services = new HashMap<EtcdServiceInfoKey, Etcd3ServiceInfo>();
+	protected LeaseService leaseService;
+	protected KVService kvService;
+	protected WatchService watchService;
+	protected long leaseId;
+	protected Scheduler leaseKeepAliveScheduler;
 
-	private long watchId = -1;
-	private CountDownLatch watchLatch;
+	protected long watchId = -1;
+	protected CountDownLatch watchLatch;
 
-	private boolean initializedFromServer = false;
-	private Object connectLock = new Object();
-	private Etcd3ServiceID connectedID;
+	protected boolean initializedFromServer = false;
+	protected Object connectLock = new Object();
+	protected Etcd3ServiceID connectedID;
 
-	public Etcd3DiscoveryContainer(Etcd3DiscoveryContainerConfig config) {
+	protected Etcd3DiscoveryContainer(Etcd3DiscoveryContainerConfig config) {
 		super(Etcd3Namespace.NAME, config);
-	}
-
-	public Etcd3DiscoveryContainer() throws MalformedURLException, URISyntaxException {
-		super(Etcd3Namespace.NAME, new Etcd3DiscoveryContainerConfig());
 	}
 
 	public void registerService(IServiceInfo serviceInfo) {
@@ -225,21 +216,23 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 		}
 	}
 
+	protected Channel createChannel() {
+		return getEtcdConfig().createChannel();
+	}
+	
 	public void connect(ID aTargetID, IConnectContext connectContext) throws ContainerConnectException {
 		fireContainerEvent(new ContainerConnectingEvent(getID(), aTargetID, connectContext));
 
 		synchronized (connectLock) {
-			URI uri = getTargetID().getLocation();
 			try {
 				// Setup channel builder
-				ManagedChannelBuilder<?> managedChannelBuilder = ManagedChannelBuilder.forAddress(uri.getHost(),
-						uri.getPort());
-				Channel channel = managedChannelBuilder.usePlaintext().build();
+				Channel channel = createChannel();
 				// Create service instances with channel
 				kvService = new KVServiceClient(channel);
 				leaseService = new LeaseServiceClient(channel);
 				watchService = new WatchServiceClient(channel);
 			} catch (Exception e) {
+				URI uri = getEtcdConfig().getTargetLocation();
 				logEtcdError("connect", "Error connecting to host=" + uri.getHost() + ",port=" + uri.getPort(), e);
 				ContainerConnectException e1 = new ContainerConnectException(
 						"Cannot connect to etcd3 server because of communication error", e);
@@ -329,10 +322,6 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 		kvService.put(Single.just(builder.build())).blockingGet();
 	}
 
-	private Etcd3ServiceID getTargetID() {
-		return getEtcdConfig().getTargetID();
-	}
-
 	private void handleWatchEvent(Event event) {
 		EventType eventType = event.getType();
 		if (eventType == EventType.DELETE) {
@@ -382,7 +371,6 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 	}
 
 	private void debug(String string, String string2) {
-		LogUtility.logInfo(string, DebugOptions.DEBUG, getClass(), string2);
 	}
 
 	private void handlePutWatchEvent(KeyValue keyValue) {

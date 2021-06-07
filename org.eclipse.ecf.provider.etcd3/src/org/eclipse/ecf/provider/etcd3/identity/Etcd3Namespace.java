@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2014 Composent, Inc. All rights reserved. This
+ * Copyright (c) 2021 Composent, Inc. All rights reserved. This
  * program and the accompanying materials are made available under the terms of
  * the Eclipse Public License v1.0 which accompanies this distribution, and is
  * available at http://www.eclipse.org/legal/epl-v10.html
@@ -19,14 +19,14 @@ import org.eclipse.ecf.discovery.identity.ServiceTypeID;
 
 public class Etcd3Namespace extends Namespace {
 
-	private static final long serialVersionUID = -4500842169680081611L;
-	public static final String SCHEME = "etcd"; //$NON-NLS-1$
-	public static final String NAME = "ecf.namespace.etcd"; //$NON-NLS-1$
+	private static final long serialVersionUID = 7680163063842567517L;
+	public static final String SCHEME = "etcd3"; //$NON-NLS-1$
+	public static final String NAME = "ecf.namespace.etcd3"; //$NON-NLS-1$
 
 	public static Etcd3Namespace INSTANCE;
 
 	public Etcd3Namespace() {
-		super(NAME, "Etcd Discovery Namespace"); //$NON-NLS-1$
+		super(NAME, "Etcd3 Discovery Namespace"); //$NON-NLS-1$
 		INSTANCE = this;
 	}
 

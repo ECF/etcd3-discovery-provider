@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2014 Composent, Inc. All rights reserved. This
+ * Copyright (c) 2021 Composent, Inc. All rights reserved. This
  * program and the accompanying materials are made available under the terms of
  * the Eclipse Public License v1.0 which accompanies this distribution, and is
  * available at http://www.eclipse.org/legal/epl-v10.html
@@ -30,8 +30,7 @@ import org.json.JSONWriter;
 
 public class Etcd3ServiceInfo extends ServiceInfo {
 
-	private static final long serialVersionUID = -1975271151544601442L;
-
+	private static final long serialVersionUID = -8472903585609997508L;
 	public static final String LOCATION_KEY = "location"; //$NON-NLS-1$
 	public static final String PRIORITY_KEY = "priority"; //$NON-NLS-1$
 
@@ -50,13 +49,12 @@ public class Etcd3ServiceInfo extends ServiceInfo {
 	public static final String PROPERTIES_KEY = "properties"; //$NON-NLS-1$
 
 	public static final String SERVICETYPE_KEY = "servicetype"; //$NON-NLS-1$
-	public static final String SERVICETYPE_SERVICES_KEY = "services"; //$NON-NLS-1$	
+	public static final String SERVICETYPE_SERVICES_KEY = "services"; //$NON-NLS-1$
 	public static final String SERVICETYPE_SCOPES_KEY = "scopes"; //$NON-NLS-1$
 	public static final String SERVICETYPE_PROTOCOLS_KEY = "protocols"; //$NON-NLS-1$
 	private static final String SERVICETYPE_NA_KEY = "namingauth"; //$NON-NLS-1$
 
-	public static Etcd3ServiceInfo deserializeFromString(String jsonString)
-			throws JSONException {
+	public static Etcd3ServiceInfo deserializeFromString(String jsonString) throws JSONException {
 		JSONObject jsonObject = new JSONObject(jsonString);
 		String locationString = jsonObject.getString(LOCATION_KEY);
 		URI location = null;
@@ -94,9 +92,8 @@ public class Etcd3ServiceInfo extends ServiceInfo {
 		String namingAuth = sto.getString(SERVICETYPE_NA_KEY);
 
 		// Create service type via factory
-		IServiceTypeID serviceTypeID = ServiceIDFactory.getDefault()
-				.createServiceTypeID(Etcd3Namespace.INSTANCE, services, scopes,
-						protocols, namingAuth);
+		IServiceTypeID serviceTypeID = ServiceIDFactory.getDefault().createServiceTypeID(Etcd3Namespace.INSTANCE,
+				services, scopes, protocols, namingAuth);
 
 		// Service Properties
 		IServiceProperties sProps = new ServiceProperties();
@@ -112,16 +109,13 @@ public class Etcd3ServiceInfo extends ServiceInfo {
 			// value
 			if (BYTES_TYPE.equals(type))
 				// bytes so decode
-				sProps.setPropertyBytes(name,
-						Base64.decode(jsonProperty.getString(VALUE_KEY)));
+				sProps.setPropertyBytes(name, Base64.decode(jsonProperty.getString(VALUE_KEY)));
 			else if (STRING_TYPE.equals(type))
-				sProps.setPropertyString(name,
-						jsonProperty.getString(VALUE_KEY));
+				sProps.setPropertyString(name, jsonProperty.getString(VALUE_KEY));
 			else
 				sProps.setProperty(name, jsonProperty.get(VALUE_KEY));
 		}
-		return new Etcd3ServiceInfo(location, serviceName, serviceTypeID,
-				priority, weight, sProps, ttl);
+		return new Etcd3ServiceInfo(location, serviceName, serviceTypeID, priority, weight, sProps, ttl);
 	}
 
 	public String serializeToJsonString() throws JSONException {
@@ -209,40 +203,33 @@ public class Etcd3ServiceInfo extends ServiceInfo {
 	public Etcd3ServiceInfo(String jsonString) {
 	}
 
-	public Etcd3ServiceInfo(URI anURI, String aServiceName,
-			IServiceTypeID aServiceTypeID) {
+	public Etcd3ServiceInfo(URI anURI, String aServiceName, IServiceTypeID aServiceTypeID) {
 		super(anURI, aServiceName, aServiceTypeID);
 	}
 
-	public Etcd3ServiceInfo(URI anURI, String aServiceName,
-			IServiceTypeID aServiceTypeID, IServiceProperties props) {
+	public Etcd3ServiceInfo(URI anURI, String aServiceName, IServiceTypeID aServiceTypeID, IServiceProperties props) {
 		super(anURI, aServiceName, aServiceTypeID, props);
 	}
 
-	public Etcd3ServiceInfo(URI anURI, String aServiceName,
-			IServiceTypeID aServiceTypeID, int priority, int weight,
+	public Etcd3ServiceInfo(URI anURI, String aServiceName, IServiceTypeID aServiceTypeID, int priority, int weight,
 			IServiceProperties props) {
 		super(anURI, aServiceName, aServiceTypeID, priority, weight, props);
 	}
 
-	public Etcd3ServiceInfo(URI anURI, String aServiceName,
-			IServiceTypeID aServiceTypeID, int priority, int weight,
+	public Etcd3ServiceInfo(URI anURI, String aServiceName, IServiceTypeID aServiceTypeID, int priority, int weight,
 			IServiceProperties props, long ttl) {
 		super(anURI, aServiceName, aServiceTypeID, priority, weight, props, ttl);
 	}
 
 	public Etcd3ServiceInfo(IServiceInfo serviceInfo) {
-		this(serviceInfo.getLocation(), serviceInfo.getServiceName(),
-				serviceInfo.getServiceID().getServiceTypeID(), serviceInfo
-						.getPriority(), serviceInfo.getWeight(), serviceInfo
-						.getServiceProperties(), serviceInfo.getTTL());
+		this(serviceInfo.getLocation(), serviceInfo.getServiceName(), serviceInfo.getServiceID().getServiceTypeID(),
+				serviceInfo.getPriority(), serviceInfo.getWeight(), serviceInfo.getServiceProperties(),
+				serviceInfo.getTTL());
 	}
-	
+
 	public Etcd3ServiceInfo(IServiceInfo serviceInfo, long ttl) {
-		this(serviceInfo.getLocation(), serviceInfo.getServiceName(),
-				serviceInfo.getServiceID().getServiceTypeID(), serviceInfo
-						.getPriority(), serviceInfo.getWeight(), serviceInfo
-						.getServiceProperties(), ttl);
+		this(serviceInfo.getLocation(), serviceInfo.getServiceName(), serviceInfo.getServiceID().getServiceTypeID(),
+				serviceInfo.getPriority(), serviceInfo.getWeight(), serviceInfo.getServiceProperties(), ttl);
 	}
 
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2014 Composent, Inc. All rights reserved. This
+ * Copyright (c) 2021 Composent, Inc. All rights reserved. This
  * program and the accompanying materials are made available under the terms of
  * the Eclipse Public License v1.0 which accompanies this distribution, and is
  * available at http://www.eclipse.org/legal/epl-v10.html
@@ -16,7 +16,7 @@ import org.eclipse.ecf.discovery.identity.ServiceID;
 
 public class Etcd3ServiceID extends ServiceID {
 
-	private static final long serialVersionUID = -1416677955466105800L;
+	private static final long serialVersionUID = 3153503783652216039L;
 
 	public Etcd3ServiceID(Namespace namespace, IServiceTypeID type, URI anURI) {
 		super(namespace, type, anURI);

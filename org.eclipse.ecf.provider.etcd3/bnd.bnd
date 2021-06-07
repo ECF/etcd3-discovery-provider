@@ -40,3 +40,12 @@ Bundle-Version: ${package-version}.${tstamp}
 Bundle-Activator: org.eclipse.ecf.provider.etcd3.Activator
 Bundle-Name: ECF Etcd3 Discovery Provider
 Bundle-Vendor: Eclipse.org - ECF
+Export-Package: \
+	org.eclipse.ecf.provider.etcd3.container,\
+	org.eclipse.ecf.provider.etcd3.grpc.api,\
+	org.eclipse.ecf.provider.etcd3.grpc.api.kv,\
+	org.eclipse.ecf.provider.etcd3.grpc.api.auth,\
+	org.eclipse.ecf.provider.etcd3.identity
+-privatepackage: \
+	org.eclipse.ecf.provider.etcd3,\
+	org.eclipse.ecf.provider.etcd3.grpc.client

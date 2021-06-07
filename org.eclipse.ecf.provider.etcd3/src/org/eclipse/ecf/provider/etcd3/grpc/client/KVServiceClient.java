@@ -1,3 +1,11 @@
+/*******************************************************************************
+ * Copyright (c) 2021 Composent, Inc. All rights reserved. This
+ * program and the accompanying materials are made available under the terms of
+ * the Eclipse Public License v1.0 which accompanies this distribution, and is
+ * available at http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: Scott Lewis - initial API and implementation
+ ******************************************************************************/
 package org.eclipse.ecf.provider.etcd3.grpc.client;
 
 import org.eclipse.ecf.provider.etcd3.grpc.api.CompactionRequest;
@@ -20,11 +28,11 @@ import io.reactivex.Single;
 public class KVServiceClient implements KVService {
 
 	private RxKVStub stub;
-	
+
 	public KVServiceClient(Channel channel) {
 		this.stub = RxKVGrpc.newRxStub(channel);
 	}
-	
+
 	public Single<RangeResponse> range(Single<RangeRequest> rxRequest) {
 		return stub.range(rxRequest);
 	}
@@ -65,5 +73,4 @@ public class KVServiceClient implements KVService {
 		return stub.compact(rxRequest);
 	}
 
-	
 }
