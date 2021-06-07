@@ -200,31 +200,9 @@ public class Etcd3ServiceInfo extends ServiceInfo {
 		return result.toString();
 	}
 
-	public Etcd3ServiceInfo(String jsonString) {
-	}
-
-	public Etcd3ServiceInfo(URI anURI, String aServiceName, IServiceTypeID aServiceTypeID) {
-		super(anURI, aServiceName, aServiceTypeID);
-	}
-
-	public Etcd3ServiceInfo(URI anURI, String aServiceName, IServiceTypeID aServiceTypeID, IServiceProperties props) {
-		super(anURI, aServiceName, aServiceTypeID, props);
-	}
-
-	public Etcd3ServiceInfo(URI anURI, String aServiceName, IServiceTypeID aServiceTypeID, int priority, int weight,
-			IServiceProperties props) {
-		super(anURI, aServiceName, aServiceTypeID, priority, weight, props);
-	}
-
 	public Etcd3ServiceInfo(URI anURI, String aServiceName, IServiceTypeID aServiceTypeID, int priority, int weight,
 			IServiceProperties props, long ttl) {
 		super(anURI, aServiceName, aServiceTypeID, priority, weight, props, ttl);
-	}
-
-	public Etcd3ServiceInfo(IServiceInfo serviceInfo) {
-		this(serviceInfo.getLocation(), serviceInfo.getServiceName(), serviceInfo.getServiceID().getServiceTypeID(),
-				serviceInfo.getPriority(), serviceInfo.getWeight(), serviceInfo.getServiceProperties(),
-				serviceInfo.getTTL());
 	}
 
 	public Etcd3ServiceInfo(IServiceInfo serviceInfo, long ttl) {
