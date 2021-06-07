@@ -21,20 +21,10 @@ public class Etcd3DiscoveryContainerInstantiator implements IContainerInstantiat
 
 	public IContainer createInstance(ContainerTypeDescription description, Object[] parameters)
 			throws ContainerCreateException {
-
-		Etcd3DiscoveryContainerConfig config = null;
 		if (parameters != null && parameters.length > 0 && parameters[0] instanceof Etcd3DiscoveryContainerConfig) {
-			config = (Etcd3DiscoveryContainerConfig) parameters[0];
+			return new Etcd3DiscoveryContainer((Etcd3DiscoveryContainerConfig) parameters[0]);
 		} else {
-			config = Etcd3DiscoveryContainerConfig.newBuilder().build();
-		}
-		try {
-			return new Etcd3DiscoveryContainer(config);
-		} catch (Exception e) {
-			ContainerCreateException cce = new ContainerCreateException("Could not create etcd3 discovery container", //$NON-NLS-1$
-					e);
-			cce.setStackTrace(e.getStackTrace());
-			throw cce;
+			return new Etcd3DiscoveryContainer(Etcd3DiscoveryContainerConfig.newBuilder().build());
 		}
 	}
 

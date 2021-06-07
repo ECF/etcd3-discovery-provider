@@ -219,7 +219,7 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 	protected Channel createChannel() {
 		return getEtcdConfig().createChannel();
 	}
-	
+
 	public void connect(ID aTargetID, IConnectContext connectContext) throws ContainerConnectException {
 		fireContainerEvent(new ContainerConnectingEvent(getID(), aTargetID, connectContext));
 

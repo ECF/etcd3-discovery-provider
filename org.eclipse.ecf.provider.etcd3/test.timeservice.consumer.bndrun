@@ -71,3 +71,4 @@
 	org.osgi.util.promise;version='[1.1.1,1.1.2)',\
 	org.reactivestreams.reactive-streams;version='[1.0.3,1.0.4)',\
 	com.mycorp.examples.timeservice.consumer.ds.async;version='[1.0.200,1.0.201)'
+-runvm: -Decf.discovery.etcd3.usePlaintext=true

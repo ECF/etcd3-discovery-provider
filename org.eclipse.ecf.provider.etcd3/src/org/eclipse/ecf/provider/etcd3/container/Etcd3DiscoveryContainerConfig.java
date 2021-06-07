@@ -55,27 +55,27 @@ public class Etcd3DiscoveryContainerConfig extends DiscoveryContainerConfig {
 	public static final Integer ETCD_KEEPALIVE_UPDATE_TIME_DEFAULT = Integer.getInteger(ETCD_KEEPALIVE_UPDATE_TIME_PROP,
 			5);
 
-	public static final String ETCD_USEPLAINTEXT_PROP = Etcd3DiscoveryContainerInstantiator.NAME + ".usePlaintext";
-;	public static final Boolean ETCD_USEPLAINTEXT_DEFAULT = Boolean.valueOf(System.getProperty(ETCD_USEPLAINTEXT_PROP,"false"));
+	public static final String ETCD_USEPLAINTEXT_PROP = Etcd3DiscoveryContainerInstantiator.NAME + ".usePlaintext";;
+	public static final Boolean ETCD_USEPLAINTEXT_DEFAULT = Boolean
+			.valueOf(System.getProperty(ETCD_USEPLAINTEXT_PROP, "false"));
 
 	public static final String ETCD_RETRY_PROP = Etcd3DiscoveryContainerInstantiator.NAME + ".retry";
-	public static final Boolean ETCD_RETRY_DEFAULT = Boolean.valueOf(System.getProperty(ETCD_RETRY_PROP,"false"));
+	public static final Boolean ETCD_RETRY_DEFAULT = Boolean.valueOf(System.getProperty(ETCD_RETRY_PROP, "false"));
 
 	private Etcd3ServiceID targetID;
-	private String sessionId = ETCD_SESSIONID_DEFAULT == null?UUID.randomUUID().toString():ETCD_SESSIONID_DEFAULT;
+	private String sessionId = ETCD_SESSIONID_DEFAULT == null ? UUID.randomUUID().toString() : ETCD_SESSIONID_DEFAULT;
 	private long ttl = ETCD_TTL_DEFAULT.longValue();
 	private String keyPrefix = ETCD_KEYPREFIX_DEFAULT;
 	private int keepAliveUpdateTime = ETCD_KEEPALIVE_UPDATE_TIME_DEFAULT.intValue();
 	private boolean usePlaintext = ETCD_USEPLAINTEXT_DEFAULT;
 	private boolean retry = ETCD_RETRY_DEFAULT;
-	
+
 	public static class Builder {
 
 		private String protocol = ETCD_TARGETID_PROTOCOL_DEFAULT;
 		private String hostname = ETCD_TARGETID_HOSTNAME_DEFAULT;
 		private int port = ETCD_TARGETID_PORT_DEFAULT;
-		
-		
+
 		public Builder setProtocol(String protocol) {
 			this.protocol = protocol;
 			return this;
@@ -110,19 +110,19 @@ public class Etcd3DiscoveryContainerConfig extends DiscoveryContainerConfig {
 			this.config.sessionId = sessionId;
 			return this;
 		}
-		
+
 		public Builder setUsePlaintext() {
 			this.config.usePlaintext = true;
 			return this;
 		}
-	
+
 		public Builder setUseRetry() {
 			this.config.retry = true;
 			return this;
 		}
 
 		private Etcd3DiscoveryContainerConfig config;
-		
+
 		private Builder(String containerId) {
 			config = new Etcd3DiscoveryContainerConfig(containerId);
 		}
@@ -130,13 +130,14 @@ public class Etcd3DiscoveryContainerConfig extends DiscoveryContainerConfig {
 		public Etcd3DiscoveryContainerConfig build() throws IDCreateException {
 			URI uri = null;
 			try {
-				uri = new URI(this.protocol,null,this.hostname,this.port,null,null,null);
+				uri = new URI(this.protocol, null, this.hostname, this.port, null, null, null);
 			} catch (URISyntaxException e) {
-				throw new IDCreateException("Cannot create uri from protocol="+protocol+",hostname="+hostname+",port="+port);
+				throw new IDCreateException(
+						"Cannot create uri from protocol=" + protocol + ",hostname=" + hostname + ",port=" + port);
 			}
-			config.setTargetID((Etcd3ServiceID) IDFactory.getDefault().createID(Etcd3Namespace.NAME,
-					new Object[] { ServiceIDFactory.getDefault().createServiceTypeID(Etcd3Namespace.INSTANCE,
-							Etcd3Namespace.SCHEME), uri }));
+			config.setTargetID((Etcd3ServiceID) IDFactory.getDefault().createID(Etcd3Namespace.NAME, new Object[] {
+					ServiceIDFactory.getDefault().createServiceTypeID(Etcd3Namespace.INSTANCE, Etcd3Namespace.SCHEME),
+					uri }));
 			return config;
 		}
 	}
@@ -188,14 +189,15 @@ public class Etcd3DiscoveryContainerConfig extends DiscoveryContainerConfig {
 	public int getKeepAliveUpdateTime() {
 		return this.keepAliveUpdateTime;
 	}
-	
+
 	public URI getTargetLocation() {
 		return getTargetID().getLocation();
 	}
+
 	@SuppressWarnings("rawtypes")
 	public ManagedChannelBuilder createManagedChannelBuilder() {
 		URI uri = getTargetLocation();
-		ManagedChannelBuilder mcBuilder = ManagedChannelBuilder.forAddress(uri.getHost(),uri.getPort());
+		ManagedChannelBuilder mcBuilder = ManagedChannelBuilder.forAddress(uri.getHost(), uri.getPort());
 		if (this.usePlaintext) {
 			mcBuilder.usePlaintext();
 		}
@@ -204,7 +206,7 @@ public class Etcd3DiscoveryContainerConfig extends DiscoveryContainerConfig {
 		}
 		return mcBuilder;
 	}
-	
+
 	public Channel createChannel() {
 		return createManagedChannelBuilder().build();
 	}
