@@ -70,7 +70,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 
-	protected class EtcdServiceInfoKey {
+	class EtcdServiceInfoKey {
 		private final String sessId;
 		private final String serviceInfoId;
 		private final String fullKey;
@@ -120,21 +120,21 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 	}
 
 	// services
-	protected final Map<EtcdServiceInfoKey, Etcd3ServiceInfo> services = new HashMap<EtcdServiceInfoKey, Etcd3ServiceInfo>();
-	protected LeaseService leaseService;
-	protected KVService kvService;
-	protected WatchService watchService;
-	protected long leaseId;
-	protected Scheduler leaseKeepAliveScheduler;
+	private final Map<EtcdServiceInfoKey, Etcd3ServiceInfo> services = new HashMap<EtcdServiceInfoKey, Etcd3ServiceInfo>();
+	private LeaseService leaseService;
+	private KVService kvService;
+	private WatchService watchService;
+	private long leaseId;
+	private Scheduler leaseKeepAliveScheduler;
 
-	protected long watchId = -1;
-	protected CountDownLatch watchLatch;
+	private long watchId = -1;
+	private CountDownLatch watchLatch;
 
-	protected boolean initializedFromServer = false;
-	protected Object connectLock = new Object();
-	protected Etcd3ServiceID connectedID;
+	private boolean initializedFromServer = false;
+	private Object connectLock = new Object();
+	private Etcd3ServiceID connectedID;
 
-	protected Etcd3DiscoveryContainer(Etcd3DiscoveryContainerConfig config) {
+	Etcd3DiscoveryContainer(Etcd3DiscoveryContainerConfig config) {
 		super(Etcd3Namespace.NAME, config);
 	}
 
@@ -216,17 +216,13 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 		}
 	}
 
-	protected Channel createChannel() {
-		return getEtcdConfig().createChannel();
-	}
-
 	public void connect(ID aTargetID, IConnectContext connectContext) throws ContainerConnectException {
 		fireContainerEvent(new ContainerConnectingEvent(getID(), aTargetID, connectContext));
 
 		synchronized (connectLock) {
 			try {
 				// Setup channel builder
-				Channel channel = createChannel();
+				Channel channel = getEtcdConfig().createChannel();
 				// Create service instances with channel
 				kvService = new KVServiceClient(channel);
 				leaseService = new LeaseServiceClient(channel);
@@ -370,7 +366,8 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 		}
 	}
 
-	private void debug(String string, String string2) {
+	private void debug(String methodName, String messaage) {
+		
 	}
 
 	private void handlePutWatchEvent(KeyValue keyValue) {
