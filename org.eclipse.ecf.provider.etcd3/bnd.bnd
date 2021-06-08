@@ -2,7 +2,7 @@
 -generate \
     protofiles; \
         output = src-gen/main/java; \
-        generate = "org.eclipse.ecf.bndtools.grpc.GrpcGenerator -I=protofiles --java_out=src-gen/main/java rpc.proto auth.proto kv.proto
+        generate = "org.eclipse.ecf.bndtools.grpc.GrpcGenerator -I=protofiles --java_out=src-gen/main/java rpc.proto auth.proto kv.proto 2>proto.errors
 
 -buildpath: \
 	org.apache.tomcat:annotations-api,\
@@ -31,7 +31,7 @@ javac.source=1.8
 javac.target=1.8
 javac.compliance=1.8
 
-package-version = 1.0.0
+package-version = 1.0.1
 Bundle-Version: ${package-version}.${tstamp}
 
 -runfw: org.apache.felix.framework;version='[7.0.0,7.0.0]'

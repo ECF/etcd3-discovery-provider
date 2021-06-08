@@ -1,6 +1,5 @@
 package org.eclipse.ecf.provider.etcd3.grpc.api;
 
-import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 @javax.annotation.Generated(
