@@ -195,7 +195,7 @@ public class Etcd3DiscoveryContainerConfig extends DiscoveryContainerConfig {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public ManagedChannelBuilder createManagedChannelBuilder() {
+	protected ManagedChannelBuilder createManagedChannelBuilder() {
 		URI uri = getTargetLocation();
 		ManagedChannelBuilder mcBuilder = ManagedChannelBuilder.forAddress(uri.getHost(), uri.getPort());
 		if (this.usePlaintext) {

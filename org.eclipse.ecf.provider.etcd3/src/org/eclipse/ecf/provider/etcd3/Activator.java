@@ -55,15 +55,15 @@ public class Activator implements BundleActivator {
 	public void start(BundleContext ctxt) throws Exception {
 		plugin = this;
 		context = ctxt;
-		// Only create/setup if not disabled
+		// Register Namespace
+		context.registerService(Namespace.class, new Etcd3Namespace(), null);
+		// register ContainerTypeDescription
+		context.registerService(ContainerTypeDescription.class,
+				new ContainerTypeDescription(Etcd3DiscoveryContainerInstantiator.NAME,
+						new Etcd3DiscoveryContainerInstantiator(), "Etcd3 Discovery Container", true, false),
+				null);
+		// Only create/setup if not explicitly disabled
 		if (!Boolean.parseBoolean(System.getProperty(Etcd3DiscoveryContainerConfig.ETCD_DISABLED_PROP, "false"))) {
-			// Register Namespace
-			context.registerService(Namespace.class, new Etcd3Namespace(), null);
-			// register ContainerTypeDescription
-			context.registerService(ContainerTypeDescription.class,
-					new ContainerTypeDescription(Etcd3DiscoveryContainerInstantiator.NAME,
-							new Etcd3DiscoveryContainerInstantiator(), "Etcd3 Discovery Container", true, false),
-					null);
 			@SuppressWarnings("rawtypes")
 			final Hashtable props = new Hashtable();
 			props.put(IDiscoveryLocator.CONTAINER_NAME, Etcd3DiscoveryContainerInstantiator.NAME);
