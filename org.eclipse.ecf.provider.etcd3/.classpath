@@ -6,7 +6,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="aQute.bnd.classpath.container"/>
-	<classpathentry kind="src" output="target/classes" path="src"/>
-	<classpathentry kind="src" output="target/classes" path="src-gen"/>
+	<classpathentry kind="src" output="target/classes" path="src/main/java"/>
+	<classpathentry kind="src" output="target/classes" path="src-gen/main/java"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

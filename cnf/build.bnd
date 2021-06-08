@@ -1,4 +1,4 @@
-src:                    src,src-gen
+src:                    src/main/java
 bin:                    target/classes
 target-dir:             target
 
