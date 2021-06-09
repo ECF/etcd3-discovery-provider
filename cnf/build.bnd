@@ -71,6 +71,7 @@ copyright.year = ${tstamp;yyyy}
 	aQute.bnd.repository.maven.provider.MavenBndRepository; \
 		releaseUrl=https://repo1.maven.org/maven2/; \
 		index=${.}/ecfatcentral.maven; \
+		readOnly=true; \
 		name="ECF Remote Services"
 
 -plugin.10.ETCDDISCOVERY: \
