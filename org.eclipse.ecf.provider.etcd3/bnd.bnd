@@ -2,7 +2,7 @@
 -generate \
     protofiles; \
         output = src-gen/main/java; \
-        generate = org.eclipse.ecf.bndtools.grpc.GrpcGenerator -I=protofiles --java_out=src-gen/main/java rpc.proto auth.proto kv.proto
+        generate = "org.eclipse.ecf.bndtools.grpc.GrpcGenerator -I=protofiles --java_out=src-gen/main/java rpc.proto auth.proto kv.proto"
 
 -buildpath: \
 	org.apache.tomcat:annotations-api,\
