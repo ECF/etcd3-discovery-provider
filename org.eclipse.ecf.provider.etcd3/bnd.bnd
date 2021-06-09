@@ -25,8 +25,7 @@
 	org.json,\
 	org.eclipse.equinox.concurrent,\
 	com.google.protobuf,\
-	org.reactivestreams.reactive-streams,\
-	org.eclipse.ecf.bndtools.grpc
+	org.reactivestreams.reactive-streams
 
 javac.source=1.8
 javac.target=1.8
