@@ -31,7 +31,7 @@ javac.source=1.8
 javac.target=1.8
 javac.compliance=1.8
 
-package-version = 1.0.1
+package-version = 1.0.2
 Bundle-Version: ${package-version}.${tstamp}
 
 -runfw: org.apache.felix.framework;version='[7.0.0,7.0.0]'
