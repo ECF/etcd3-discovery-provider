@@ -19,7 +19,10 @@
 	bnd.identity;id='com.mycorp.examples.timeservice.async',\
 	bnd.identity;id='com.mycorp.examples.timeservice.host',\
 	bnd.identity;id='org.eclipse.equinox.event',\
-	bnd.identity;id='org.eclipse.ecf.provider.remoteservice'
+	bnd.identity;id='org.eclipse.ecf.provider.remoteservice',\
+	bnd.identity;id='org.osgi.service.log',\
+	bnd.identity;version='1.7.30';id='slf4j.api',\
+	bnd.identity;version='1.7.30';id='slf4j.simple'
 
 -runprogramargs: -console -consoleLog
 -runfw: org.apache.felix.framework;version='[7.0.0,7.0.0]'
@@ -72,5 +75,8 @@
 	org.osgi.service.remoteserviceadmin;version='[1.1.0,1.1.1)',\
 	org.osgi.util.function;version='[1.1.0,1.1.1)',\
 	org.osgi.util.promise;version='[1.1.1,1.1.2)',\
-	org.reactivestreams.reactive-streams;version='[1.0.3,1.0.4)'
+	org.reactivestreams.reactive-streams;version='[1.0.3,1.0.4)',\
+	ch.qos.logback.core;version='[1.2.3,1.2.4)',\
+	slf4j.api;version='[1.7.30,1.7.31)',\
+	slf4j.simple;version='[1.7.30,1.7.31)'
 -runvm: -Decf.discovery.etcd3.usePlaintext=true

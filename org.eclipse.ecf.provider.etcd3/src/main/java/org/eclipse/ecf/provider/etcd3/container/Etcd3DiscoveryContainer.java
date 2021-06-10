@@ -56,6 +56,8 @@ import org.eclipse.ecf.provider.etcd3.grpc.client.WatchServiceClient;
 import org.eclipse.ecf.provider.etcd3.identity.Etcd3Namespace;
 import org.eclipse.ecf.provider.etcd3.identity.Etcd3ServiceID;
 import org.json.JSONException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.protobuf.ByteString;
 
@@ -70,6 +72,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 
+	private static final Logger logger = LoggerFactory.getLogger(Etcd3DiscoveryContainer.class);
+	
 	class EtcdServiceInfoKey {
 		private final String sessId;
 		private final String serviceInfoId;
@@ -139,7 +143,7 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 	}
 
 	public void registerService(IServiceInfo serviceInfo) {
-		trace("registerService", "serviceInfo=" + serviceInfo); //$NON-NLS-1$ //$NON-NLS-2$
+		debug("registerService", "serviceInfo=" + serviceInfo); //$NON-NLS-1$ //$NON-NLS-2$
 		Etcd3ServiceInfo si = (serviceInfo instanceof Etcd3ServiceInfo) ? (Etcd3ServiceInfo) serviceInfo
 				: new Etcd3ServiceInfo(serviceInfo, getEtcdConfig().getTTL());
 		String endpointid = serviceInfo.getServiceProperties().getPropertyString("endpoint.id"); //$NON-NLS-1$
@@ -167,7 +171,7 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 	}
 
 	public void unregisterService(IServiceInfo serviceInfo) {
-		trace("unregisterService", "serviceInfo=" + serviceInfo); //$NON-NLS-1$ //$NON-NLS-2$
+		debug("unregisterService", "serviceInfo=" + serviceInfo); //$NON-NLS-1$ //$NON-NLS-2$
 		EtcdServiceInfoKey siKey = findEtcdServiceInfoKey(serviceInfo.getServiceID(), true);
 		if (siKey == null) {
 			logEtcdError("unregisterService", "Could not find serviceInfo=" + serviceInfo, null); //$NON-NLS-1$ //$NON-NLS-2$
@@ -221,80 +225,86 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 
 		synchronized (connectLock) {
 			try {
+				Etcd3DiscoveryContainerConfig config = (connectContext instanceof Etcd3ConfigConnectContext)
+						? ((Etcd3ConfigConnectContext) connectContext).getConfig()
+						: getEtcdConfig();
 				// Setup channel builder
-				Channel channel = getEtcdConfig().createChannel();
+				Channel channel = config.createChannel();
 				// Create service instances with channel
 				kvService = new KVServiceClient(channel);
 				leaseService = new LeaseServiceClient(channel);
 				watchService = new WatchServiceClient(channel);
+
+				// Create lease for ttl
+				final long ttl = getEtcdConfig().getTTL();
+				LeaseGrantResponse resp = leaseService
+						.leaseGrant(Single.just(LeaseGrantRequest.newBuilder().setTTL(ttl).build())).blockingGet();
+				String error = resp.getError();
+				if (!"".equals(error)) {
+					throw new ContainerConnectException("Could not create lease for ttl=" + ttl + ". Error: " + error);
+				}
+				this.leaseId = resp.getID();
+				this.leaseKeepAliveScheduler = Schedulers.io();
+				// Set up keepAlive requests
+				LeaseKeepAliveRequest.Builder leaseTTLBuilder = LeaseKeepAliveRequest.newBuilder().setID(this.leaseId);
+				Flowable<LeaseKeepAliveRequest> client = Flowable
+						.interval(ttl - getKeepAliveUpdateTime(), TimeUnit.SECONDS, this.leaseKeepAliveScheduler)
+						.map(l -> {
+							debug("keepAlive", "sending keepalive for leaseid=" + this.leaseId);
+							return leaseTTLBuilder.build();
+						});
+				// Stream keep alive requests
+				this.leaseService.leaseKeepAlive(client).subscribe(lkar -> {
+					debug("keepAlive", "received keepAlive response=" + lkar);
+				});
+
+				// put session key
+				grpcPutKeyValue(getSessionKey(), getSessionId());
+
+				String keyPrefix = getKeyPrefix();
+				WatchCreateRequest.Builder watchCreateRequestBuilder = WatchCreateRequest.newBuilder()
+						.setKey(ByteString.copyFromUtf8(keyPrefix))
+						.setRangeEnd(ByteString.copyFromUtf8(keyPrefix + "\\0"));
+				// Create watch latch so that watch cancel request can be sent
+				this.watchLatch = new CountDownLatch(2);
+				Flowable<WatchRequest> watchRequestFlowable = Flowable.create(new FlowableOnSubscribe<WatchRequest>() {
+					@Override
+					public void subscribe(FlowableEmitter<WatchRequest> emitter) throws Exception {
+						// emit create request
+						emitter.onNext(
+								WatchRequest.newBuilder().setCreateRequest(watchCreateRequestBuilder.build()).build());
+						// once create request is sent, watch for latch
+						watchLatch.await();
+						// if cancelled forget it
+						if (emitter.isCancelled()) {
+							return;
+						}
+						// Now send cancel
+						emitter.onNext(WatchRequest.newBuilder()
+								.setCancelRequest(WatchCancelRequest.newBuilder().setWatchId(watchId).build()).build());
+						emitter.onComplete();
+
+					}
+				}, BackpressureStrategy.BUFFER).subscribeOn(Schedulers.newThread(), false);
+				// setup watch
+				watchService.watch(watchRequestFlowable).subscribe(watchResponse -> {
+					if (watchResponse.getCreated() && this.watchId == -1) {
+						this.watchId = watchResponse.getWatchId();
+						this.watchLatch.countDown();
+					}
+					watchResponse.getEventsList().forEach(e -> handleWatchEvent(e));
+				});
+				this.initializedFromServer = false;
+				this.connectedID = getEtcdConfig().getTargetID();
+
 			} catch (Exception e) {
 				URI uri = getEtcdConfig().getTargetLocation();
-				logEtcdError("connect", "Error connecting to host=" + uri.getHost() + ",port=" + uri.getPort(), e);
 				ContainerConnectException e1 = new ContainerConnectException(
-						"Cannot connect to etcd3 server because of communication error", e);
+						"Cannot connect to Etcd3 server "+ uri, e);
 				e1.setStackTrace(e.getStackTrace());
 				throw e1;
 			}
 
-			// Create lease for ttl
-			final long ttl = getEtcdConfig().getTTL();
-			LeaseGrantResponse resp = leaseService
-					.leaseGrant(Single.just(LeaseGrantRequest.newBuilder().setTTL(ttl).build())).blockingGet();
-			String error = resp.getError();
-			if (!"".equals(error)) {
-				throw new ContainerConnectException("Could not create lease for ttl=" + ttl + ". Error: " + error);
-			}
-			this.leaseId = resp.getID();
-			this.leaseKeepAliveScheduler = Schedulers.io();
-			// Set up keepAlive requests
-			LeaseKeepAliveRequest.Builder leaseTTLBuilder = LeaseKeepAliveRequest.newBuilder().setID(this.leaseId);
-			Flowable<LeaseKeepAliveRequest> client = Flowable
-					.interval(ttl - getKeepAliveUpdateTime(), TimeUnit.SECONDS, this.leaseKeepAliveScheduler).map(l -> {
-						// trace("keepAlive", "sending keepalive for leaseid=" + this.leaseId);
-						return leaseTTLBuilder.build();
-					});
-			// Stream keep alive requests
-			this.leaseService.leaseKeepAlive(client).subscribe(lkar -> {
-				// trace("keepAlive", "received keepAlive response=" + lkar);
-			});
-
-			// put session key
-			grpcPutKeyValue(getSessionKey(), getSessionId());
-
-			String keyPrefix = getKeyPrefix();
-			WatchCreateRequest.Builder watchCreateRequestBuilder = WatchCreateRequest.newBuilder()
-					.setKey(ByteString.copyFromUtf8(keyPrefix)).setRangeEnd(ByteString.copyFromUtf8(keyPrefix + "\\0"));
-			// Create watch latch so that watch cancel request can be sent
-			this.watchLatch = new CountDownLatch(2);
-			Flowable<WatchRequest> watchRequestFlowable = Flowable.create(new FlowableOnSubscribe<WatchRequest>() {
-				@Override
-				public void subscribe(FlowableEmitter<WatchRequest> emitter) throws Exception {
-					// emit create request
-					emitter.onNext(
-							WatchRequest.newBuilder().setCreateRequest(watchCreateRequestBuilder.build()).build());
-					// once create request is sent, watch for latch
-					watchLatch.await();
-					// if cancelled forget it
-					if (emitter.isCancelled()) {
-						return;
-					}
-					// Now send cancel
-					emitter.onNext(WatchRequest.newBuilder()
-							.setCancelRequest(WatchCancelRequest.newBuilder().setWatchId(watchId).build()).build());
-					emitter.onComplete();
-
-				}
-			}, BackpressureStrategy.BUFFER).subscribeOn(Schedulers.newThread(), false);
-			// setup watch
-			watchService.watch(watchRequestFlowable).subscribe(watchResponse -> {
-				if (watchResponse.getCreated() && this.watchId == -1) {
-					this.watchId = watchResponse.getWatchId();
-					this.watchLatch.countDown();
-				}
-				watchResponse.getEventsList().forEach(e -> handleWatchEvent(e));
-			});
-			this.initializedFromServer = false;
-			this.connectedID = getEtcdConfig().getTargetID();
 		}
 		// Fire container connected event
 		fireContainerEvent(new ContainerConnectedEvent(this.getID(), aTargetID));
@@ -366,12 +376,9 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 		}
 	}
 
-	private void debug(String methodName, String messaage) {
-		
-	}
-
 	private void handlePutWatchEvent(KeyValue keyValue) {
 		String key = keyValue.getKey().toStringUtf8();
+		debug("handlePutWatchEvent","key="+key);
 		EtcdServiceInfoKey siKey = parseServiceInfoKey(key);
 		if (siKey != null) {
 			if (!siKey.matchSessionId(getSessionId())) {
@@ -396,6 +403,7 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 
 	private void handleDeleteWatchEvent(KeyValue keyValue) {
 		String key = keyValue.getKey().toStringUtf8();
+		debug("handleDeleteWatchEvent","key="+key);
 		EtcdServiceInfoKey siKey = parseServiceInfoKey(key);
 		if (siKey != null) {
 			if (!siKey.matchSessionId(getSessionId())) {
@@ -454,12 +462,12 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 	}
 
 	private void fireServiceUndiscovered(String key, IServiceInfo iinfo) {
-		trace("fireServiceUndiscovered", "key=" + key + ",serviceInfo=" + iinfo); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		debug("fireServiceUndiscovered", "key=" + key + ",serviceInfo=" + iinfo); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		fireServiceUndiscovered(new ServiceContainerEvent(iinfo, getConfig().getID()));
 	}
 
 	private void fireServiceDiscovered(String key, IServiceInfo iinfo) {
-		trace("fireServiceDiscovered", "key=" + key + ",serviceInfo=" + iinfo); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		debug("fireServiceDiscovered", "key=" + key + ",serviceInfo=" + iinfo); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		fireServiceDiscovered(new ServiceContainerEvent(iinfo, getConfig().getID()));
 	}
 
@@ -467,13 +475,12 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 		fireServiceTypeDiscovered(new ServiceTypeContainerEvent(serviceTypeID, getConfig().getID()));
 	}
 
-	private void trace(String methodName, String message) {
-		System.out.println("methodName=" + methodName + ",message=" + message);
-		// LogUtility.trace(methodName, DebugOptions.DEBUG, getClass(), message);
+	private void debug(String methodName, String message) {
+		logger.debug("methodName="+methodName+",msg="+message);
 	}
 
 	private void logEtcdError(String method, String message, Throwable e) {
-		System.out.println("ERROR: methodName=" + method + ",message=" + message + ((e == null) ? "" : e.getMessage()));
+		logger.error("methodName="+method+",msg="+message,e);
 	}
 
 	public IServiceInfo getServiceInfo(IServiceID aServiceID) {

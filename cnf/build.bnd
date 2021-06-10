@@ -71,7 +71,6 @@ copyright.year = ${tstamp;yyyy}
 	aQute.bnd.repository.maven.provider.MavenBndRepository; \
 		releaseUrl=https://repo1.maven.org/maven2/; \
 		index=${.}/ecfatcentral.maven; \
-		readOnly=true; \
 		name="ECF Remote Services"
 
 -plugin.10.ETCDDISCOVERY: \
@@ -92,7 +91,6 @@ copyright.year = ${tstamp;yyyy}
 # Always use contracts
 -contract: *
 
-# Set Git revision information in the manifests of built bundles
 # JUnit
 junit: org.apache.servicemix.bundles.junit; version=4.12
 mockito: org.mockito.mockito-core; version=2.13.0

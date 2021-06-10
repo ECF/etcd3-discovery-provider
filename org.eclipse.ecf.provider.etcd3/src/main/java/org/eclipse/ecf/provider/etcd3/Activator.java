@@ -11,6 +11,8 @@ package org.eclipse.ecf.provider.etcd3;
 import java.util.Hashtable;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.ecf.core.ContainerConnectException;
+import org.eclipse.ecf.core.ContainerCreateException;
 import org.eclipse.ecf.core.ContainerTypeDescription;
 import org.eclipse.ecf.core.IContainerFactory;
 import org.eclipse.ecf.core.identity.Namespace;
@@ -29,10 +31,15 @@ import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.log.LogService;
 import org.osgi.util.tracker.ServiceTracker;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Activator implements BundleActivator {
 
 	public static final String PLUGIN_ID = "org.eclipse.ecf.provider.etcd3"; //$NON-NLS-1$
 
+	private static final Logger logger = LoggerFactory.getLogger(Activator.class);
+	
 	private static Activator plugin;
 
 	public static Activator getDefault() {
@@ -45,9 +52,6 @@ public class Activator implements BundleActivator {
 		return context;
 	}
 
-	// Logging
-	private ServiceTracker<LogService, LogService> logServiceTracker = null;
-	private LogService logService = null;
 	private Etcd3DiscoveryContainer container;
 	private ServiceTracker<IContainerFactory, IContainerFactory> cfTracker;
 
@@ -64,6 +68,7 @@ public class Activator implements BundleActivator {
 				null);
 		// Only create/setup if not explicitly disabled
 		if (!Boolean.parseBoolean(System.getProperty(Etcd3DiscoveryContainerConfig.ETCD_DISABLED_PROP, "false"))) {
+			logger.debug("starting Etcd3 discovery provider");
 			@SuppressWarnings("rawtypes")
 			final Hashtable props = new Hashtable();
 			props.put(IDiscoveryLocator.CONTAINER_NAME, Etcd3DiscoveryContainerInstantiator.NAME);
@@ -76,10 +81,19 @@ public class Activator implements BundleActivator {
 								try {
 									container = (Etcd3DiscoveryContainer) getContainerFactory()
 											.createContainer(Etcd3DiscoveryContainerInstantiator.NAME);
-									container.connect(null, null);
-								} catch (Exception e) {
+									logger.debug("Etcd3 discovery container created with name="+ Etcd3DiscoveryContainerInstantiator.NAME);
+								} catch (ContainerCreateException e) {
+									logger.error("Could not create Etcd3 discovery="+ Etcd3DiscoveryContainerInstantiator.NAME, e);
 									container = null;
 								}
+							}
+							// Connect
+							try {
+								container.connect(null, null);
+								logger.debug("Etcd3 discovery container connected with name="+ Etcd3DiscoveryContainerInstantiator.NAME);
+							} catch (ContainerConnectException e) {
+								logger.error("Could not connect Etcd3 discovery="+ Etcd3DiscoveryContainerInstantiator.NAME, e);
+								container = null;
 							}
 							return container;
 						}
@@ -93,6 +107,8 @@ public class Activator implements BundleActivator {
 							}
 						}
 					}, props);
+		} else {
+			logger.debug("Etcd3 discovery provider DISABLED");
 		}
 	}
 
@@ -100,11 +116,6 @@ public class Activator implements BundleActivator {
 		if (cfTracker != null) {
 			cfTracker.close();
 			cfTracker = null;
-		}
-		if (logServiceTracker != null) {
-			logServiceTracker.close();
-			logServiceTracker = null;
-			logService = null;
 		}
 		context = null;
 		plugin = null;
@@ -120,36 +131,4 @@ public class Activator implements BundleActivator {
 		return (IContainerFactory) cfTracker.getService();
 	}
 
-	public LogService getLogService() {
-		if (logServiceTracker == null) {
-			logServiceTracker = new ServiceTracker<LogService, LogService>(context, LogService.class.getName(), null);
-			logServiceTracker.open();
-		}
-		logService = (LogService) logServiceTracker.getService();
-		if (logService == null)
-			logService = new SystemLogService(PLUGIN_ID);
-		return logService;
-	}
-
-	@SuppressWarnings("deprecation")
-	public void log(IStatus status) {
-		int statusCode = status.getCode();
-		String logMessage = status.getMessage();
-		Throwable t = status.getException();
-		LogService logService = getLogService();
-		switch (statusCode) {
-		case IStatus.OK:
-		case IStatus.INFO:
-			logService.log(LogService.LOG_INFO, logMessage);
-			break;
-		case IStatus.WARNING:
-			logService.log(LogService.LOG_WARNING, logMessage);
-			break;
-		case IStatus.ERROR:
-			logService.log(LogService.LOG_ERROR, logMessage, t);
-			break;
-		default:
-			logService.log(LogService.LOG_DEBUG, logMessage);
-		}
-	}
 }

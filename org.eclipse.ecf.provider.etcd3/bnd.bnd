@@ -25,7 +25,8 @@
 	org.json,\
 	org.eclipse.equinox.concurrent,\
 	com.google.protobuf,\
-	org.reactivestreams.reactive-streams
+	org.reactivestreams.reactive-streams,\
+	slf4j.api
 
 javac.source=1.8
 javac.target=1.8
