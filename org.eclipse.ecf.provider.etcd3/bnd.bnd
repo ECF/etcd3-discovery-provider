@@ -1,8 +1,8 @@
 # use GrpcGenerator to generate code to src-gen using protofiles dir and protofiles/rpc.proto file
-#-generate \
-#    protofiles; \
-#        output = src-gen/main/java; \
-#        generate = "org.eclipse.ecf.bndtools.grpc.GrpcGenerator -I=protofiles --java_out=src-gen/main/java rpc.proto auth.proto kv.proto"
+-generate \
+    protofiles; \
+        output = src-gen/main/java; \
+        generate = "org.eclipse.ecf.bndtools.grpc.GrpcGenerator -I=protofiles --java_out=src-gen/main/java rpc.proto auth.proto kv.proto"
 
 -buildpath: \
 	org.apache.tomcat:annotations-api,\
@@ -30,10 +30,9 @@
 
 javac.source=1.8
 javac.target=1.8
-javac.compliance=1.8
 
 package-version = 1.0.2
-Bundle-Version: ${package-version}.${tstamp}
+Bundle-Version: 1.0.2.${tstamp}
 
 -runfw: org.apache.felix.framework;version='[7.0.0,7.0.0]'
 -runee: JavaSE-1.8
@@ -42,10 +41,10 @@ Bundle-Activator: org.eclipse.ecf.provider.etcd3.Activator
 Bundle-Name: ECF Etcd3 Discovery Provider
 Bundle-Vendor: Eclipse.org - ECF
 Export-Package: \
-	org.eclipse.ecf.provider.etcd3.container,\
 	org.eclipse.ecf.provider.etcd3.grpc.api,\
 	org.eclipse.ecf.provider.etcd3.grpc.api.kv,\
 	org.eclipse.ecf.provider.etcd3.grpc.api.auth,\
 	org.eclipse.ecf.provider.etcd3.identity,\
-	org.eclipse.ecf.provider.etcd3.grpc.client
+	org.eclipse.ecf.provider.etcd3.grpc.client,\
+	org.eclipse.ecf.provider.etcd3.container
 -privatepackage: org.eclipse.ecf.provider.etcd3
