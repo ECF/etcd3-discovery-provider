@@ -22,7 +22,8 @@
 	bnd.identity;id='org.eclipse.ecf.provider.remoteservice',\
 	bnd.identity;id='org.osgi.service.log',\
 	bnd.identity;version='1.7.30';id='slf4j.api',\
-	bnd.identity;version='1.7.30';id='slf4j.simple'
+	bnd.identity;version='1.7.30';id='slf4j.simple',\
+	bnd.identity;version='26.0.0.android';id='com.google.guava'
 
 -runprogramargs: -console -consoleLog
 -runfw: org.apache.felix.framework;version='[7.0.0,7.0.0]'
