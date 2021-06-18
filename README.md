@@ -14,10 +14,14 @@ The most important properties are:
 
 | Property Name | Default Value |
 | --- | --- |
+| ecf.discovery.etcd3.disabled | false |
+| ecf.discovery.etcd3.protocol | http |
 | ecf.discovery.etcd3.hostname | 127.0.0.1 |
 | ecf.discovery.etcd3.port | 2379 |
-| ecf.discovery.etcd3.containerId | org.eclipse.ecf.provider.etcd.EtcdDiscoveryContainer |
+| ecf.discovery.etcd3.keyPrefix | org.eclipse.ecf.provider.etcd3.EtcdDiscoveryContainer |
 | ecf.discovery.etcd3.usePlaintext | false |
+| ecf.discovery.etcd3.ttl | 30 (seconds) |
+| ecf.discovery.etcd3.retry | false |
 
 For example, to set the etcd server to:  'disco.ecf-project.org' set the java system propery...e.g. 
 
