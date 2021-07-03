@@ -6,7 +6,7 @@ ECF discovery provider that uses etcd3 service to publish and discover remote se
 
 This provider used an etcd server to publish and discover Remote Services.   It's necessary to install the provider bundle:  org.eclipse.ecf.provider.etcd3, and configure it so that it points to a running etcd server/service.
 
-Released versions of this bundle are available at Maven Central [here](https://github.com/ECF/etcd3-discovery-provider)
+Released versions of this bundle are available at [Maven Central](https://search.maven.org/search?q=a:org.eclipse.ecf.provider.etcd3)
 
 For this provider to work, an etcd server must be running at some available hostname and port before the process using the etcd provider is started.  Note that when the provider is started, it will immediately attempt to connect to the etcd server.  If that connection cannot be made it will result in an ERROR to the OSGi log.
 
