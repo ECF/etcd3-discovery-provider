@@ -366,12 +366,6 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 				debug("parseServiceInfoKey", "Could not parse sessionKey=" + sessionKey + " into UUID");
 				return null;
 			}
-			try {
-				UUID.fromString(siKey);
-			} catch (IllegalArgumentException e) {
-				debug("parseServiceInfoKey", "Could not parse siKey=" + siKey + " into UUID");
-				return null;
-			}
 			return new EtcdServiceInfoKey(sessionKey, siKey);
 		}
 	}
