@@ -12,7 +12,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.ecf.core.util.Base64;
 import org.eclipse.ecf.discovery.IServiceInfo;
@@ -41,6 +43,13 @@ public class Etcd3ServiceInfo extends ServiceInfo {
 
 	public static final String BYTES_TYPE = "bytes"; //$NON-NLS-1$
 	public static final String STRING_TYPE = "string"; //$NON-NLS-1$
+	public static final String LIST_TYPE = "list"; //$NON-NLS-1$
+	public static final String SET_TYPE = "set";  //$NON-NLS-1$
+	public static final String DOUBLE_TYPE = "double";//$NON-NLS-1$
+	public static final String FLOAT_TYPE = "float";//$NON-NLS-1$
+	public static final String CHAR_TYPE = "char";//$NON-NLS-1$
+	public static final String LONG_TYPE = "long";//$NON-NLS-1$
+	public static final String INT_TYPE = "int";//$NON-NLS-1$
 	public static final String OTHER_TYPE = "object"; //$NON-NLS-1$
 	public static final String TYPE_KEY = "type"; //$NON-NLS-1$
 	public static final String NAME_KEY = "name"; //$NON-NLS-1$
@@ -112,8 +121,36 @@ public class Etcd3ServiceInfo extends ServiceInfo {
 				sProps.setPropertyBytes(name, Base64.decode(jsonProperty.getString(VALUE_KEY)));
 			else if (STRING_TYPE.equals(type))
 				sProps.setPropertyString(name, jsonProperty.getString(VALUE_KEY));
-			else
+			else if (LIST_TYPE.equals(type)) {
+				@SuppressWarnings("rawtypes")
+				List newList = new ArrayList();
+				Object obj = jsonProperty.get(VALUE_KEY);
+				JSONArray sarr = (JSONArray) jsonProperty.get(VALUE_KEY);
+				for(int j=0; j < sarr.length(); j++) {
+					newList.add(sarr.get(j));
+				}
+				sProps.setProperty(name, newList);
+			} else if (SET_TYPE.equals(type)) {
+				@SuppressWarnings("rawtypes")
+				Set s = new HashSet();
+				JSONArray sarr = (JSONArray) jsonProperty.get(VALUE_KEY);
+				for(int j=0; j < sarr.length(); j++) {
+					s.add(sarr.get(j));
+				}
+				sProps.setProperty(name, s);
+			} else if (FLOAT_TYPE.equals(type)) {
+				sProps.setProperty(name, (float) jsonProperty.getDouble(VALUE_KEY));
+			} else if (DOUBLE_TYPE.equals(type)) {
+				sProps.setProperty(name, jsonProperty.getDouble(VALUE_KEY));
+			} else if (CHAR_TYPE.equals(type)) {
+				sProps.setProperty(name, jsonProperty.getString(VALUE_KEY).charAt(0));
+			} else if (LONG_TYPE.equals(type)) {
+				sProps.setProperty(name, jsonProperty.getLong(VALUE_KEY));
+			} else if (INT_TYPE.equals(type)) {
+				sProps.setProperty(name, jsonProperty.getInt(VALUE_KEY));
+			} else {
 				sProps.setProperty(name, jsonProperty.get(VALUE_KEY));
+			}
 		}
 		return new Etcd3ServiceInfo(location, serviceName, serviceTypeID, priority, weight, sProps, ttl);
 	}
@@ -180,8 +217,24 @@ public class Etcd3ServiceInfo extends ServiceInfo {
 				if (value != null)
 					type = STRING_TYPE;
 				else {
-					type = OTHER_TYPE;
 					value = properties.getProperty(key);
+					if (value instanceof List) {
+						type = LIST_TYPE;
+					} else if (value instanceof Set) {
+						type = SET_TYPE;
+					} else if (value instanceof Double) {
+						type = DOUBLE_TYPE;
+					} else if (value instanceof Float) {
+						type = FLOAT_TYPE;
+					} else if (value instanceof Character) {
+						type = CHAR_TYPE;
+					} else if (value instanceof Long) {
+						type = LONG_TYPE;
+					} else if (value instanceof Integer) {
+						type = INT_TYPE;
+					} else {
+						type = OTHER_TYPE;
+					}
 				}
 			}
 			JSONWriter propertyWriter = null;
@@ -189,6 +242,31 @@ public class Etcd3ServiceInfo extends ServiceInfo {
 				propertyWriter = propertiesWriter.object();
 				propertyWriter.key(TYPE_KEY).value(type);
 				propertyWriter.key(NAME_KEY).value(key);
+				if (LIST_TYPE.equals(type)) {
+					@SuppressWarnings("rawtypes")
+					List l = (List) value;
+					JSONArray array = new JSONArray();
+					for(int i=0; i < l.size(); i++) {
+						array.put(i,l.get(i));
+					}
+					value = array;
+				} else if (SET_TYPE.equals(type)) {
+					@SuppressWarnings("rawtypes")
+					Set s = (Set) value;
+					JSONArray array = new JSONArray();
+					int i = 0;
+					for(Object o: s) {
+						array.put(i,o);
+						i++;
+					}
+					value = array;					
+				} else if (CHAR_TYPE.equals(type)) {
+					value = Character.toString((char) value);
+				} else if (LONG_TYPE.equals(type)) {
+					value = (Long) value;
+				} else if (CHAR_TYPE.equals(type)) {
+					value = (Integer) value;
+				}
 				propertyWriter.key(VALUE_KEY).value(value);
 				propertyWriter.endObject();
 			}
