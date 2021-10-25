@@ -1,24 +1,11 @@
 package org.eclipse.ecf.provider.etcd3.grpc.api;
 
 import static io.grpc.MethodDescriptor.generateFullMethodName;
-import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncUnaryCall;
-import static io.grpc.stub.ClientCalls.blockingServerStreamingCall;
-import static io.grpc.stub.ClientCalls.blockingUnaryCall;
-import static io.grpc.stub.ClientCalls.futureUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncBidiStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
 
 /**
  */
 @javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.31.1)",
+    value = "by gRPC proto compiler (version 1.39.0)",
     comments = "Source: rpc.proto")
 public final class MaintenanceGrpc {
 
@@ -299,7 +286,7 @@ public final class MaintenanceGrpc {
      */
     public void alarm(org.eclipse.ecf.provider.etcd3.grpc.api.AlarmRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AlarmResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getAlarmMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getAlarmMethod(), responseObserver);
     }
 
     /**
@@ -309,7 +296,7 @@ public final class MaintenanceGrpc {
      */
     public void status(org.eclipse.ecf.provider.etcd3.grpc.api.StatusRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.StatusResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getStatusMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getStatusMethod(), responseObserver);
     }
 
     /**
@@ -319,7 +306,7 @@ public final class MaintenanceGrpc {
      */
     public void defragment(org.eclipse.ecf.provider.etcd3.grpc.api.DefragmentRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.DefragmentResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getDefragmentMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDefragmentMethod(), responseObserver);
     }
 
     /**
@@ -331,7 +318,7 @@ public final class MaintenanceGrpc {
      */
     public void hash(org.eclipse.ecf.provider.etcd3.grpc.api.HashRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.HashResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getHashMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getHashMethod(), responseObserver);
     }
 
     /**
@@ -341,7 +328,7 @@ public final class MaintenanceGrpc {
      */
     public void hashKV(org.eclipse.ecf.provider.etcd3.grpc.api.HashKVRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.HashKVResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getHashKVMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getHashKVMethod(), responseObserver);
     }
 
     /**
@@ -351,7 +338,7 @@ public final class MaintenanceGrpc {
      */
     public void snapshot(org.eclipse.ecf.provider.etcd3.grpc.api.SnapshotRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.SnapshotResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getSnapshotMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSnapshotMethod(), responseObserver);
     }
 
     /**
@@ -361,56 +348,56 @@ public final class MaintenanceGrpc {
      */
     public void moveLeader(org.eclipse.ecf.provider.etcd3.grpc.api.MoveLeaderRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.MoveLeaderResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getMoveLeaderMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getMoveLeaderMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
             getAlarmMethod(),
-            asyncUnaryCall(
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 org.eclipse.ecf.provider.etcd3.grpc.api.AlarmRequest,
                 org.eclipse.ecf.provider.etcd3.grpc.api.AlarmResponse>(
                   this, METHODID_ALARM)))
           .addMethod(
             getStatusMethod(),
-            asyncUnaryCall(
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 org.eclipse.ecf.provider.etcd3.grpc.api.StatusRequest,
                 org.eclipse.ecf.provider.etcd3.grpc.api.StatusResponse>(
                   this, METHODID_STATUS)))
           .addMethod(
             getDefragmentMethod(),
-            asyncUnaryCall(
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 org.eclipse.ecf.provider.etcd3.grpc.api.DefragmentRequest,
                 org.eclipse.ecf.provider.etcd3.grpc.api.DefragmentResponse>(
                   this, METHODID_DEFRAGMENT)))
           .addMethod(
             getHashMethod(),
-            asyncUnaryCall(
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 org.eclipse.ecf.provider.etcd3.grpc.api.HashRequest,
                 org.eclipse.ecf.provider.etcd3.grpc.api.HashResponse>(
                   this, METHODID_HASH)))
           .addMethod(
             getHashKVMethod(),
-            asyncUnaryCall(
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 org.eclipse.ecf.provider.etcd3.grpc.api.HashKVRequest,
                 org.eclipse.ecf.provider.etcd3.grpc.api.HashKVResponse>(
                   this, METHODID_HASH_KV)))
           .addMethod(
             getSnapshotMethod(),
-            asyncServerStreamingCall(
+            io.grpc.stub.ServerCalls.asyncServerStreamingCall(
               new MethodHandlers<
                 org.eclipse.ecf.provider.etcd3.grpc.api.SnapshotRequest,
                 org.eclipse.ecf.provider.etcd3.grpc.api.SnapshotResponse>(
                   this, METHODID_SNAPSHOT)))
           .addMethod(
             getMoveLeaderMethod(),
-            asyncUnaryCall(
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 org.eclipse.ecf.provider.etcd3.grpc.api.MoveLeaderRequest,
                 org.eclipse.ecf.provider.etcd3.grpc.api.MoveLeaderResponse>(
@@ -440,7 +427,7 @@ public final class MaintenanceGrpc {
      */
     public void alarm(org.eclipse.ecf.provider.etcd3.grpc.api.AlarmRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AlarmResponse> responseObserver) {
-      asyncUnaryCall(
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getAlarmMethod(), getCallOptions()), request, responseObserver);
     }
 
@@ -451,7 +438,7 @@ public final class MaintenanceGrpc {
      */
     public void status(org.eclipse.ecf.provider.etcd3.grpc.api.StatusRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.StatusResponse> responseObserver) {
-      asyncUnaryCall(
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getStatusMethod(), getCallOptions()), request, responseObserver);
     }
 
@@ -462,7 +449,7 @@ public final class MaintenanceGrpc {
      */
     public void defragment(org.eclipse.ecf.provider.etcd3.grpc.api.DefragmentRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.DefragmentResponse> responseObserver) {
-      asyncUnaryCall(
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getDefragmentMethod(), getCallOptions()), request, responseObserver);
     }
 
@@ -475,7 +462,7 @@ public final class MaintenanceGrpc {
      */
     public void hash(org.eclipse.ecf.provider.etcd3.grpc.api.HashRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.HashResponse> responseObserver) {
-      asyncUnaryCall(
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getHashMethod(), getCallOptions()), request, responseObserver);
     }
 
@@ -486,7 +473,7 @@ public final class MaintenanceGrpc {
      */
     public void hashKV(org.eclipse.ecf.provider.etcd3.grpc.api.HashKVRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.HashKVResponse> responseObserver) {
-      asyncUnaryCall(
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getHashKVMethod(), getCallOptions()), request, responseObserver);
     }
 
@@ -497,7 +484,7 @@ public final class MaintenanceGrpc {
      */
     public void snapshot(org.eclipse.ecf.provider.etcd3.grpc.api.SnapshotRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.SnapshotResponse> responseObserver) {
-      asyncServerStreamingCall(
+      io.grpc.stub.ClientCalls.asyncServerStreamingCall(
           getChannel().newCall(getSnapshotMethod(), getCallOptions()), request, responseObserver);
     }
 
@@ -508,7 +495,7 @@ public final class MaintenanceGrpc {
      */
     public void moveLeader(org.eclipse.ecf.provider.etcd3.grpc.api.MoveLeaderRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.MoveLeaderResponse> responseObserver) {
-      asyncUnaryCall(
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getMoveLeaderMethod(), getCallOptions()), request, responseObserver);
     }
   }
@@ -533,7 +520,7 @@ public final class MaintenanceGrpc {
      * </pre>
      */
     public org.eclipse.ecf.provider.etcd3.grpc.api.AlarmResponse alarm(org.eclipse.ecf.provider.etcd3.grpc.api.AlarmRequest request) {
-      return blockingUnaryCall(
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getAlarmMethod(), getCallOptions(), request);
     }
 
@@ -543,7 +530,7 @@ public final class MaintenanceGrpc {
      * </pre>
      */
     public org.eclipse.ecf.provider.etcd3.grpc.api.StatusResponse status(org.eclipse.ecf.provider.etcd3.grpc.api.StatusRequest request) {
-      return blockingUnaryCall(
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getStatusMethod(), getCallOptions(), request);
     }
 
@@ -553,7 +540,7 @@ public final class MaintenanceGrpc {
      * </pre>
      */
     public org.eclipse.ecf.provider.etcd3.grpc.api.DefragmentResponse defragment(org.eclipse.ecf.provider.etcd3.grpc.api.DefragmentRequest request) {
-      return blockingUnaryCall(
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getDefragmentMethod(), getCallOptions(), request);
     }
 
@@ -565,7 +552,7 @@ public final class MaintenanceGrpc {
      * </pre>
      */
     public org.eclipse.ecf.provider.etcd3.grpc.api.HashResponse hash(org.eclipse.ecf.provider.etcd3.grpc.api.HashRequest request) {
-      return blockingUnaryCall(
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getHashMethod(), getCallOptions(), request);
     }
 
@@ -575,7 +562,7 @@ public final class MaintenanceGrpc {
      * </pre>
      */
     public org.eclipse.ecf.provider.etcd3.grpc.api.HashKVResponse hashKV(org.eclipse.ecf.provider.etcd3.grpc.api.HashKVRequest request) {
-      return blockingUnaryCall(
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getHashKVMethod(), getCallOptions(), request);
     }
 
@@ -586,7 +573,7 @@ public final class MaintenanceGrpc {
      */
     public java.util.Iterator<org.eclipse.ecf.provider.etcd3.grpc.api.SnapshotResponse> snapshot(
         org.eclipse.ecf.provider.etcd3.grpc.api.SnapshotRequest request) {
-      return blockingServerStreamingCall(
+      return io.grpc.stub.ClientCalls.blockingServerStreamingCall(
           getChannel(), getSnapshotMethod(), getCallOptions(), request);
     }
 
@@ -596,7 +583,7 @@ public final class MaintenanceGrpc {
      * </pre>
      */
     public org.eclipse.ecf.provider.etcd3.grpc.api.MoveLeaderResponse moveLeader(org.eclipse.ecf.provider.etcd3.grpc.api.MoveLeaderRequest request) {
-      return blockingUnaryCall(
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getMoveLeaderMethod(), getCallOptions(), request);
     }
   }
@@ -622,7 +609,7 @@ public final class MaintenanceGrpc {
      */
     public com.google.common.util.concurrent.ListenableFuture<org.eclipse.ecf.provider.etcd3.grpc.api.AlarmResponse> alarm(
         org.eclipse.ecf.provider.etcd3.grpc.api.AlarmRequest request) {
-      return futureUnaryCall(
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getAlarmMethod(), getCallOptions()), request);
     }
 
@@ -633,7 +620,7 @@ public final class MaintenanceGrpc {
      */
     public com.google.common.util.concurrent.ListenableFuture<org.eclipse.ecf.provider.etcd3.grpc.api.StatusResponse> status(
         org.eclipse.ecf.provider.etcd3.grpc.api.StatusRequest request) {
-      return futureUnaryCall(
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getStatusMethod(), getCallOptions()), request);
     }
 
@@ -644,7 +631,7 @@ public final class MaintenanceGrpc {
      */
     public com.google.common.util.concurrent.ListenableFuture<org.eclipse.ecf.provider.etcd3.grpc.api.DefragmentResponse> defragment(
         org.eclipse.ecf.provider.etcd3.grpc.api.DefragmentRequest request) {
-      return futureUnaryCall(
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getDefragmentMethod(), getCallOptions()), request);
     }
 
@@ -657,7 +644,7 @@ public final class MaintenanceGrpc {
      */
     public com.google.common.util.concurrent.ListenableFuture<org.eclipse.ecf.provider.etcd3.grpc.api.HashResponse> hash(
         org.eclipse.ecf.provider.etcd3.grpc.api.HashRequest request) {
-      return futureUnaryCall(
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getHashMethod(), getCallOptions()), request);
     }
 
@@ -668,7 +655,7 @@ public final class MaintenanceGrpc {
      */
     public com.google.common.util.concurrent.ListenableFuture<org.eclipse.ecf.provider.etcd3.grpc.api.HashKVResponse> hashKV(
         org.eclipse.ecf.provider.etcd3.grpc.api.HashKVRequest request) {
-      return futureUnaryCall(
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getHashKVMethod(), getCallOptions()), request);
     }
 
@@ -679,7 +666,7 @@ public final class MaintenanceGrpc {
      */
     public com.google.common.util.concurrent.ListenableFuture<org.eclipse.ecf.provider.etcd3.grpc.api.MoveLeaderResponse> moveLeader(
         org.eclipse.ecf.provider.etcd3.grpc.api.MoveLeaderRequest request) {
-      return futureUnaryCall(
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getMoveLeaderMethod(), getCallOptions()), request);
     }
   }

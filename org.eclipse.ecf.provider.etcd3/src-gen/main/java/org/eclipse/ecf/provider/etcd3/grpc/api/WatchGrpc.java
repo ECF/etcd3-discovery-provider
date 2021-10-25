@@ -1,24 +1,11 @@
 package org.eclipse.ecf.provider.etcd3.grpc.api;
 
 import static io.grpc.MethodDescriptor.generateFullMethodName;
-import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncUnaryCall;
-import static io.grpc.stub.ClientCalls.blockingServerStreamingCall;
-import static io.grpc.stub.ClientCalls.blockingUnaryCall;
-import static io.grpc.stub.ClientCalls.futureUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncBidiStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
 
 /**
  */
 @javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.31.1)",
+    value = "by gRPC proto compiler (version 1.39.0)",
     comments = "Source: rpc.proto")
 public final class WatchGrpc {
 
@@ -117,14 +104,14 @@ public final class WatchGrpc {
      */
     public io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.WatchRequest> watch(
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.WatchResponse> responseObserver) {
-      return asyncUnimplementedStreamingCall(getWatchMethod(), responseObserver);
+      return io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall(getWatchMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
             getWatchMethod(),
-            asyncBidiStreamingCall(
+            io.grpc.stub.ServerCalls.asyncBidiStreamingCall(
               new MethodHandlers<
                 org.eclipse.ecf.provider.etcd3.grpc.api.WatchRequest,
                 org.eclipse.ecf.provider.etcd3.grpc.api.WatchResponse>(
@@ -158,7 +145,7 @@ public final class WatchGrpc {
      */
     public io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.WatchRequest> watch(
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.WatchResponse> responseObserver) {
-      return asyncBidiStreamingCall(
+      return io.grpc.stub.ClientCalls.asyncBidiStreamingCall(
           getChannel().newCall(getWatchMethod(), getCallOptions()), responseObserver);
     }
   }

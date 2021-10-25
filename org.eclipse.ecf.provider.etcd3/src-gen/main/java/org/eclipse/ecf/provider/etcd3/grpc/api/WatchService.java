@@ -1,6 +1,6 @@
 package org.eclipse.ecf.provider.etcd3.grpc.api;
 
-import io.reactivex.Flowable;
+import io.reactivex.rxjava3.core.Flowable;
 
 @javax.annotation.Generated(
 value = "by grpc-osgi-generator (REACTIVEX) - A protoc plugin for ECF's grpc remote services distribution provider at https://github.com/ECF/grpc-RemoteServiceSProvider ",

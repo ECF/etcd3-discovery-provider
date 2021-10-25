@@ -1,24 +1,11 @@
 package org.eclipse.ecf.provider.etcd3.grpc.api;
 
 import static io.grpc.MethodDescriptor.generateFullMethodName;
-import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncUnaryCall;
-import static io.grpc.stub.ClientCalls.blockingServerStreamingCall;
-import static io.grpc.stub.ClientCalls.blockingUnaryCall;
-import static io.grpc.stub.ClientCalls.futureUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncBidiStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
 
 /**
  */
 @javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.31.1)",
+    value = "by gRPC proto compiler (version 1.39.0)",
     comments = "Source: rpc.proto")
 public final class KVGrpc {
 
@@ -237,7 +224,7 @@ public final class KVGrpc {
      */
     public void range(org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.RangeResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getRangeMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRangeMethod(), responseObserver);
     }
 
     /**
@@ -249,7 +236,7 @@ public final class KVGrpc {
      */
     public void put(org.eclipse.ecf.provider.etcd3.grpc.api.PutRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.PutResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getPutMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getPutMethod(), responseObserver);
     }
 
     /**
@@ -261,7 +248,7 @@ public final class KVGrpc {
      */
     public void deleteRange(org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getDeleteRangeMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeleteRangeMethod(), responseObserver);
     }
 
     /**
@@ -274,7 +261,7 @@ public final class KVGrpc {
      */
     public void txn(org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.TxnResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getTxnMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getTxnMethod(), responseObserver);
     }
 
     /**
@@ -286,42 +273,42 @@ public final class KVGrpc {
      */
     public void compact(org.eclipse.ecf.provider.etcd3.grpc.api.CompactionRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.CompactionResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getCompactMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCompactMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
             getRangeMethod(),
-            asyncUnaryCall(
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest,
                 org.eclipse.ecf.provider.etcd3.grpc.api.RangeResponse>(
                   this, METHODID_RANGE)))
           .addMethod(
             getPutMethod(),
-            asyncUnaryCall(
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 org.eclipse.ecf.provider.etcd3.grpc.api.PutRequest,
                 org.eclipse.ecf.provider.etcd3.grpc.api.PutResponse>(
                   this, METHODID_PUT)))
           .addMethod(
             getDeleteRangeMethod(),
-            asyncUnaryCall(
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeRequest,
                 org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeResponse>(
                   this, METHODID_DELETE_RANGE)))
           .addMethod(
             getTxnMethod(),
-            asyncUnaryCall(
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequest,
                 org.eclipse.ecf.provider.etcd3.grpc.api.TxnResponse>(
                   this, METHODID_TXN)))
           .addMethod(
             getCompactMethod(),
-            asyncUnaryCall(
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 org.eclipse.ecf.provider.etcd3.grpc.api.CompactionRequest,
                 org.eclipse.ecf.provider.etcd3.grpc.api.CompactionResponse>(
@@ -351,7 +338,7 @@ public final class KVGrpc {
      */
     public void range(org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.RangeResponse> responseObserver) {
-      asyncUnaryCall(
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getRangeMethod(), getCallOptions()), request, responseObserver);
     }
 
@@ -364,7 +351,7 @@ public final class KVGrpc {
      */
     public void put(org.eclipse.ecf.provider.etcd3.grpc.api.PutRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.PutResponse> responseObserver) {
-      asyncUnaryCall(
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getPutMethod(), getCallOptions()), request, responseObserver);
     }
 
@@ -377,7 +364,7 @@ public final class KVGrpc {
      */
     public void deleteRange(org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeResponse> responseObserver) {
-      asyncUnaryCall(
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getDeleteRangeMethod(), getCallOptions()), request, responseObserver);
     }
 
@@ -391,7 +378,7 @@ public final class KVGrpc {
      */
     public void txn(org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.TxnResponse> responseObserver) {
-      asyncUnaryCall(
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getTxnMethod(), getCallOptions()), request, responseObserver);
     }
 
@@ -404,7 +391,7 @@ public final class KVGrpc {
      */
     public void compact(org.eclipse.ecf.provider.etcd3.grpc.api.CompactionRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.CompactionResponse> responseObserver) {
-      asyncUnaryCall(
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getCompactMethod(), getCallOptions()), request, responseObserver);
     }
   }
@@ -429,7 +416,7 @@ public final class KVGrpc {
      * </pre>
      */
     public org.eclipse.ecf.provider.etcd3.grpc.api.RangeResponse range(org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest request) {
-      return blockingUnaryCall(
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getRangeMethod(), getCallOptions(), request);
     }
 
@@ -441,7 +428,7 @@ public final class KVGrpc {
      * </pre>
      */
     public org.eclipse.ecf.provider.etcd3.grpc.api.PutResponse put(org.eclipse.ecf.provider.etcd3.grpc.api.PutRequest request) {
-      return blockingUnaryCall(
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getPutMethod(), getCallOptions(), request);
     }
 
@@ -453,7 +440,7 @@ public final class KVGrpc {
      * </pre>
      */
     public org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeResponse deleteRange(org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeRequest request) {
-      return blockingUnaryCall(
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getDeleteRangeMethod(), getCallOptions(), request);
     }
 
@@ -466,7 +453,7 @@ public final class KVGrpc {
      * </pre>
      */
     public org.eclipse.ecf.provider.etcd3.grpc.api.TxnResponse txn(org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequest request) {
-      return blockingUnaryCall(
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getTxnMethod(), getCallOptions(), request);
     }
 
@@ -478,7 +465,7 @@ public final class KVGrpc {
      * </pre>
      */
     public org.eclipse.ecf.provider.etcd3.grpc.api.CompactionResponse compact(org.eclipse.ecf.provider.etcd3.grpc.api.CompactionRequest request) {
-      return blockingUnaryCall(
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getCompactMethod(), getCallOptions(), request);
     }
   }
@@ -504,7 +491,7 @@ public final class KVGrpc {
      */
     public com.google.common.util.concurrent.ListenableFuture<org.eclipse.ecf.provider.etcd3.grpc.api.RangeResponse> range(
         org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest request) {
-      return futureUnaryCall(
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getRangeMethod(), getCallOptions()), request);
     }
 
@@ -517,7 +504,7 @@ public final class KVGrpc {
      */
     public com.google.common.util.concurrent.ListenableFuture<org.eclipse.ecf.provider.etcd3.grpc.api.PutResponse> put(
         org.eclipse.ecf.provider.etcd3.grpc.api.PutRequest request) {
-      return futureUnaryCall(
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getPutMethod(), getCallOptions()), request);
     }
 
@@ -530,7 +517,7 @@ public final class KVGrpc {
      */
     public com.google.common.util.concurrent.ListenableFuture<org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeResponse> deleteRange(
         org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeRequest request) {
-      return futureUnaryCall(
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getDeleteRangeMethod(), getCallOptions()), request);
     }
 
@@ -544,7 +531,7 @@ public final class KVGrpc {
      */
     public com.google.common.util.concurrent.ListenableFuture<org.eclipse.ecf.provider.etcd3.grpc.api.TxnResponse> txn(
         org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequest request) {
-      return futureUnaryCall(
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getTxnMethod(), getCallOptions()), request);
     }
 
@@ -557,7 +544,7 @@ public final class KVGrpc {
      */
     public com.google.common.util.concurrent.ListenableFuture<org.eclipse.ecf.provider.etcd3.grpc.api.CompactionResponse> compact(
         org.eclipse.ecf.provider.etcd3.grpc.api.CompactionRequest request) {
-      return futureUnaryCall(
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getCompactMethod(), getCallOptions()), request);
     }
   }

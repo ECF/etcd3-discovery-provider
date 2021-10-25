@@ -92,43 +92,50 @@ com.google.protobuf:protoc:exe:windows-x86_64:4.0.0-rc-2
 # protobuf java
 com.google.protobuf:protobuf-java:4.0.0-rc-2
 # grpc-java protoc plugin
-io.grpc:protoc-gen-grpc-java:exe:windows-x86_64:1.36.1
-io.grpc:protoc-gen-grpc-java:exe:osx-x86_64:1.36.1
-io.grpc:protoc-gen-grpc-java:exe:linux-x86_64:1.36.1
+io.grpc:protoc-gen-grpc-java:exe:windows-x86_64:1.39.0
+io.grpc:protoc-gen-grpc-java:exe:osx-x86_64:1.39.0
+io.grpc:protoc-gen-grpc-java:exe:linux-x86_64:1.39.0
 # grpc-java jar libs
-io.grpc:grpc-api:1.36.1
-io.grpc:grpc-core:1.36.1
-io.grpc:grpc-stub:1.36.1
-io.grpc:grpc-context:1.36.1
-io.grpc:grpc-protobuf:1.36.1
-io.grpc:grpc-services:1.36.1
-io.grpc:grpc-netty:1.36.1
+io.grpc:grpc-api:1.39.0
+io.grpc:grpc-core:1.39.0
+io.grpc:grpc-stub:1.39.0
+io.grpc:grpc-context:1.39.0
+io.grpc:grpc-protobuf:1.39.0
+io.grpc:grpc-services:1.39.0
+io.grpc:grpc-netty:1.39.0
 # saleforce/rxgrpc protoc plugin and reactivex
-com.salesforce.servicelibs:rxgrpc:exe:windows-x86_64:1.0.1
-com.salesforce.servicelibs:rxgrpc:exe:osx-x86_64:1.0.1
-com.salesforce.servicelibs:rxgrpc:exe:linux-x86_64:1.0.1
-com.salesforce.servicelibs:rxgrpc-stub:1.0.1
-com.salesforce.servicelibs:reactive-grpc-common:1.0.1
+com.salesforce.servicelibs:rxgrpc:exe:windows-x86_64:1.2.3
+com.salesforce.servicelibs:rxgrpc:exe:osx-x86_64:1.2.3
+com.salesforce.servicelibs:rxgrpc:exe:linux-x86_64:1.2.3
+com.salesforce.servicelibs:rxgrpc-stub:1.2.3
+com.salesforce.servicelibs:rx3grpc-stub:1.2.3
+com.salesforce.servicelibs:reactive-grpc-common:1.2.3
 # rxjava2 jar api
 io.reactivex.rxjava2:rxjava:2.2.19
+# rxjava2 jar api
+io.reactivex.rxjava3:rxjava:3.1.1
+# gson
+com.google.code.gson:gson:2.8.6
+# failureaccess
+com.google.guava:failureaccess:1.0.1
 # guava android
-com.google.guava:guava:26.0-android
+com.google.guava:guava:30.1-android
 # grpc-ogsi-generator protoc plugin
-org.eclipse.ecf:grpc-osgi-generator:exe:windows-x86_64:1.5.9
-org.eclipse.ecf:grpc-osgi-generator:exe:osx-x86_64:1.5.9
-org.eclipse.ecf:grpc-osgi-generator:exe:linux-x86_64:1.5.9
+org.eclipse.ecf:grpc-osgi-generator:exe:windows-x86_64:1.5.4
+org.eclipse.ecf:grpc-osgi-generator:exe:osx-x86_64:1.5.4
+org.eclipse.ecf:grpc-osgi-generator:exe:linux-x86_64:1.5.4
 # netty
 
-io.netty:netty-buffer:4.1.52.Final
-io.netty:netty-codec:4.1.52.Final
-io.netty:netty-codec-http:4.1.52.Final
-io.netty:netty-codec-http2:4.1.52.Final
-io.netty:netty-codec-socks:4.1.52.Final
-io.netty:netty-common:4.1.52.Final
-io.netty:netty-handler:4.1.52.Final
-io.netty:netty-handler-proxy:4.1.52.Final
-io.netty:netty-resolver:4.1.52.Final
-io.netty:netty-transport:4.1.52.Final
+io.netty:netty-buffer:4.1.68.Final
+io.netty:netty-codec:4.1.68.Final
+io.netty:netty-codec-http:4.1.68.Final
+io.netty:netty-codec-http2:4.1.68.Final
+io.netty:netty-codec-socks:4.1.68.Final
+io.netty:netty-common:4.1.68.Final
+io.netty:netty-handler:4.1.68.Final
+io.netty:netty-handler-proxy:4.1.68.Final
+io.netty:netty-resolver:4.1.68.Final
+io.netty:netty-transport:4.1.68.Final
 # reactive streams
 org.reactivestreams:reactive-streams:1.0.3
 # slf4j api and simple

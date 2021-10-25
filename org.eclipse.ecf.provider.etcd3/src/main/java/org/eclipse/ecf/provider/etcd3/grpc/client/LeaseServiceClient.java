@@ -17,19 +17,19 @@ import org.eclipse.ecf.provider.etcd3.grpc.api.LeaseRevokeResponse;
 import org.eclipse.ecf.provider.etcd3.grpc.api.LeaseService;
 import org.eclipse.ecf.provider.etcd3.grpc.api.LeaseTimeToLiveRequest;
 import org.eclipse.ecf.provider.etcd3.grpc.api.LeaseTimeToLiveResponse;
-import org.eclipse.ecf.provider.etcd3.grpc.api.RxLeaseGrpc;
-import org.eclipse.ecf.provider.etcd3.grpc.api.RxLeaseGrpc.RxLeaseStub;
+import org.eclipse.ecf.provider.etcd3.grpc.api.Rx3LeaseGrpc;
+import org.eclipse.ecf.provider.etcd3.grpc.api.Rx3LeaseGrpc.RxLeaseStub;
 
 import io.grpc.Channel;
-import io.reactivex.Flowable;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
 
 public class LeaseServiceClient implements LeaseService {
 
 	private RxLeaseStub stub;
 
 	public LeaseServiceClient(Channel channel) {
-		this.stub = RxLeaseGrpc.newRxStub(channel);
+		this.stub = Rx3LeaseGrpc.newRxStub(channel);
 	}
 
 	public Single<LeaseGrantResponse> leaseGrant(Single<LeaseGrantRequest> requests) {

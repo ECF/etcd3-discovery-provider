@@ -1,24 +1,11 @@
 package org.eclipse.ecf.provider.etcd3.grpc.api;
 
 import static io.grpc.MethodDescriptor.generateFullMethodName;
-import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncUnaryCall;
-import static io.grpc.stub.ClientCalls.blockingServerStreamingCall;
-import static io.grpc.stub.ClientCalls.blockingUnaryCall;
-import static io.grpc.stub.ClientCalls.futureUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncBidiStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
 
 /**
  */
 @javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.31.1)",
+    value = "by gRPC proto compiler (version 1.39.0)",
     comments = "Source: rpc.proto")
 public final class ClusterGrpc {
 
@@ -206,7 +193,7 @@ public final class ClusterGrpc {
      */
     public void memberAdd(org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getMemberAddMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getMemberAddMethod(), responseObserver);
     }
 
     /**
@@ -216,7 +203,7 @@ public final class ClusterGrpc {
      */
     public void memberRemove(org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getMemberRemoveMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getMemberRemoveMethod(), responseObserver);
     }
 
     /**
@@ -226,7 +213,7 @@ public final class ClusterGrpc {
      */
     public void memberUpdate(org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getMemberUpdateMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getMemberUpdateMethod(), responseObserver);
     }
 
     /**
@@ -236,35 +223,35 @@ public final class ClusterGrpc {
      */
     public void memberList(org.eclipse.ecf.provider.etcd3.grpc.api.MemberListRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.MemberListResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getMemberListMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getMemberListMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
             getMemberAddMethod(),
-            asyncUnaryCall(
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddRequest,
                 org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddResponse>(
                   this, METHODID_MEMBER_ADD)))
           .addMethod(
             getMemberRemoveMethod(),
-            asyncUnaryCall(
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveRequest,
                 org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveResponse>(
                   this, METHODID_MEMBER_REMOVE)))
           .addMethod(
             getMemberUpdateMethod(),
-            asyncUnaryCall(
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateRequest,
                 org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateResponse>(
                   this, METHODID_MEMBER_UPDATE)))
           .addMethod(
             getMemberListMethod(),
-            asyncUnaryCall(
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 org.eclipse.ecf.provider.etcd3.grpc.api.MemberListRequest,
                 org.eclipse.ecf.provider.etcd3.grpc.api.MemberListResponse>(
@@ -294,7 +281,7 @@ public final class ClusterGrpc {
      */
     public void memberAdd(org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddResponse> responseObserver) {
-      asyncUnaryCall(
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getMemberAddMethod(), getCallOptions()), request, responseObserver);
     }
 
@@ -305,7 +292,7 @@ public final class ClusterGrpc {
      */
     public void memberRemove(org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveResponse> responseObserver) {
-      asyncUnaryCall(
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getMemberRemoveMethod(), getCallOptions()), request, responseObserver);
     }
 
@@ -316,7 +303,7 @@ public final class ClusterGrpc {
      */
     public void memberUpdate(org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateResponse> responseObserver) {
-      asyncUnaryCall(
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getMemberUpdateMethod(), getCallOptions()), request, responseObserver);
     }
 
@@ -327,7 +314,7 @@ public final class ClusterGrpc {
      */
     public void memberList(org.eclipse.ecf.provider.etcd3.grpc.api.MemberListRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.MemberListResponse> responseObserver) {
-      asyncUnaryCall(
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getMemberListMethod(), getCallOptions()), request, responseObserver);
     }
   }
@@ -352,7 +339,7 @@ public final class ClusterGrpc {
      * </pre>
      */
     public org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddResponse memberAdd(org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddRequest request) {
-      return blockingUnaryCall(
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getMemberAddMethod(), getCallOptions(), request);
     }
 
@@ -362,7 +349,7 @@ public final class ClusterGrpc {
      * </pre>
      */
     public org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveResponse memberRemove(org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveRequest request) {
-      return blockingUnaryCall(
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getMemberRemoveMethod(), getCallOptions(), request);
     }
 
@@ -372,7 +359,7 @@ public final class ClusterGrpc {
      * </pre>
      */
     public org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateResponse memberUpdate(org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateRequest request) {
-      return blockingUnaryCall(
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getMemberUpdateMethod(), getCallOptions(), request);
     }
 
@@ -382,7 +369,7 @@ public final class ClusterGrpc {
      * </pre>
      */
     public org.eclipse.ecf.provider.etcd3.grpc.api.MemberListResponse memberList(org.eclipse.ecf.provider.etcd3.grpc.api.MemberListRequest request) {
-      return blockingUnaryCall(
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getMemberListMethod(), getCallOptions(), request);
     }
   }
@@ -408,7 +395,7 @@ public final class ClusterGrpc {
      */
     public com.google.common.util.concurrent.ListenableFuture<org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddResponse> memberAdd(
         org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddRequest request) {
-      return futureUnaryCall(
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getMemberAddMethod(), getCallOptions()), request);
     }
 
@@ -419,7 +406,7 @@ public final class ClusterGrpc {
      */
     public com.google.common.util.concurrent.ListenableFuture<org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveResponse> memberRemove(
         org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveRequest request) {
-      return futureUnaryCall(
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getMemberRemoveMethod(), getCallOptions()), request);
     }
 
@@ -430,7 +417,7 @@ public final class ClusterGrpc {
      */
     public com.google.common.util.concurrent.ListenableFuture<org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateResponse> memberUpdate(
         org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateRequest request) {
-      return futureUnaryCall(
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getMemberUpdateMethod(), getCallOptions()), request);
     }
 
@@ -441,7 +428,7 @@ public final class ClusterGrpc {
      */
     public com.google.common.util.concurrent.ListenableFuture<org.eclipse.ecf.provider.etcd3.grpc.api.MemberListResponse> memberList(
         org.eclipse.ecf.provider.etcd3.grpc.api.MemberListRequest request) {
-      return futureUnaryCall(
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getMemberListMethod(), getCallOptions()), request);
     }
   }

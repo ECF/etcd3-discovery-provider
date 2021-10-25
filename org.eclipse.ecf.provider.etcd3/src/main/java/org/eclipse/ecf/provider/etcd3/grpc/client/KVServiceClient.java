@@ -17,20 +17,20 @@ import org.eclipse.ecf.provider.etcd3.grpc.api.PutRequest;
 import org.eclipse.ecf.provider.etcd3.grpc.api.PutResponse;
 import org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest;
 import org.eclipse.ecf.provider.etcd3.grpc.api.RangeResponse;
-import org.eclipse.ecf.provider.etcd3.grpc.api.RxKVGrpc;
-import org.eclipse.ecf.provider.etcd3.grpc.api.RxKVGrpc.RxKVStub;
+import org.eclipse.ecf.provider.etcd3.grpc.api.Rx3KVGrpc;
+import org.eclipse.ecf.provider.etcd3.grpc.api.Rx3KVGrpc.RxKVStub;
 import org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequest;
 import org.eclipse.ecf.provider.etcd3.grpc.api.TxnResponse;
 
 import io.grpc.Channel;
-import io.reactivex.Single;
+import io.reactivex.rxjava3.core.Single;
 
 public class KVServiceClient implements KVService {
 
 	private RxKVStub stub;
 
 	public KVServiceClient(Channel channel) {
-		this.stub = RxKVGrpc.newRxStub(channel);
+		this.stub = Rx3KVGrpc.newRxStub(channel);
 	}
 
 	public Single<RangeResponse> range(Single<RangeRequest> rxRequest) {

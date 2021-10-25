@@ -1,24 +1,11 @@
 package org.eclipse.ecf.provider.etcd3.grpc.api;
 
 import static io.grpc.MethodDescriptor.generateFullMethodName;
-import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncUnaryCall;
-import static io.grpc.stub.ClientCalls.blockingServerStreamingCall;
-import static io.grpc.stub.ClientCalls.blockingUnaryCall;
-import static io.grpc.stub.ClientCalls.futureUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncBidiStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
 
 /**
  */
 @javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.31.1)",
+    value = "by gRPC proto compiler (version 1.39.0)",
     comments = "Source: rpc.proto")
 public final class LeaseGrpc {
 
@@ -208,7 +195,7 @@ public final class LeaseGrpc {
      */
     public void leaseGrant(org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getLeaseGrantMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getLeaseGrantMethod(), responseObserver);
     }
 
     /**
@@ -218,7 +205,7 @@ public final class LeaseGrpc {
      */
     public void leaseRevoke(org.eclipse.ecf.provider.etcd3.grpc.api.LeaseRevokeRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseRevokeResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getLeaseRevokeMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getLeaseRevokeMethod(), responseObserver);
     }
 
     /**
@@ -229,7 +216,7 @@ public final class LeaseGrpc {
      */
     public io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseKeepAliveRequest> leaseKeepAlive(
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseKeepAliveResponse> responseObserver) {
-      return asyncUnimplementedStreamingCall(getLeaseKeepAliveMethod(), responseObserver);
+      return io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall(getLeaseKeepAliveMethod(), responseObserver);
     }
 
     /**
@@ -239,35 +226,35 @@ public final class LeaseGrpc {
      */
     public void leaseTimeToLive(org.eclipse.ecf.provider.etcd3.grpc.api.LeaseTimeToLiveRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseTimeToLiveResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getLeaseTimeToLiveMethod(), responseObserver);
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getLeaseTimeToLiveMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
             getLeaseGrantMethod(),
-            asyncUnaryCall(
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantRequest,
                 org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantResponse>(
                   this, METHODID_LEASE_GRANT)))
           .addMethod(
             getLeaseRevokeMethod(),
-            asyncUnaryCall(
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 org.eclipse.ecf.provider.etcd3.grpc.api.LeaseRevokeRequest,
                 org.eclipse.ecf.provider.etcd3.grpc.api.LeaseRevokeResponse>(
                   this, METHODID_LEASE_REVOKE)))
           .addMethod(
             getLeaseKeepAliveMethod(),
-            asyncBidiStreamingCall(
+            io.grpc.stub.ServerCalls.asyncBidiStreamingCall(
               new MethodHandlers<
                 org.eclipse.ecf.provider.etcd3.grpc.api.LeaseKeepAliveRequest,
                 org.eclipse.ecf.provider.etcd3.grpc.api.LeaseKeepAliveResponse>(
                   this, METHODID_LEASE_KEEP_ALIVE)))
           .addMethod(
             getLeaseTimeToLiveMethod(),
-            asyncUnaryCall(
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 org.eclipse.ecf.provider.etcd3.grpc.api.LeaseTimeToLiveRequest,
                 org.eclipse.ecf.provider.etcd3.grpc.api.LeaseTimeToLiveResponse>(
@@ -299,7 +286,7 @@ public final class LeaseGrpc {
      */
     public void leaseGrant(org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantResponse> responseObserver) {
-      asyncUnaryCall(
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getLeaseGrantMethod(), getCallOptions()), request, responseObserver);
     }
 
@@ -310,7 +297,7 @@ public final class LeaseGrpc {
      */
     public void leaseRevoke(org.eclipse.ecf.provider.etcd3.grpc.api.LeaseRevokeRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseRevokeResponse> responseObserver) {
-      asyncUnaryCall(
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getLeaseRevokeMethod(), getCallOptions()), request, responseObserver);
     }
 
@@ -322,7 +309,7 @@ public final class LeaseGrpc {
      */
     public io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseKeepAliveRequest> leaseKeepAlive(
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseKeepAliveResponse> responseObserver) {
-      return asyncBidiStreamingCall(
+      return io.grpc.stub.ClientCalls.asyncBidiStreamingCall(
           getChannel().newCall(getLeaseKeepAliveMethod(), getCallOptions()), responseObserver);
     }
 
@@ -333,7 +320,7 @@ public final class LeaseGrpc {
      */
     public void leaseTimeToLive(org.eclipse.ecf.provider.etcd3.grpc.api.LeaseTimeToLiveRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseTimeToLiveResponse> responseObserver) {
-      asyncUnaryCall(
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getLeaseTimeToLiveMethod(), getCallOptions()), request, responseObserver);
     }
   }
@@ -360,7 +347,7 @@ public final class LeaseGrpc {
      * </pre>
      */
     public org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantResponse leaseGrant(org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantRequest request) {
-      return blockingUnaryCall(
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getLeaseGrantMethod(), getCallOptions(), request);
     }
 
@@ -370,7 +357,7 @@ public final class LeaseGrpc {
      * </pre>
      */
     public org.eclipse.ecf.provider.etcd3.grpc.api.LeaseRevokeResponse leaseRevoke(org.eclipse.ecf.provider.etcd3.grpc.api.LeaseRevokeRequest request) {
-      return blockingUnaryCall(
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getLeaseRevokeMethod(), getCallOptions(), request);
     }
 
@@ -380,7 +367,7 @@ public final class LeaseGrpc {
      * </pre>
      */
     public org.eclipse.ecf.provider.etcd3.grpc.api.LeaseTimeToLiveResponse leaseTimeToLive(org.eclipse.ecf.provider.etcd3.grpc.api.LeaseTimeToLiveRequest request) {
-      return blockingUnaryCall(
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getLeaseTimeToLiveMethod(), getCallOptions(), request);
     }
   }
@@ -408,7 +395,7 @@ public final class LeaseGrpc {
      */
     public com.google.common.util.concurrent.ListenableFuture<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantResponse> leaseGrant(
         org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantRequest request) {
-      return futureUnaryCall(
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getLeaseGrantMethod(), getCallOptions()), request);
     }
 
@@ -419,7 +406,7 @@ public final class LeaseGrpc {
      */
     public com.google.common.util.concurrent.ListenableFuture<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseRevokeResponse> leaseRevoke(
         org.eclipse.ecf.provider.etcd3.grpc.api.LeaseRevokeRequest request) {
-      return futureUnaryCall(
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getLeaseRevokeMethod(), getCallOptions()), request);
     }
 
@@ -430,7 +417,7 @@ public final class LeaseGrpc {
      */
     public com.google.common.util.concurrent.ListenableFuture<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseTimeToLiveResponse> leaseTimeToLive(
         org.eclipse.ecf.provider.etcd3.grpc.api.LeaseTimeToLiveRequest request) {
-      return futureUnaryCall(
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getLeaseTimeToLiveMethod(), getCallOptions()), request);
     }
   }
