@@ -3,7 +3,7 @@ sudo: false
 language: java
 
 jdk:
-  - oraclejdk11
+  - oraclejdk17
 
 install: ./gradlew --version
 
