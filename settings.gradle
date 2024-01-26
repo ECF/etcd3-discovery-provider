@@ -6,7 +6,7 @@ buildscript {
 		mavenCentral()
 	}
 	dependencies { 
-		classpath "biz.aQute.bnd:biz.aQute.bnd.gradle:${bnd_version}";"org.eclipse.ecf:org.eclipse.ecf.bndtools.grpc:1.1.0:jar"
+		classpath "biz.aQute.bnd:biz.aQute.bnd.gradle:${bnd_version}";"org.eclipse.ecf:org.eclipse.ecf.bndtools.grpc:1.2.0:jar"
 	}
 	/* Add bnd gradle plugin to buildscript classpath of rootProject */
 	def bndPlugin = files(configurations.classpath.files)
