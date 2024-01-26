@@ -272,6 +272,15 @@ public final class Rx3MaintenanceGrpc {
          *  Range gets the keys in the range from the key-value store.
          * </pre>
          */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AlarmResponse> alarm(org.eclipse.ecf.provider.etcd3.grpc.api.AlarmRequest request) {
+            return alarm(io.reactivex.rxjava3.core.Single.just(request));
+        }
+
+        /**
+         * <pre>
+         *  Range gets the keys in the range from the key-value store.
+         * </pre>
+         */
         public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AlarmResponse> alarm(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AlarmRequest> request) {
             throw new io.grpc.StatusRuntimeException(io.grpc.Status.UNIMPLEMENTED);
         }
@@ -283,8 +292,30 @@ public final class Rx3MaintenanceGrpc {
          *  and generates one event in the event history.
          * </pre>
          */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.StatusResponse> status(org.eclipse.ecf.provider.etcd3.grpc.api.StatusRequest request) {
+            return status(io.reactivex.rxjava3.core.Single.just(request));
+        }
+
+        /**
+         * <pre>
+         *  Put puts the given key into the key-value store.
+         *  A put request increments the revision of the key-value store
+         *  and generates one event in the event history.
+         * </pre>
+         */
         public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.StatusResponse> status(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.StatusRequest> request) {
             throw new io.grpc.StatusRuntimeException(io.grpc.Status.UNIMPLEMENTED);
+        }
+
+        /**
+         * <pre>
+         *  DeleteRange deletes the given range from the key-value store.
+         *  A delete request increments the revision of the key-value store
+         *  and generates a delete event in the event history for every deleted key.
+         * </pre>
+         */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.DefragmentResponse> defragment(org.eclipse.ecf.provider.etcd3.grpc.api.DefragmentRequest request) {
+            return defragment(io.reactivex.rxjava3.core.Single.just(request));
         }
 
         /**
@@ -306,8 +337,31 @@ public final class Rx3MaintenanceGrpc {
          *  It is not allowed to modify the same key several times within one txn.
          * </pre>
          */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.HashResponse> hash(org.eclipse.ecf.provider.etcd3.grpc.api.HashRequest request) {
+            return hash(io.reactivex.rxjava3.core.Single.just(request));
+        }
+
+        /**
+         * <pre>
+         *  Txn processes multiple requests in a single transaction.
+         *  A txn request increments the revision of the key-value store
+         *  and generates events with the same revision for every completed request.
+         *  It is not allowed to modify the same key several times within one txn.
+         * </pre>
+         */
         public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.HashResponse> hash(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.HashRequest> request) {
             throw new io.grpc.StatusRuntimeException(io.grpc.Status.UNIMPLEMENTED);
+        }
+
+        /**
+         * <pre>
+         *  Compact compacts the event history in the etcd key-value store. The key-value
+         *  store should be periodically compacted or the event history will continue to grow
+         *  indefinitely.
+         * </pre>
+         */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.HashKVResponse> hashKV(org.eclipse.ecf.provider.etcd3.grpc.api.HashKVRequest request) {
+            return hashKV(io.reactivex.rxjava3.core.Single.just(request));
         }
 
         /**
@@ -326,8 +380,26 @@ public final class Rx3MaintenanceGrpc {
          *  Snapshot sends a snapshot of the entire backend from a member over a stream to a client.
          * </pre>
          */
+        public io.reactivex.rxjava3.core.Flowable<org.eclipse.ecf.provider.etcd3.grpc.api.SnapshotResponse> snapshot(org.eclipse.ecf.provider.etcd3.grpc.api.SnapshotRequest request) {
+            return snapshot(io.reactivex.rxjava3.core.Single.just(request));
+        }
+
+        /**
+         * <pre>
+         *  Snapshot sends a snapshot of the entire backend from a member over a stream to a client.
+         * </pre>
+         */
         public io.reactivex.rxjava3.core.Flowable<org.eclipse.ecf.provider.etcd3.grpc.api.SnapshotResponse> snapshot(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.SnapshotRequest> request) {
             throw new io.grpc.StatusRuntimeException(io.grpc.Status.UNIMPLEMENTED);
+        }
+
+        /**
+         * <pre>
+         *  MoveLeader requests current leader node to transfer its leadership to transferee.
+         * </pre>
+         */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MoveLeaderResponse> moveLeader(org.eclipse.ecf.provider.etcd3.grpc.api.MoveLeaderRequest request) {
+            return moveLeader(io.reactivex.rxjava3.core.Single.just(request));
         }
 
         /**
@@ -397,6 +469,10 @@ public final class Rx3MaintenanceGrpc {
             return null;
         }
 
+        protected Throwable onErrorMap(Throwable throwable) {
+            return com.salesforce.rx3grpc.stub.ServerCalls.prepareError(throwable);
+        }
+
     }
 
     public static final int METHODID_ALARM = 0;
@@ -427,72 +503,72 @@ public final class Rx3MaintenanceGrpc {
                 case METHODID_ALARM:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.AlarmRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AlarmResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AlarmRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AlarmResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.AlarmRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AlarmResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AlarmResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AlarmRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AlarmResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.AlarmRequest single) {
                                     return serviceImpl.alarm(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_STATUS:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.StatusRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.StatusResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.StatusRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.StatusResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.StatusRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.StatusResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.StatusResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.StatusRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.StatusResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.StatusRequest single) {
                                     return serviceImpl.status(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_DEFRAGMENT:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.DefragmentRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.DefragmentResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.DefragmentRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.DefragmentResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.DefragmentRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.DefragmentResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.DefragmentResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.DefragmentRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.DefragmentResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.DefragmentRequest single) {
                                     return serviceImpl.defragment(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_HASH:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.HashRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.HashResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.HashRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.HashResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.HashRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.HashResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.HashResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.HashRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.HashResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.HashRequest single) {
                                     return serviceImpl.hash(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_HASH_KV:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.HashKVRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.HashKVResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.HashKVRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.HashKVResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.HashKVRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.HashKVResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.HashKVResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.HashKVRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.HashKVResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.HashKVRequest single) {
                                     return serviceImpl.hashKV(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_SNAPSHOT:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToMany((org.eclipse.ecf.provider.etcd3.grpc.api.SnapshotRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.SnapshotResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.SnapshotRequest>, io.reactivex.rxjava3.core.Flowable<org.eclipse.ecf.provider.etcd3.grpc.api.SnapshotResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.SnapshotRequest, io.reactivex.rxjava3.core.Flowable<org.eclipse.ecf.provider.etcd3.grpc.api.SnapshotResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Flowable<org.eclipse.ecf.provider.etcd3.grpc.api.SnapshotResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.SnapshotRequest> single) {
+                                public io.reactivex.rxjava3.core.Flowable<org.eclipse.ecf.provider.etcd3.grpc.api.SnapshotResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.SnapshotRequest single) {
                                     return serviceImpl.snapshot(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_MOVE_LEADER:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.MoveLeaderRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.MoveLeaderResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MoveLeaderRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MoveLeaderResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.MoveLeaderRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MoveLeaderResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MoveLeaderResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MoveLeaderRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MoveLeaderResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.MoveLeaderRequest single) {
                                     return serviceImpl.moveLeader(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 default:
                     throw new java.lang.AssertionError();

@@ -61,10 +61,28 @@ public interface CompareOrBuilder extends
    * </pre>
    *
    * <code>int64 version = 4;</code>
+   * @return Whether the version field is set.
+   */
+  boolean hasVersion();
+  /**
+   * <pre>
+   * version is the version of the given key
+   * </pre>
+   *
+   * <code>int64 version = 4;</code>
    * @return The version.
    */
   long getVersion();
 
+  /**
+   * <pre>
+   * create_revision is the creation revision of the given key
+   * </pre>
+   *
+   * <code>int64 create_revision = 5;</code>
+   * @return Whether the createRevision field is set.
+   */
+  boolean hasCreateRevision();
   /**
    * <pre>
    * create_revision is the creation revision of the given key
@@ -81,10 +99,28 @@ public interface CompareOrBuilder extends
    * </pre>
    *
    * <code>int64 mod_revision = 6;</code>
+   * @return Whether the modRevision field is set.
+   */
+  boolean hasModRevision();
+  /**
+   * <pre>
+   * mod_revision is the last modified revision of the given key.
+   * </pre>
+   *
+   * <code>int64 mod_revision = 6;</code>
    * @return The modRevision.
    */
   long getModRevision();
 
+  /**
+   * <pre>
+   * value is the value of the given key, in bytes.
+   * </pre>
+   *
+   * <code>bytes value = 7;</code>
+   * @return Whether the value field is set.
+   */
+  boolean hasValue();
   /**
    * <pre>
    * value is the value of the given key, in bytes.
@@ -106,5 +142,5 @@ public interface CompareOrBuilder extends
    */
   com.google.protobuf.ByteString getRangeEnd();
 
-  public org.eclipse.ecf.provider.etcd3.grpc.api.Compare.TargetUnionCase getTargetUnionCase();
+  org.eclipse.ecf.provider.etcd3.grpc.api.Compare.TargetUnionCase getTargetUnionCase();
 }

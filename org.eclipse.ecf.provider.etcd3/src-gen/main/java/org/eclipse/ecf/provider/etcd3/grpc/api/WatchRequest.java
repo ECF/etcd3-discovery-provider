@@ -25,76 +25,6 @@ private static final long serialVersionUID = 0L;
     return new WatchRequest();
   }
 
-  @java.lang.Override
-  public final com.google.protobuf.UnknownFieldSet
-  getUnknownFields() {
-    return this.unknownFields;
-  }
-  private WatchRequest(
-      com.google.protobuf.CodedInputStream input,
-      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-      throws com.google.protobuf.InvalidProtocolBufferException {
-    this();
-    if (extensionRegistry == null) {
-      throw new java.lang.NullPointerException();
-    }
-    com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-        com.google.protobuf.UnknownFieldSet.newBuilder();
-    try {
-      boolean done = false;
-      while (!done) {
-        int tag = input.readTag();
-        switch (tag) {
-          case 0:
-            done = true;
-            break;
-          case 10: {
-            org.eclipse.ecf.provider.etcd3.grpc.api.WatchCreateRequest.Builder subBuilder = null;
-            if (requestUnionCase_ == 1) {
-              subBuilder = ((org.eclipse.ecf.provider.etcd3.grpc.api.WatchCreateRequest) requestUnion_).toBuilder();
-            }
-            requestUnion_ =
-                input.readMessage(org.eclipse.ecf.provider.etcd3.grpc.api.WatchCreateRequest.parser(), extensionRegistry);
-            if (subBuilder != null) {
-              subBuilder.mergeFrom((org.eclipse.ecf.provider.etcd3.grpc.api.WatchCreateRequest) requestUnion_);
-              requestUnion_ = subBuilder.buildPartial();
-            }
-            requestUnionCase_ = 1;
-            break;
-          }
-          case 18: {
-            org.eclipse.ecf.provider.etcd3.grpc.api.WatchCancelRequest.Builder subBuilder = null;
-            if (requestUnionCase_ == 2) {
-              subBuilder = ((org.eclipse.ecf.provider.etcd3.grpc.api.WatchCancelRequest) requestUnion_).toBuilder();
-            }
-            requestUnion_ =
-                input.readMessage(org.eclipse.ecf.provider.etcd3.grpc.api.WatchCancelRequest.parser(), extensionRegistry);
-            if (subBuilder != null) {
-              subBuilder.mergeFrom((org.eclipse.ecf.provider.etcd3.grpc.api.WatchCancelRequest) requestUnion_);
-              requestUnion_ = subBuilder.buildPartial();
-            }
-            requestUnionCase_ = 2;
-            break;
-          }
-          default: {
-            if (!parseUnknownField(
-                input, unknownFields, extensionRegistry, tag)) {
-              done = true;
-            }
-            break;
-          }
-        }
-      }
-    } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-      throw e.setUnfinishedMessage(this);
-    } catch (java.io.IOException e) {
-      throw new com.google.protobuf.InvalidProtocolBufferException(
-          e).setUnfinishedMessage(this);
-    } finally {
-      this.unknownFields = unknownFields.build();
-      makeExtensionsImmutable();
-    }
-  }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
     return org.eclipse.ecf.provider.etcd3.grpc.api.ECFEtcdProto.internal_static_etcdserverpb_WatchRequest_descriptor;
@@ -109,6 +39,7 @@ private static final long serialVersionUID = 0L;
   }
 
   private int requestUnionCase_ = 0;
+  @SuppressWarnings("serial")
   private java.lang.Object requestUnion_;
   public enum RequestUnionCase
       implements com.google.protobuf.Internal.EnumLite,
@@ -231,7 +162,7 @@ private static final long serialVersionUID = 0L;
     if (requestUnionCase_ == 2) {
       output.writeMessage(2, (org.eclipse.ecf.provider.etcd3.grpc.api.WatchCancelRequest) requestUnion_);
     }
-    unknownFields.writeTo(output);
+    getUnknownFields().writeTo(output);
   }
 
   @java.lang.Override
@@ -248,7 +179,7 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(2, (org.eclipse.ecf.provider.etcd3.grpc.api.WatchCancelRequest) requestUnion_);
     }
-    size += unknownFields.getSerializedSize();
+    size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
   }
@@ -276,7 +207,7 @@ private static final long serialVersionUID = 0L;
       case 0:
       default:
     }
-    if (!unknownFields.equals(other.unknownFields)) return false;
+    if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
 
@@ -299,7 +230,7 @@ private static final long serialVersionUID = 0L;
       case 0:
       default:
     }
-    hash = (29 * hash) + unknownFields.hashCode();
+    hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
   }
@@ -416,22 +347,24 @@ private static final long serialVersionUID = 0L;
 
     // Construct using org.eclipse.ecf.provider.etcd3.grpc.api.WatchRequest.newBuilder()
     private Builder() {
-      maybeForceBuilderInitialization();
+
     }
 
     private Builder(
         com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       super(parent);
-      maybeForceBuilderInitialization();
-    }
-    private void maybeForceBuilderInitialization() {
-      if (com.google.protobuf.GeneratedMessageV3
-              .alwaysUseFieldBuilders) {
-      }
+
     }
     @java.lang.Override
     public Builder clear() {
       super.clear();
+      bitField0_ = 0;
+      if (createRequestBuilder_ != null) {
+        createRequestBuilder_.clear();
+      }
+      if (cancelRequestBuilder_ != null) {
+        cancelRequestBuilder_.clear();
+      }
       requestUnionCase_ = 0;
       requestUnion_ = null;
       return this;
@@ -460,57 +393,29 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public org.eclipse.ecf.provider.etcd3.grpc.api.WatchRequest buildPartial() {
       org.eclipse.ecf.provider.etcd3.grpc.api.WatchRequest result = new org.eclipse.ecf.provider.etcd3.grpc.api.WatchRequest(this);
-      if (requestUnionCase_ == 1) {
-        if (createRequestBuilder_ == null) {
-          result.requestUnion_ = requestUnion_;
-        } else {
-          result.requestUnion_ = createRequestBuilder_.build();
-        }
-      }
-      if (requestUnionCase_ == 2) {
-        if (cancelRequestBuilder_ == null) {
-          result.requestUnion_ = requestUnion_;
-        } else {
-          result.requestUnion_ = cancelRequestBuilder_.build();
-        }
-      }
-      result.requestUnionCase_ = requestUnionCase_;
+      if (bitField0_ != 0) { buildPartial0(result); }
+      buildPartialOneofs(result);
       onBuilt();
       return result;
     }
 
-    @java.lang.Override
-    public Builder clone() {
-      return super.clone();
+    private void buildPartial0(org.eclipse.ecf.provider.etcd3.grpc.api.WatchRequest result) {
+      int from_bitField0_ = bitField0_;
     }
-    @java.lang.Override
-    public Builder setField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
-      return super.setField(field, value);
+
+    private void buildPartialOneofs(org.eclipse.ecf.provider.etcd3.grpc.api.WatchRequest result) {
+      result.requestUnionCase_ = requestUnionCase_;
+      result.requestUnion_ = this.requestUnion_;
+      if (requestUnionCase_ == 1 &&
+          createRequestBuilder_ != null) {
+        result.requestUnion_ = createRequestBuilder_.build();
+      }
+      if (requestUnionCase_ == 2 &&
+          cancelRequestBuilder_ != null) {
+        result.requestUnion_ = cancelRequestBuilder_.build();
+      }
     }
-    @java.lang.Override
-    public Builder clearField(
-        com.google.protobuf.Descriptors.FieldDescriptor field) {
-      return super.clearField(field);
-    }
-    @java.lang.Override
-    public Builder clearOneof(
-        com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-      return super.clearOneof(oneof);
-    }
-    @java.lang.Override
-    public Builder setRepeatedField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, java.lang.Object value) {
-      return super.setRepeatedField(field, index, value);
-    }
-    @java.lang.Override
-    public Builder addRepeatedField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
-      return super.addRepeatedField(field, value);
-    }
+
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
       if (other instanceof org.eclipse.ecf.provider.etcd3.grpc.api.WatchRequest) {
@@ -536,7 +441,7 @@ private static final long serialVersionUID = 0L;
           break;
         }
       }
-      this.mergeUnknownFields(other.unknownFields);
+      this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
       return this;
     }
@@ -551,17 +456,44 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      org.eclipse.ecf.provider.etcd3.grpc.api.WatchRequest parsedMessage = null;
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       try {
-        parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              input.readMessage(
+                  getCreateRequestFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              requestUnionCase_ = 1;
+              break;
+            } // case 10
+            case 18: {
+              input.readMessage(
+                  getCancelRequestFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              requestUnionCase_ = 2;
+              break;
+            } // case 18
+            default: {
+              if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                done = true; // was an endgroup tag
+              }
+              break;
+            } // default:
+          } // switch (tag)
+        } // while (!done)
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (org.eclipse.ecf.provider.etcd3.grpc.api.WatchRequest) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
-        if (parsedMessage != null) {
-          mergeFrom(parsedMessage);
-        }
-      }
+        onChanged();
+      } // finally
       return this;
     }
     private int requestUnionCase_ = 0;
@@ -579,6 +511,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
+    private int bitField0_;
 
     private com.google.protobuf.SingleFieldBuilderV3<
         org.eclipse.ecf.provider.etcd3.grpc.api.WatchCreateRequest, org.eclipse.ecf.provider.etcd3.grpc.api.WatchCreateRequest.Builder, org.eclipse.ecf.provider.etcd3.grpc.api.WatchCreateRequestOrBuilder> createRequestBuilder_;
@@ -654,8 +587,9 @@ private static final long serialVersionUID = 0L;
       } else {
         if (requestUnionCase_ == 1) {
           createRequestBuilder_.mergeFrom(value);
+        } else {
+          createRequestBuilder_.setMessage(value);
         }
-        createRequestBuilder_.setMessage(value);
       }
       requestUnionCase_ = 1;
       return this;
@@ -717,7 +651,7 @@ private static final long serialVersionUID = 0L;
         requestUnion_ = null;
       }
       requestUnionCase_ = 1;
-      onChanged();;
+      onChanged();
       return createRequestBuilder_;
     }
 
@@ -795,8 +729,9 @@ private static final long serialVersionUID = 0L;
       } else {
         if (requestUnionCase_ == 2) {
           cancelRequestBuilder_.mergeFrom(value);
+        } else {
+          cancelRequestBuilder_.setMessage(value);
         }
-        cancelRequestBuilder_.setMessage(value);
       }
       requestUnionCase_ = 2;
       return this;
@@ -858,7 +793,7 @@ private static final long serialVersionUID = 0L;
         requestUnion_ = null;
       }
       requestUnionCase_ = 2;
-      onChanged();;
+      onChanged();
       return cancelRequestBuilder_;
     }
     @java.lang.Override
@@ -894,7 +829,18 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new WatchRequest(input, extensionRegistry);
+      Builder builder = newBuilder();
+      try {
+        builder.mergeFrom(input, extensionRegistry);
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(builder.buildPartial());
+      } catch (com.google.protobuf.UninitializedMessageException e) {
+        throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(e)
+            .setUnfinishedMessage(builder.buildPartial());
+      }
+      return builder.buildPartial();
     }
   };
 

@@ -27,78 +27,6 @@ private static final long serialVersionUID = 0L;
     return new PutRequest();
   }
 
-  @java.lang.Override
-  public final com.google.protobuf.UnknownFieldSet
-  getUnknownFields() {
-    return this.unknownFields;
-  }
-  private PutRequest(
-      com.google.protobuf.CodedInputStream input,
-      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-      throws com.google.protobuf.InvalidProtocolBufferException {
-    this();
-    if (extensionRegistry == null) {
-      throw new java.lang.NullPointerException();
-    }
-    com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-        com.google.protobuf.UnknownFieldSet.newBuilder();
-    try {
-      boolean done = false;
-      while (!done) {
-        int tag = input.readTag();
-        switch (tag) {
-          case 0:
-            done = true;
-            break;
-          case 10: {
-
-            key_ = input.readBytes();
-            break;
-          }
-          case 18: {
-
-            value_ = input.readBytes();
-            break;
-          }
-          case 24: {
-
-            lease_ = input.readInt64();
-            break;
-          }
-          case 32: {
-
-            prevKv_ = input.readBool();
-            break;
-          }
-          case 40: {
-
-            ignoreValue_ = input.readBool();
-            break;
-          }
-          case 48: {
-
-            ignoreLease_ = input.readBool();
-            break;
-          }
-          default: {
-            if (!parseUnknownField(
-                input, unknownFields, extensionRegistry, tag)) {
-              done = true;
-            }
-            break;
-          }
-        }
-      }
-    } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-      throw e.setUnfinishedMessage(this);
-    } catch (java.io.IOException e) {
-      throw new com.google.protobuf.InvalidProtocolBufferException(
-          e).setUnfinishedMessage(this);
-    } finally {
-      this.unknownFields = unknownFields.build();
-      makeExtensionsImmutable();
-    }
-  }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
     return org.eclipse.ecf.provider.etcd3.grpc.api.ECFEtcdProto.internal_static_etcdserverpb_PutRequest_descriptor;
@@ -113,7 +41,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int KEY_FIELD_NUMBER = 1;
-  private com.google.protobuf.ByteString key_;
+  private com.google.protobuf.ByteString key_ = com.google.protobuf.ByteString.EMPTY;
   /**
    * <pre>
    * key is the key, in bytes, to put into the key-value store.
@@ -128,7 +56,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int VALUE_FIELD_NUMBER = 2;
-  private com.google.protobuf.ByteString value_;
+  private com.google.protobuf.ByteString value_ = com.google.protobuf.ByteString.EMPTY;
   /**
    * <pre>
    * value is the value, in bytes, to associate with the key in the key-value store.
@@ -143,7 +71,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int LEASE_FIELD_NUMBER = 3;
-  private long lease_;
+  private long lease_ = 0L;
   /**
    * <pre>
    * lease is the lease ID to associate with the key in the key-value store. A lease
@@ -159,7 +87,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int PREV_KV_FIELD_NUMBER = 4;
-  private boolean prevKv_;
+  private boolean prevKv_ = false;
   /**
    * <pre>
    * If prev_kv is set, etcd gets the previous key-value pair before changing it.
@@ -175,7 +103,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int IGNORE_VALUE_FIELD_NUMBER = 5;
-  private boolean ignoreValue_;
+  private boolean ignoreValue_ = false;
   /**
    * <pre>
    * If ignore_value is set, etcd updates the key using its current value.
@@ -191,7 +119,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int IGNORE_LEASE_FIELD_NUMBER = 6;
-  private boolean ignoreLease_;
+  private boolean ignoreLease_ = false;
   /**
    * <pre>
    * If ignore_lease is set, etcd updates the key using its current lease.
@@ -238,7 +166,7 @@ private static final long serialVersionUID = 0L;
     if (ignoreLease_ != false) {
       output.writeBool(6, ignoreLease_);
     }
-    unknownFields.writeTo(output);
+    getUnknownFields().writeTo(output);
   }
 
   @java.lang.Override
@@ -271,7 +199,7 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeBoolSize(6, ignoreLease_);
     }
-    size += unknownFields.getSerializedSize();
+    size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
   }
@@ -298,7 +226,7 @@ private static final long serialVersionUID = 0L;
         != other.getIgnoreValue()) return false;
     if (getIgnoreLease()
         != other.getIgnoreLease()) return false;
-    if (!unknownFields.equals(other.unknownFields)) return false;
+    if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
 
@@ -325,7 +253,7 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + IGNORE_LEASE_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
         getIgnoreLease());
-    hash = (29 * hash) + unknownFields.hashCode();
+    hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
   }
@@ -442,34 +370,24 @@ private static final long serialVersionUID = 0L;
 
     // Construct using org.eclipse.ecf.provider.etcd3.grpc.api.PutRequest.newBuilder()
     private Builder() {
-      maybeForceBuilderInitialization();
+
     }
 
     private Builder(
         com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       super(parent);
-      maybeForceBuilderInitialization();
-    }
-    private void maybeForceBuilderInitialization() {
-      if (com.google.protobuf.GeneratedMessageV3
-              .alwaysUseFieldBuilders) {
-      }
+
     }
     @java.lang.Override
     public Builder clear() {
       super.clear();
+      bitField0_ = 0;
       key_ = com.google.protobuf.ByteString.EMPTY;
-
       value_ = com.google.protobuf.ByteString.EMPTY;
-
       lease_ = 0L;
-
       prevKv_ = false;
-
       ignoreValue_ = false;
-
       ignoreLease_ = false;
-
       return this;
     }
 
@@ -496,48 +414,33 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public org.eclipse.ecf.provider.etcd3.grpc.api.PutRequest buildPartial() {
       org.eclipse.ecf.provider.etcd3.grpc.api.PutRequest result = new org.eclipse.ecf.provider.etcd3.grpc.api.PutRequest(this);
-      result.key_ = key_;
-      result.value_ = value_;
-      result.lease_ = lease_;
-      result.prevKv_ = prevKv_;
-      result.ignoreValue_ = ignoreValue_;
-      result.ignoreLease_ = ignoreLease_;
+      if (bitField0_ != 0) { buildPartial0(result); }
       onBuilt();
       return result;
     }
 
-    @java.lang.Override
-    public Builder clone() {
-      return super.clone();
+    private void buildPartial0(org.eclipse.ecf.provider.etcd3.grpc.api.PutRequest result) {
+      int from_bitField0_ = bitField0_;
+      if (((from_bitField0_ & 0x00000001) != 0)) {
+        result.key_ = key_;
+      }
+      if (((from_bitField0_ & 0x00000002) != 0)) {
+        result.value_ = value_;
+      }
+      if (((from_bitField0_ & 0x00000004) != 0)) {
+        result.lease_ = lease_;
+      }
+      if (((from_bitField0_ & 0x00000008) != 0)) {
+        result.prevKv_ = prevKv_;
+      }
+      if (((from_bitField0_ & 0x00000010) != 0)) {
+        result.ignoreValue_ = ignoreValue_;
+      }
+      if (((from_bitField0_ & 0x00000020) != 0)) {
+        result.ignoreLease_ = ignoreLease_;
+      }
     }
-    @java.lang.Override
-    public Builder setField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
-      return super.setField(field, value);
-    }
-    @java.lang.Override
-    public Builder clearField(
-        com.google.protobuf.Descriptors.FieldDescriptor field) {
-      return super.clearField(field);
-    }
-    @java.lang.Override
-    public Builder clearOneof(
-        com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-      return super.clearOneof(oneof);
-    }
-    @java.lang.Override
-    public Builder setRepeatedField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, java.lang.Object value) {
-      return super.setRepeatedField(field, index, value);
-    }
-    @java.lang.Override
-    public Builder addRepeatedField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
-      return super.addRepeatedField(field, value);
-    }
+
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
       if (other instanceof org.eclipse.ecf.provider.etcd3.grpc.api.PutRequest) {
@@ -568,7 +471,7 @@ private static final long serialVersionUID = 0L;
       if (other.getIgnoreLease() != false) {
         setIgnoreLease(other.getIgnoreLease());
       }
-      this.mergeUnknownFields(other.unknownFields);
+      this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
       return this;
     }
@@ -583,19 +486,63 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      org.eclipse.ecf.provider.etcd3.grpc.api.PutRequest parsedMessage = null;
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       try {
-        parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              key_ = input.readBytes();
+              bitField0_ |= 0x00000001;
+              break;
+            } // case 10
+            case 18: {
+              value_ = input.readBytes();
+              bitField0_ |= 0x00000002;
+              break;
+            } // case 18
+            case 24: {
+              lease_ = input.readInt64();
+              bitField0_ |= 0x00000004;
+              break;
+            } // case 24
+            case 32: {
+              prevKv_ = input.readBool();
+              bitField0_ |= 0x00000008;
+              break;
+            } // case 32
+            case 40: {
+              ignoreValue_ = input.readBool();
+              bitField0_ |= 0x00000010;
+              break;
+            } // case 40
+            case 48: {
+              ignoreLease_ = input.readBool();
+              bitField0_ |= 0x00000020;
+              break;
+            } // case 48
+            default: {
+              if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                done = true; // was an endgroup tag
+              }
+              break;
+            } // default:
+          } // switch (tag)
+        } // while (!done)
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (org.eclipse.ecf.provider.etcd3.grpc.api.PutRequest) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
-        if (parsedMessage != null) {
-          mergeFrom(parsedMessage);
-        }
-      }
+        onChanged();
+      } // finally
       return this;
     }
+    private int bitField0_;
 
     private com.google.protobuf.ByteString key_ = com.google.protobuf.ByteString.EMPTY;
     /**
@@ -620,11 +567,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setKey(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
+      if (value == null) { throw new NullPointerException(); }
       key_ = value;
+      bitField0_ |= 0x00000001;
       onChanged();
       return this;
     }
@@ -637,7 +582,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearKey() {
-      
+      bitField0_ = (bitField0_ & ~0x00000001);
       key_ = getDefaultInstance().getKey();
       onChanged();
       return this;
@@ -666,11 +611,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setValue(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
+      if (value == null) { throw new NullPointerException(); }
       value_ = value;
+      bitField0_ |= 0x00000002;
       onChanged();
       return this;
     }
@@ -683,7 +626,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearValue() {
-      
+      bitField0_ = (bitField0_ & ~0x00000002);
       value_ = getDefaultInstance().getValue();
       onChanged();
       return this;
@@ -714,8 +657,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setLease(long value) {
-      
+
       lease_ = value;
+      bitField0_ |= 0x00000004;
       onChanged();
       return this;
     }
@@ -729,7 +673,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearLease() {
-      
+      bitField0_ = (bitField0_ & ~0x00000004);
       lease_ = 0L;
       onChanged();
       return this;
@@ -760,8 +704,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setPrevKv(boolean value) {
-      
+
       prevKv_ = value;
+      bitField0_ |= 0x00000008;
       onChanged();
       return this;
     }
@@ -775,7 +720,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearPrevKv() {
-      
+      bitField0_ = (bitField0_ & ~0x00000008);
       prevKv_ = false;
       onChanged();
       return this;
@@ -806,8 +751,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setIgnoreValue(boolean value) {
-      
+
       ignoreValue_ = value;
+      bitField0_ |= 0x00000010;
       onChanged();
       return this;
     }
@@ -821,7 +767,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearIgnoreValue() {
-      
+      bitField0_ = (bitField0_ & ~0x00000010);
       ignoreValue_ = false;
       onChanged();
       return this;
@@ -852,8 +798,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setIgnoreLease(boolean value) {
-      
+
       ignoreLease_ = value;
+      bitField0_ |= 0x00000020;
       onChanged();
       return this;
     }
@@ -867,7 +814,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearIgnoreLease() {
-      
+      bitField0_ = (bitField0_ & ~0x00000020);
       ignoreLease_ = false;
       onChanged();
       return this;
@@ -905,7 +852,18 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new PutRequest(input, extensionRegistry);
+      Builder builder = newBuilder();
+      try {
+        builder.mergeFrom(input, extensionRegistry);
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(builder.buildPartial());
+      } catch (com.google.protobuf.UninitializedMessageException e) {
+        throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(e)
+            .setUnfinishedMessage(builder.buildPartial());
+      }
+      return builder.buildPartial();
     }
   };
 

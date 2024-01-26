@@ -37,5 +37,5 @@ public interface WatchRequestOrBuilder extends
    */
   org.eclipse.ecf.provider.etcd3.grpc.api.WatchCancelRequestOrBuilder getCancelRequestOrBuilder();
 
-  public org.eclipse.ecf.provider.etcd3.grpc.api.WatchRequest.RequestUnionCase getRequestUnionCase();
+  org.eclipse.ecf.provider.etcd3.grpc.api.WatchRequest.RequestUnionCase getRequestUnionCase();
 }

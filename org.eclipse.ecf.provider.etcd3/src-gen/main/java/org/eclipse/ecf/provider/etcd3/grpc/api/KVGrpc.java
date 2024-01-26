@@ -5,8 +5,9 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
 /**
  */
 @javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.39.0)",
+    value = "by gRPC proto compiler (version 1.54.0)",
     comments = "Source: rpc.proto")
+@io.grpc.stub.annotations.GrpcGenerated
 public final class KVGrpc {
 
   private KVGrpc() {}
@@ -215,14 +216,14 @@ public final class KVGrpc {
 
   /**
    */
-  public static abstract class KVImplBase implements io.grpc.BindableService {
+  public interface AsyncService {
 
     /**
      * <pre>
      * Range gets the keys in the range from the key-value store.
      * </pre>
      */
-    public void range(org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest request,
+    default void range(org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.RangeResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRangeMethod(), responseObserver);
     }
@@ -234,7 +235,7 @@ public final class KVGrpc {
      * and generates one event in the event history.
      * </pre>
      */
-    public void put(org.eclipse.ecf.provider.etcd3.grpc.api.PutRequest request,
+    default void put(org.eclipse.ecf.provider.etcd3.grpc.api.PutRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.PutResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getPutMethod(), responseObserver);
     }
@@ -246,7 +247,7 @@ public final class KVGrpc {
      * and generates a delete event in the event history for every deleted key.
      * </pre>
      */
-    public void deleteRange(org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeRequest request,
+    default void deleteRange(org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeleteRangeMethod(), responseObserver);
     }
@@ -259,7 +260,7 @@ public final class KVGrpc {
      * It is not allowed to modify the same key several times within one txn.
      * </pre>
      */
-    public void txn(org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequest request,
+    default void txn(org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.TxnResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getTxnMethod(), responseObserver);
     }
@@ -271,55 +272,28 @@ public final class KVGrpc {
      * indefinitely.
      * </pre>
      */
-    public void compact(org.eclipse.ecf.provider.etcd3.grpc.api.CompactionRequest request,
+    default void compact(org.eclipse.ecf.provider.etcd3.grpc.api.CompactionRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.CompactionResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCompactMethod(), responseObserver);
-    }
-
-    @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
-      return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
-          .addMethod(
-            getRangeMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest,
-                org.eclipse.ecf.provider.etcd3.grpc.api.RangeResponse>(
-                  this, METHODID_RANGE)))
-          .addMethod(
-            getPutMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                org.eclipse.ecf.provider.etcd3.grpc.api.PutRequest,
-                org.eclipse.ecf.provider.etcd3.grpc.api.PutResponse>(
-                  this, METHODID_PUT)))
-          .addMethod(
-            getDeleteRangeMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeRequest,
-                org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeResponse>(
-                  this, METHODID_DELETE_RANGE)))
-          .addMethod(
-            getTxnMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequest,
-                org.eclipse.ecf.provider.etcd3.grpc.api.TxnResponse>(
-                  this, METHODID_TXN)))
-          .addMethod(
-            getCompactMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                org.eclipse.ecf.provider.etcd3.grpc.api.CompactionRequest,
-                org.eclipse.ecf.provider.etcd3.grpc.api.CompactionResponse>(
-                  this, METHODID_COMPACT)))
-          .build();
     }
   }
 
   /**
+   * Base class for the server implementation of the service KV.
    */
-  public static final class KVStub extends io.grpc.stub.AbstractAsyncStub<KVStub> {
+  public static abstract class KVImplBase
+      implements io.grpc.BindableService, AsyncService {
+
+    @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
+      return KVGrpc.bindService(this);
+    }
+  }
+
+  /**
+   * A stub to allow clients to do asynchronous rpc calls to service KV.
+   */
+  public static final class KVStub
+      extends io.grpc.stub.AbstractAsyncStub<KVStub> {
     private KVStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
@@ -397,8 +371,10 @@ public final class KVGrpc {
   }
 
   /**
+   * A stub to allow clients to do synchronous rpc calls to service KV.
    */
-  public static final class KVBlockingStub extends io.grpc.stub.AbstractBlockingStub<KVBlockingStub> {
+  public static final class KVBlockingStub
+      extends io.grpc.stub.AbstractBlockingStub<KVBlockingStub> {
     private KVBlockingStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
@@ -471,8 +447,10 @@ public final class KVGrpc {
   }
 
   /**
+   * A stub to allow clients to do ListenableFuture-style rpc calls to service KV.
    */
-  public static final class KVFutureStub extends io.grpc.stub.AbstractFutureStub<KVFutureStub> {
+  public static final class KVFutureStub
+      extends io.grpc.stub.AbstractFutureStub<KVFutureStub> {
     private KVFutureStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
@@ -560,10 +538,10 @@ public final class KVGrpc {
       io.grpc.stub.ServerCalls.ServerStreamingMethod<Req, Resp>,
       io.grpc.stub.ServerCalls.ClientStreamingMethod<Req, Resp>,
       io.grpc.stub.ServerCalls.BidiStreamingMethod<Req, Resp> {
-    private final KVImplBase serviceImpl;
+    private final AsyncService serviceImpl;
     private final int methodId;
 
-    MethodHandlers(KVImplBase serviceImpl, int methodId) {
+    MethodHandlers(AsyncService serviceImpl, int methodId) {
       this.serviceImpl = serviceImpl;
       this.methodId = methodId;
     }
@@ -606,6 +584,46 @@ public final class KVGrpc {
           throw new AssertionError();
       }
     }
+  }
+
+  public static final io.grpc.ServerServiceDefinition bindService(AsyncService service) {
+    return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
+        .addMethod(
+          getRangeMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest,
+              org.eclipse.ecf.provider.etcd3.grpc.api.RangeResponse>(
+                service, METHODID_RANGE)))
+        .addMethod(
+          getPutMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              org.eclipse.ecf.provider.etcd3.grpc.api.PutRequest,
+              org.eclipse.ecf.provider.etcd3.grpc.api.PutResponse>(
+                service, METHODID_PUT)))
+        .addMethod(
+          getDeleteRangeMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeRequest,
+              org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeResponse>(
+                service, METHODID_DELETE_RANGE)))
+        .addMethod(
+          getTxnMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequest,
+              org.eclipse.ecf.provider.etcd3.grpc.api.TxnResponse>(
+                service, METHODID_TXN)))
+        .addMethod(
+          getCompactMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              org.eclipse.ecf.provider.etcd3.grpc.api.CompactionRequest,
+              org.eclipse.ecf.provider.etcd3.grpc.api.CompactionResponse>(
+                service, METHODID_COMPACT)))
+        .build();
   }
 
   private static abstract class KVBaseDescriptorSupplier

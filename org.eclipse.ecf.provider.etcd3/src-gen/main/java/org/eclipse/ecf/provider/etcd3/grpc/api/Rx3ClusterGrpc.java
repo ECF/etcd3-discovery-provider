@@ -178,8 +178,28 @@ public final class Rx3ClusterGrpc {
          *  Range gets the keys in the range from the key-value store.
          * </pre>
          */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddResponse> memberAdd(org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddRequest request) {
+            return memberAdd(io.reactivex.rxjava3.core.Single.just(request));
+        }
+
+        /**
+         * <pre>
+         *  Range gets the keys in the range from the key-value store.
+         * </pre>
+         */
         public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddResponse> memberAdd(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddRequest> request) {
             throw new io.grpc.StatusRuntimeException(io.grpc.Status.UNIMPLEMENTED);
+        }
+
+        /**
+         * <pre>
+         *  Put puts the given key into the key-value store.
+         *  A put request increments the revision of the key-value store
+         *  and generates one event in the event history.
+         * </pre>
+         */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveResponse> memberRemove(org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveRequest request) {
+            return memberRemove(io.reactivex.rxjava3.core.Single.just(request));
         }
 
         /**
@@ -200,8 +220,31 @@ public final class Rx3ClusterGrpc {
          *  and generates a delete event in the event history for every deleted key.
          * </pre>
          */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateResponse> memberUpdate(org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateRequest request) {
+            return memberUpdate(io.reactivex.rxjava3.core.Single.just(request));
+        }
+
+        /**
+         * <pre>
+         *  DeleteRange deletes the given range from the key-value store.
+         *  A delete request increments the revision of the key-value store
+         *  and generates a delete event in the event history for every deleted key.
+         * </pre>
+         */
         public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateResponse> memberUpdate(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateRequest> request) {
             throw new io.grpc.StatusRuntimeException(io.grpc.Status.UNIMPLEMENTED);
+        }
+
+        /**
+         * <pre>
+         *  Txn processes multiple requests in a single transaction.
+         *  A txn request increments the revision of the key-value store
+         *  and generates events with the same revision for every completed request.
+         *  It is not allowed to modify the same key several times within one txn.
+         * </pre>
+         */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberListResponse> memberList(org.eclipse.ecf.provider.etcd3.grpc.api.MemberListRequest request) {
+            return memberList(io.reactivex.rxjava3.core.Single.just(request));
         }
 
         /**
@@ -253,6 +296,10 @@ public final class Rx3ClusterGrpc {
             return null;
         }
 
+        protected Throwable onErrorMap(Throwable throwable) {
+            return com.salesforce.rx3grpc.stub.ServerCalls.prepareError(throwable);
+        }
+
     }
 
     public static final int METHODID_MEMBER_ADD = 0;
@@ -280,42 +327,42 @@ public final class Rx3ClusterGrpc {
                 case METHODID_MEMBER_ADD:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddRequest single) {
                                     return serviceImpl.memberAdd(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_MEMBER_REMOVE:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveRequest single) {
                                     return serviceImpl.memberRemove(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_MEMBER_UPDATE:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateRequest single) {
                                     return serviceImpl.memberUpdate(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_MEMBER_LIST:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.MemberListRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.MemberListResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberListRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberListResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.MemberListRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberListResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberListResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberListRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.MemberListResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.MemberListRequest single) {
                                     return serviceImpl.memberList(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 default:
                     throw new java.lang.AssertionError();

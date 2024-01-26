@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="Release" increment="1602390968684">
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="Release" increment="1622767614000">
   <resource>
     <capability namespace="osgi.identity">
       <attribute name="osgi.identity" value="org.eclipse.ecf.osgi.services.distribution"/>
@@ -10,8 +10,8 @@
       <directive name="x-internal" value="true"/>
       <attribute name="bundle-symbolic-name" value="org.eclipse.ecf.osgi.services.distribution"/>
       <attribute name="bundle-version" value="2.1.301.201910102020" type="Version"/>
-      <attribute name="version" value="2.0.0" type="Version"/>
       <attribute name="osgi.wiring.package" value="org.eclipse.ecf.osgi.services.distribution"/>
+      <attribute name="version" value="2.0.0" type="Version"/>
       <attribute name="bnd.hashes" value="1557659234" type="List&lt;Long&gt;"/>
     </capability>
     <capability namespace="osgi.wiring.bundle">
@@ -24,8 +24,8 @@
     </capability>
     <capability namespace="osgi.content">
       <attribute name="size" value="6747" type="Long"/>
-      <attribute name="url" value="org.eclipse.ecf.osgi.services.distribution/org.eclipse.ecf.osgi.services.distribution-2.1.301.jar"/>
       <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="url" value="org.eclipse.ecf.osgi.services.distribution/org.eclipse.ecf.osgi.services.distribution-2.1.301.jar"/>
       <attribute name="osgi.content" value="793C087E56C7BB7E324FB09C1610AC726EFE6E46DB99F843F30C249A10E29653"/>
     </capability>
     <capability namespace="osgi.remoteserviceadmin.topology">

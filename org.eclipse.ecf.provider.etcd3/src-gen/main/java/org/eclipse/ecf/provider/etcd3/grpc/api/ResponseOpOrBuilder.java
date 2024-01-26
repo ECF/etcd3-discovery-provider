@@ -67,5 +67,5 @@ public interface ResponseOpOrBuilder extends
    */
   org.eclipse.ecf.provider.etcd3.grpc.api.TxnResponseOrBuilder getResponseTxnOrBuilder();
 
-  public org.eclipse.ecf.provider.etcd3.grpc.api.ResponseOp.ResponseCase getResponseCase();
+  org.eclipse.ecf.provider.etcd3.grpc.api.ResponseOp.ResponseCase getResponseCase();
 }

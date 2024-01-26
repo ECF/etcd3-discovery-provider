@@ -60,8 +60,10 @@ public interface WatchResponseOrBuilder extends
    * <pre>
    * compact_revision is set to the minimum index if a watcher tries to watch
    * at a compacted index.
+   *
    * This happens when creating a watcher at a compacted revision or the watcher cannot
    * catch up with the progress of the key-value store.
+   *
    * The client should treat the watcher as canceled and should not try to create any
    * watcher with the same start_revision again.
    * </pre>

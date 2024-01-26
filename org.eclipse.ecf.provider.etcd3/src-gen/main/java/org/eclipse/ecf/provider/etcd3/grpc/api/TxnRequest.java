@@ -46,85 +46,6 @@ private static final long serialVersionUID = 0L;
     return new TxnRequest();
   }
 
-  @java.lang.Override
-  public final com.google.protobuf.UnknownFieldSet
-  getUnknownFields() {
-    return this.unknownFields;
-  }
-  private TxnRequest(
-      com.google.protobuf.CodedInputStream input,
-      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-      throws com.google.protobuf.InvalidProtocolBufferException {
-    this();
-    if (extensionRegistry == null) {
-      throw new java.lang.NullPointerException();
-    }
-    int mutable_bitField0_ = 0;
-    com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-        com.google.protobuf.UnknownFieldSet.newBuilder();
-    try {
-      boolean done = false;
-      while (!done) {
-        int tag = input.readTag();
-        switch (tag) {
-          case 0:
-            done = true;
-            break;
-          case 10: {
-            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-              compare_ = new java.util.ArrayList<org.eclipse.ecf.provider.etcd3.grpc.api.Compare>();
-              mutable_bitField0_ |= 0x00000001;
-            }
-            compare_.add(
-                input.readMessage(org.eclipse.ecf.provider.etcd3.grpc.api.Compare.parser(), extensionRegistry));
-            break;
-          }
-          case 18: {
-            if (!((mutable_bitField0_ & 0x00000002) != 0)) {
-              success_ = new java.util.ArrayList<org.eclipse.ecf.provider.etcd3.grpc.api.RequestOp>();
-              mutable_bitField0_ |= 0x00000002;
-            }
-            success_.add(
-                input.readMessage(org.eclipse.ecf.provider.etcd3.grpc.api.RequestOp.parser(), extensionRegistry));
-            break;
-          }
-          case 26: {
-            if (!((mutable_bitField0_ & 0x00000004) != 0)) {
-              failure_ = new java.util.ArrayList<org.eclipse.ecf.provider.etcd3.grpc.api.RequestOp>();
-              mutable_bitField0_ |= 0x00000004;
-            }
-            failure_.add(
-                input.readMessage(org.eclipse.ecf.provider.etcd3.grpc.api.RequestOp.parser(), extensionRegistry));
-            break;
-          }
-          default: {
-            if (!parseUnknownField(
-                input, unknownFields, extensionRegistry, tag)) {
-              done = true;
-            }
-            break;
-          }
-        }
-      }
-    } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-      throw e.setUnfinishedMessage(this);
-    } catch (java.io.IOException e) {
-      throw new com.google.protobuf.InvalidProtocolBufferException(
-          e).setUnfinishedMessage(this);
-    } finally {
-      if (((mutable_bitField0_ & 0x00000001) != 0)) {
-        compare_ = java.util.Collections.unmodifiableList(compare_);
-      }
-      if (((mutable_bitField0_ & 0x00000002) != 0)) {
-        success_ = java.util.Collections.unmodifiableList(success_);
-      }
-      if (((mutable_bitField0_ & 0x00000004) != 0)) {
-        failure_ = java.util.Collections.unmodifiableList(failure_);
-      }
-      this.unknownFields = unknownFields.build();
-      makeExtensionsImmutable();
-    }
-  }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
     return org.eclipse.ecf.provider.etcd3.grpc.api.ECFEtcdProto.internal_static_etcdserverpb_TxnRequest_descriptor;
@@ -139,6 +60,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int COMPARE_FIELD_NUMBER = 1;
+  @SuppressWarnings("serial")
   private java.util.List<org.eclipse.ecf.provider.etcd3.grpc.api.Compare> compare_;
   /**
    * <pre>
@@ -219,6 +141,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int SUCCESS_FIELD_NUMBER = 2;
+  @SuppressWarnings("serial")
   private java.util.List<org.eclipse.ecf.provider.etcd3.grpc.api.RequestOp> success_;
   /**
    * <pre>
@@ -279,6 +202,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int FAILURE_FIELD_NUMBER = 3;
+  @SuppressWarnings("serial")
   private java.util.List<org.eclipse.ecf.provider.etcd3.grpc.api.RequestOp> failure_;
   /**
    * <pre>
@@ -361,7 +285,7 @@ private static final long serialVersionUID = 0L;
     for (int i = 0; i < failure_.size(); i++) {
       output.writeMessage(3, failure_.get(i));
     }
-    unknownFields.writeTo(output);
+    getUnknownFields().writeTo(output);
   }
 
   @java.lang.Override
@@ -382,7 +306,7 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(3, failure_.get(i));
     }
-    size += unknownFields.getSerializedSize();
+    size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
   }
@@ -403,7 +327,7 @@ private static final long serialVersionUID = 0L;
         .equals(other.getSuccessList())) return false;
     if (!getFailureList()
         .equals(other.getFailureList())) return false;
-    if (!unknownFields.equals(other.unknownFields)) return false;
+    if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
 
@@ -426,7 +350,7 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + FAILURE_FIELD_NUMBER;
       hash = (53 * hash) + getFailureList().hashCode();
     }
-    hash = (29 * hash) + unknownFields.hashCode();
+    hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
   }
@@ -561,43 +485,39 @@ private static final long serialVersionUID = 0L;
 
     // Construct using org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequest.newBuilder()
     private Builder() {
-      maybeForceBuilderInitialization();
+
     }
 
     private Builder(
         com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       super(parent);
-      maybeForceBuilderInitialization();
-    }
-    private void maybeForceBuilderInitialization() {
-      if (com.google.protobuf.GeneratedMessageV3
-              .alwaysUseFieldBuilders) {
-        getCompareFieldBuilder();
-        getSuccessFieldBuilder();
-        getFailureFieldBuilder();
-      }
+
     }
     @java.lang.Override
     public Builder clear() {
       super.clear();
+      bitField0_ = 0;
       if (compareBuilder_ == null) {
         compare_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000001);
       } else {
+        compare_ = null;
         compareBuilder_.clear();
       }
+      bitField0_ = (bitField0_ & ~0x00000001);
       if (successBuilder_ == null) {
         success_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000002);
       } else {
+        success_ = null;
         successBuilder_.clear();
       }
+      bitField0_ = (bitField0_ & ~0x00000002);
       if (failureBuilder_ == null) {
         failure_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000004);
       } else {
+        failure_ = null;
         failureBuilder_.clear();
       }
+      bitField0_ = (bitField0_ & ~0x00000004);
       return this;
     }
 
@@ -624,7 +544,13 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequest buildPartial() {
       org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequest result = new org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequest(this);
-      int from_bitField0_ = bitField0_;
+      buildPartialRepeatedFields(result);
+      if (bitField0_ != 0) { buildPartial0(result); }
+      onBuilt();
+      return result;
+    }
+
+    private void buildPartialRepeatedFields(org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequest result) {
       if (compareBuilder_ == null) {
         if (((bitField0_ & 0x00000001) != 0)) {
           compare_ = java.util.Collections.unmodifiableList(compare_);
@@ -652,42 +578,12 @@ private static final long serialVersionUID = 0L;
       } else {
         result.failure_ = failureBuilder_.build();
       }
-      onBuilt();
-      return result;
     }
 
-    @java.lang.Override
-    public Builder clone() {
-      return super.clone();
+    private void buildPartial0(org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequest result) {
+      int from_bitField0_ = bitField0_;
     }
-    @java.lang.Override
-    public Builder setField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
-      return super.setField(field, value);
-    }
-    @java.lang.Override
-    public Builder clearField(
-        com.google.protobuf.Descriptors.FieldDescriptor field) {
-      return super.clearField(field);
-    }
-    @java.lang.Override
-    public Builder clearOneof(
-        com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-      return super.clearOneof(oneof);
-    }
-    @java.lang.Override
-    public Builder setRepeatedField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, java.lang.Object value) {
-      return super.setRepeatedField(field, index, value);
-    }
-    @java.lang.Override
-    public Builder addRepeatedField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
-      return super.addRepeatedField(field, value);
-    }
+
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
       if (other instanceof org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequest) {
@@ -778,7 +674,7 @@ private static final long serialVersionUID = 0L;
           }
         }
       }
-      this.mergeUnknownFields(other.unknownFields);
+      this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
       return this;
     }
@@ -793,17 +689,69 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequest parsedMessage = null;
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       try {
-        parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              org.eclipse.ecf.provider.etcd3.grpc.api.Compare m =
+                  input.readMessage(
+                      org.eclipse.ecf.provider.etcd3.grpc.api.Compare.parser(),
+                      extensionRegistry);
+              if (compareBuilder_ == null) {
+                ensureCompareIsMutable();
+                compare_.add(m);
+              } else {
+                compareBuilder_.addMessage(m);
+              }
+              break;
+            } // case 10
+            case 18: {
+              org.eclipse.ecf.provider.etcd3.grpc.api.RequestOp m =
+                  input.readMessage(
+                      org.eclipse.ecf.provider.etcd3.grpc.api.RequestOp.parser(),
+                      extensionRegistry);
+              if (successBuilder_ == null) {
+                ensureSuccessIsMutable();
+                success_.add(m);
+              } else {
+                successBuilder_.addMessage(m);
+              }
+              break;
+            } // case 18
+            case 26: {
+              org.eclipse.ecf.provider.etcd3.grpc.api.RequestOp m =
+                  input.readMessage(
+                      org.eclipse.ecf.provider.etcd3.grpc.api.RequestOp.parser(),
+                      extensionRegistry);
+              if (failureBuilder_ == null) {
+                ensureFailureIsMutable();
+                failure_.add(m);
+              } else {
+                failureBuilder_.addMessage(m);
+              }
+              break;
+            } // case 26
+            default: {
+              if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                done = true; // was an endgroup tag
+              }
+              break;
+            } // default:
+          } // switch (tag)
+        } // while (!done)
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequest) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
-        if (parsedMessage != null) {
-          mergeFrom(parsedMessage);
-        }
-      }
+        onChanged();
+      } // finally
       return this;
     }
     private int bitField0_;
@@ -1848,7 +1796,18 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new TxnRequest(input, extensionRegistry);
+      Builder builder = newBuilder();
+      try {
+        builder.mergeFrom(input, extensionRegistry);
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(builder.buildPartial());
+      } catch (com.google.protobuf.UninitializedMessageException e) {
+        throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(e)
+            .setUnfinishedMessage(builder.buildPartial());
+      }
+      return builder.buildPartial();
     }
   };
 

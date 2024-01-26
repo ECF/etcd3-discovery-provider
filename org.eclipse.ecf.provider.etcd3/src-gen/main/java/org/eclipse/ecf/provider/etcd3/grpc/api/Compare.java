@@ -29,90 +29,6 @@ private static final long serialVersionUID = 0L;
     return new Compare();
   }
 
-  @java.lang.Override
-  public final com.google.protobuf.UnknownFieldSet
-  getUnknownFields() {
-    return this.unknownFields;
-  }
-  private Compare(
-      com.google.protobuf.CodedInputStream input,
-      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-      throws com.google.protobuf.InvalidProtocolBufferException {
-    this();
-    if (extensionRegistry == null) {
-      throw new java.lang.NullPointerException();
-    }
-    com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-        com.google.protobuf.UnknownFieldSet.newBuilder();
-    try {
-      boolean done = false;
-      while (!done) {
-        int tag = input.readTag();
-        switch (tag) {
-          case 0:
-            done = true;
-            break;
-          case 8: {
-            int rawValue = input.readEnum();
-
-            result_ = rawValue;
-            break;
-          }
-          case 16: {
-            int rawValue = input.readEnum();
-
-            target_ = rawValue;
-            break;
-          }
-          case 26: {
-
-            key_ = input.readBytes();
-            break;
-          }
-          case 32: {
-            targetUnionCase_ = 4;
-            targetUnion_ = input.readInt64();
-            break;
-          }
-          case 40: {
-            targetUnionCase_ = 5;
-            targetUnion_ = input.readInt64();
-            break;
-          }
-          case 48: {
-            targetUnionCase_ = 6;
-            targetUnion_ = input.readInt64();
-            break;
-          }
-          case 58: {
-            targetUnionCase_ = 7;
-            targetUnion_ = input.readBytes();
-            break;
-          }
-          case 66: {
-
-            rangeEnd_ = input.readBytes();
-            break;
-          }
-          default: {
-            if (!parseUnknownField(
-                input, unknownFields, extensionRegistry, tag)) {
-              done = true;
-            }
-            break;
-          }
-        }
-      }
-    } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-      throw e.setUnfinishedMessage(this);
-    } catch (java.io.IOException e) {
-      throw new com.google.protobuf.InvalidProtocolBufferException(
-          e).setUnfinishedMessage(this);
-    } finally {
-      this.unknownFields = unknownFields.build();
-      makeExtensionsImmutable();
-    }
-  }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
     return org.eclipse.ecf.provider.etcd3.grpc.api.ECFEtcdProto.internal_static_etcdserverpb_Compare_descriptor;
@@ -379,6 +295,7 @@ private static final long serialVersionUID = 0L;
   }
 
   private int targetUnionCase_ = 0;
+  @SuppressWarnings("serial")
   private java.lang.Object targetUnion_;
   public enum TargetUnionCase
       implements com.google.protobuf.Internal.EnumLite,
@@ -424,7 +341,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int RESULT_FIELD_NUMBER = 1;
-  private int result_;
+  private int result_ = 0;
   /**
    * <pre>
    * result is logical comparison operation for this comparison.
@@ -445,13 +362,12 @@ private static final long serialVersionUID = 0L;
    * @return The result.
    */
   @java.lang.Override public org.eclipse.ecf.provider.etcd3.grpc.api.Compare.CompareResult getResult() {
-    @SuppressWarnings("deprecation")
-    org.eclipse.ecf.provider.etcd3.grpc.api.Compare.CompareResult result = org.eclipse.ecf.provider.etcd3.grpc.api.Compare.CompareResult.valueOf(result_);
+    org.eclipse.ecf.provider.etcd3.grpc.api.Compare.CompareResult result = org.eclipse.ecf.provider.etcd3.grpc.api.Compare.CompareResult.forNumber(result_);
     return result == null ? org.eclipse.ecf.provider.etcd3.grpc.api.Compare.CompareResult.UNRECOGNIZED : result;
   }
 
   public static final int TARGET_FIELD_NUMBER = 2;
-  private int target_;
+  private int target_ = 0;
   /**
    * <pre>
    * target is the key-value field to inspect for the comparison.
@@ -472,13 +388,12 @@ private static final long serialVersionUID = 0L;
    * @return The target.
    */
   @java.lang.Override public org.eclipse.ecf.provider.etcd3.grpc.api.Compare.CompareTarget getTarget() {
-    @SuppressWarnings("deprecation")
-    org.eclipse.ecf.provider.etcd3.grpc.api.Compare.CompareTarget result = org.eclipse.ecf.provider.etcd3.grpc.api.Compare.CompareTarget.valueOf(target_);
+    org.eclipse.ecf.provider.etcd3.grpc.api.Compare.CompareTarget result = org.eclipse.ecf.provider.etcd3.grpc.api.Compare.CompareTarget.forNumber(target_);
     return result == null ? org.eclipse.ecf.provider.etcd3.grpc.api.Compare.CompareTarget.UNRECOGNIZED : result;
   }
 
   public static final int KEY_FIELD_NUMBER = 3;
-  private com.google.protobuf.ByteString key_;
+  private com.google.protobuf.ByteString key_ = com.google.protobuf.ByteString.EMPTY;
   /**
    * <pre>
    * key is the subject key for the comparison operation.
@@ -493,6 +408,18 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int VERSION_FIELD_NUMBER = 4;
+  /**
+   * <pre>
+   * version is the version of the given key
+   * </pre>
+   *
+   * <code>int64 version = 4;</code>
+   * @return Whether the version field is set.
+   */
+  @java.lang.Override
+  public boolean hasVersion() {
+    return targetUnionCase_ == 4;
+  }
   /**
    * <pre>
    * version is the version of the given key
@@ -516,6 +443,18 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>int64 create_revision = 5;</code>
+   * @return Whether the createRevision field is set.
+   */
+  @java.lang.Override
+  public boolean hasCreateRevision() {
+    return targetUnionCase_ == 5;
+  }
+  /**
+   * <pre>
+   * create_revision is the creation revision of the given key
+   * </pre>
+   *
+   * <code>int64 create_revision = 5;</code>
    * @return The createRevision.
    */
   @java.lang.Override
@@ -527,6 +466,18 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int MOD_REVISION_FIELD_NUMBER = 6;
+  /**
+   * <pre>
+   * mod_revision is the last modified revision of the given key.
+   * </pre>
+   *
+   * <code>int64 mod_revision = 6;</code>
+   * @return Whether the modRevision field is set.
+   */
+  @java.lang.Override
+  public boolean hasModRevision() {
+    return targetUnionCase_ == 6;
+  }
   /**
    * <pre>
    * mod_revision is the last modified revision of the given key.
@@ -550,6 +501,18 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>bytes value = 7;</code>
+   * @return Whether the value field is set.
+   */
+  @java.lang.Override
+  public boolean hasValue() {
+    return targetUnionCase_ == 7;
+  }
+  /**
+   * <pre>
+   * value is the value of the given key, in bytes.
+   * </pre>
+   *
+   * <code>bytes value = 7;</code>
    * @return The value.
    */
   @java.lang.Override
@@ -561,7 +524,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int RANGE_END_FIELD_NUMBER = 8;
-  private com.google.protobuf.ByteString rangeEnd_;
+  private com.google.protobuf.ByteString rangeEnd_ = com.google.protobuf.ByteString.EMPTY;
   /**
    * <pre>
    * range_end compares the given target to all keys in the range [key, range_end).
@@ -618,7 +581,7 @@ private static final long serialVersionUID = 0L;
     if (!rangeEnd_.isEmpty()) {
       output.writeBytes(8, rangeEnd_);
     }
-    unknownFields.writeTo(output);
+    getUnknownFields().writeTo(output);
   }
 
   @java.lang.Override
@@ -663,7 +626,7 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeBytesSize(8, rangeEnd_);
     }
-    size += unknownFields.getSerializedSize();
+    size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
   }
@@ -705,7 +668,7 @@ private static final long serialVersionUID = 0L;
       case 0:
       default:
     }
-    if (!unknownFields.equals(other.unknownFields)) return false;
+    if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
 
@@ -747,7 +710,7 @@ private static final long serialVersionUID = 0L;
       case 0:
       default:
     }
-    hash = (29 * hash) + unknownFields.hashCode();
+    hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
   }
@@ -864,30 +827,22 @@ private static final long serialVersionUID = 0L;
 
     // Construct using org.eclipse.ecf.provider.etcd3.grpc.api.Compare.newBuilder()
     private Builder() {
-      maybeForceBuilderInitialization();
+
     }
 
     private Builder(
         com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       super(parent);
-      maybeForceBuilderInitialization();
-    }
-    private void maybeForceBuilderInitialization() {
-      if (com.google.protobuf.GeneratedMessageV3
-              .alwaysUseFieldBuilders) {
-      }
+
     }
     @java.lang.Override
     public Builder clear() {
       super.clear();
+      bitField0_ = 0;
       result_ = 0;
-
       target_ = 0;
-
       key_ = com.google.protobuf.ByteString.EMPTY;
-
       rangeEnd_ = com.google.protobuf.ByteString.EMPTY;
-
       targetUnionCase_ = 0;
       targetUnion_ = null;
       return this;
@@ -916,59 +871,33 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public org.eclipse.ecf.provider.etcd3.grpc.api.Compare buildPartial() {
       org.eclipse.ecf.provider.etcd3.grpc.api.Compare result = new org.eclipse.ecf.provider.etcd3.grpc.api.Compare(this);
-      result.result_ = result_;
-      result.target_ = target_;
-      result.key_ = key_;
-      if (targetUnionCase_ == 4) {
-        result.targetUnion_ = targetUnion_;
-      }
-      if (targetUnionCase_ == 5) {
-        result.targetUnion_ = targetUnion_;
-      }
-      if (targetUnionCase_ == 6) {
-        result.targetUnion_ = targetUnion_;
-      }
-      if (targetUnionCase_ == 7) {
-        result.targetUnion_ = targetUnion_;
-      }
-      result.rangeEnd_ = rangeEnd_;
-      result.targetUnionCase_ = targetUnionCase_;
+      if (bitField0_ != 0) { buildPartial0(result); }
+      buildPartialOneofs(result);
       onBuilt();
       return result;
     }
 
-    @java.lang.Override
-    public Builder clone() {
-      return super.clone();
+    private void buildPartial0(org.eclipse.ecf.provider.etcd3.grpc.api.Compare result) {
+      int from_bitField0_ = bitField0_;
+      if (((from_bitField0_ & 0x00000001) != 0)) {
+        result.result_ = result_;
+      }
+      if (((from_bitField0_ & 0x00000002) != 0)) {
+        result.target_ = target_;
+      }
+      if (((from_bitField0_ & 0x00000004) != 0)) {
+        result.key_ = key_;
+      }
+      if (((from_bitField0_ & 0x00000080) != 0)) {
+        result.rangeEnd_ = rangeEnd_;
+      }
     }
-    @java.lang.Override
-    public Builder setField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
-      return super.setField(field, value);
+
+    private void buildPartialOneofs(org.eclipse.ecf.provider.etcd3.grpc.api.Compare result) {
+      result.targetUnionCase_ = targetUnionCase_;
+      result.targetUnion_ = this.targetUnion_;
     }
-    @java.lang.Override
-    public Builder clearField(
-        com.google.protobuf.Descriptors.FieldDescriptor field) {
-      return super.clearField(field);
-    }
-    @java.lang.Override
-    public Builder clearOneof(
-        com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-      return super.clearOneof(oneof);
-    }
-    @java.lang.Override
-    public Builder setRepeatedField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, java.lang.Object value) {
-      return super.setRepeatedField(field, index, value);
-    }
-    @java.lang.Override
-    public Builder addRepeatedField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
-      return super.addRepeatedField(field, value);
-    }
+
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
       if (other instanceof org.eclipse.ecf.provider.etcd3.grpc.api.Compare) {
@@ -1014,7 +943,7 @@ private static final long serialVersionUID = 0L;
           break;
         }
       }
-      this.mergeUnknownFields(other.unknownFields);
+      this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
       return this;
     }
@@ -1029,17 +958,70 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      org.eclipse.ecf.provider.etcd3.grpc.api.Compare parsedMessage = null;
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       try {
-        parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              result_ = input.readEnum();
+              bitField0_ |= 0x00000001;
+              break;
+            } // case 8
+            case 16: {
+              target_ = input.readEnum();
+              bitField0_ |= 0x00000002;
+              break;
+            } // case 16
+            case 26: {
+              key_ = input.readBytes();
+              bitField0_ |= 0x00000004;
+              break;
+            } // case 26
+            case 32: {
+              targetUnion_ = input.readInt64();
+              targetUnionCase_ = 4;
+              break;
+            } // case 32
+            case 40: {
+              targetUnion_ = input.readInt64();
+              targetUnionCase_ = 5;
+              break;
+            } // case 40
+            case 48: {
+              targetUnion_ = input.readInt64();
+              targetUnionCase_ = 6;
+              break;
+            } // case 48
+            case 58: {
+              targetUnion_ = input.readBytes();
+              targetUnionCase_ = 7;
+              break;
+            } // case 58
+            case 66: {
+              rangeEnd_ = input.readBytes();
+              bitField0_ |= 0x00000080;
+              break;
+            } // case 66
+            default: {
+              if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                done = true; // was an endgroup tag
+              }
+              break;
+            } // default:
+          } // switch (tag)
+        } // while (!done)
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (org.eclipse.ecf.provider.etcd3.grpc.api.Compare) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
-        if (parsedMessage != null) {
-          mergeFrom(parsedMessage);
-        }
-      }
+        onChanged();
+      } // finally
       return this;
     }
     private int targetUnionCase_ = 0;
@@ -1057,6 +1039,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
+    private int bitField0_;
 
     private int result_ = 0;
     /**
@@ -1080,8 +1063,8 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setResultValue(int value) {
-      
       result_ = value;
+      bitField0_ |= 0x00000001;
       onChanged();
       return this;
     }
@@ -1095,8 +1078,7 @@ private static final long serialVersionUID = 0L;
      */
     @java.lang.Override
     public org.eclipse.ecf.provider.etcd3.grpc.api.Compare.CompareResult getResult() {
-      @SuppressWarnings("deprecation")
-      org.eclipse.ecf.provider.etcd3.grpc.api.Compare.CompareResult result = org.eclipse.ecf.provider.etcd3.grpc.api.Compare.CompareResult.valueOf(result_);
+      org.eclipse.ecf.provider.etcd3.grpc.api.Compare.CompareResult result = org.eclipse.ecf.provider.etcd3.grpc.api.Compare.CompareResult.forNumber(result_);
       return result == null ? org.eclipse.ecf.provider.etcd3.grpc.api.Compare.CompareResult.UNRECOGNIZED : result;
     }
     /**
@@ -1112,7 +1094,7 @@ private static final long serialVersionUID = 0L;
       if (value == null) {
         throw new NullPointerException();
       }
-      
+      bitField0_ |= 0x00000001;
       result_ = value.getNumber();
       onChanged();
       return this;
@@ -1126,7 +1108,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearResult() {
-      
+      bitField0_ = (bitField0_ & ~0x00000001);
       result_ = 0;
       onChanged();
       return this;
@@ -1154,8 +1136,8 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setTargetValue(int value) {
-      
       target_ = value;
+      bitField0_ |= 0x00000002;
       onChanged();
       return this;
     }
@@ -1169,8 +1151,7 @@ private static final long serialVersionUID = 0L;
      */
     @java.lang.Override
     public org.eclipse.ecf.provider.etcd3.grpc.api.Compare.CompareTarget getTarget() {
-      @SuppressWarnings("deprecation")
-      org.eclipse.ecf.provider.etcd3.grpc.api.Compare.CompareTarget result = org.eclipse.ecf.provider.etcd3.grpc.api.Compare.CompareTarget.valueOf(target_);
+      org.eclipse.ecf.provider.etcd3.grpc.api.Compare.CompareTarget result = org.eclipse.ecf.provider.etcd3.grpc.api.Compare.CompareTarget.forNumber(target_);
       return result == null ? org.eclipse.ecf.provider.etcd3.grpc.api.Compare.CompareTarget.UNRECOGNIZED : result;
     }
     /**
@@ -1186,7 +1167,7 @@ private static final long serialVersionUID = 0L;
       if (value == null) {
         throw new NullPointerException();
       }
-      
+      bitField0_ |= 0x00000002;
       target_ = value.getNumber();
       onChanged();
       return this;
@@ -1200,7 +1181,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearTarget() {
-      
+      bitField0_ = (bitField0_ & ~0x00000002);
       target_ = 0;
       onChanged();
       return this;
@@ -1229,11 +1210,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setKey(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
+      if (value == null) { throw new NullPointerException(); }
       key_ = value;
+      bitField0_ |= 0x00000004;
       onChanged();
       return this;
     }
@@ -1246,12 +1225,23 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearKey() {
-      
+      bitField0_ = (bitField0_ & ~0x00000004);
       key_ = getDefaultInstance().getKey();
       onChanged();
       return this;
     }
 
+    /**
+     * <pre>
+     * version is the version of the given key
+     * </pre>
+     *
+     * <code>int64 version = 4;</code>
+     * @return Whether the version field is set.
+     */
+    public boolean hasVersion() {
+      return targetUnionCase_ == 4;
+    }
     /**
      * <pre>
      * version is the version of the given key
@@ -1276,6 +1266,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setVersion(long value) {
+
       targetUnionCase_ = 4;
       targetUnion_ = value;
       onChanged();
@@ -1304,6 +1295,17 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>int64 create_revision = 5;</code>
+     * @return Whether the createRevision field is set.
+     */
+    public boolean hasCreateRevision() {
+      return targetUnionCase_ == 5;
+    }
+    /**
+     * <pre>
+     * create_revision is the creation revision of the given key
+     * </pre>
+     *
+     * <code>int64 create_revision = 5;</code>
      * @return The createRevision.
      */
     public long getCreateRevision() {
@@ -1322,6 +1324,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setCreateRevision(long value) {
+
       targetUnionCase_ = 5;
       targetUnion_ = value;
       onChanged();
@@ -1350,6 +1353,17 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>int64 mod_revision = 6;</code>
+     * @return Whether the modRevision field is set.
+     */
+    public boolean hasModRevision() {
+      return targetUnionCase_ == 6;
+    }
+    /**
+     * <pre>
+     * mod_revision is the last modified revision of the given key.
+     * </pre>
+     *
+     * <code>int64 mod_revision = 6;</code>
      * @return The modRevision.
      */
     public long getModRevision() {
@@ -1368,6 +1382,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setModRevision(long value) {
+
       targetUnionCase_ = 6;
       targetUnion_ = value;
       onChanged();
@@ -1396,6 +1411,17 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>bytes value = 7;</code>
+     * @return Whether the value field is set.
+     */
+    public boolean hasValue() {
+      return targetUnionCase_ == 7;
+    }
+    /**
+     * <pre>
+     * value is the value of the given key, in bytes.
+     * </pre>
+     *
+     * <code>bytes value = 7;</code>
      * @return The value.
      */
     public com.google.protobuf.ByteString getValue() {
@@ -1414,10 +1440,8 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setValue(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  targetUnionCase_ = 7;
+      if (value == null) { throw new NullPointerException(); }
+      targetUnionCase_ = 7;
       targetUnion_ = value;
       onChanged();
       return this;
@@ -1464,11 +1488,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setRangeEnd(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
+      if (value == null) { throw new NullPointerException(); }
       rangeEnd_ = value;
+      bitField0_ |= 0x00000080;
       onChanged();
       return this;
     }
@@ -1482,7 +1504,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearRangeEnd() {
-      
+      bitField0_ = (bitField0_ & ~0x00000080);
       rangeEnd_ = getDefaultInstance().getRangeEnd();
       onChanged();
       return this;
@@ -1520,7 +1542,18 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new Compare(input, extensionRegistry);
+      Builder builder = newBuilder();
+      try {
+        builder.mergeFrom(input, extensionRegistry);
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(builder.buildPartial());
+      } catch (com.google.protobuf.UninitializedMessageException e) {
+        throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(e)
+            .setUnfinishedMessage(builder.buildPartial());
+      }
+      return builder.buildPartial();
     }
   };
 

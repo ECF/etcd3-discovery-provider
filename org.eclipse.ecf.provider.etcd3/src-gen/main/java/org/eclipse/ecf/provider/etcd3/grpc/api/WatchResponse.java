@@ -27,100 +27,6 @@ private static final long serialVersionUID = 0L;
     return new WatchResponse();
   }
 
-  @java.lang.Override
-  public final com.google.protobuf.UnknownFieldSet
-  getUnknownFields() {
-    return this.unknownFields;
-  }
-  private WatchResponse(
-      com.google.protobuf.CodedInputStream input,
-      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-      throws com.google.protobuf.InvalidProtocolBufferException {
-    this();
-    if (extensionRegistry == null) {
-      throw new java.lang.NullPointerException();
-    }
-    int mutable_bitField0_ = 0;
-    com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-        com.google.protobuf.UnknownFieldSet.newBuilder();
-    try {
-      boolean done = false;
-      while (!done) {
-        int tag = input.readTag();
-        switch (tag) {
-          case 0:
-            done = true;
-            break;
-          case 10: {
-            org.eclipse.ecf.provider.etcd3.grpc.api.ResponseHeader.Builder subBuilder = null;
-            if (header_ != null) {
-              subBuilder = header_.toBuilder();
-            }
-            header_ = input.readMessage(org.eclipse.ecf.provider.etcd3.grpc.api.ResponseHeader.parser(), extensionRegistry);
-            if (subBuilder != null) {
-              subBuilder.mergeFrom(header_);
-              header_ = subBuilder.buildPartial();
-            }
-
-            break;
-          }
-          case 16: {
-
-            watchId_ = input.readInt64();
-            break;
-          }
-          case 24: {
-
-            created_ = input.readBool();
-            break;
-          }
-          case 32: {
-
-            canceled_ = input.readBool();
-            break;
-          }
-          case 40: {
-
-            compactRevision_ = input.readInt64();
-            break;
-          }
-          case 50: {
-            java.lang.String s = input.readStringRequireUtf8();
-
-            cancelReason_ = s;
-            break;
-          }
-          case 90: {
-            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-              events_ = new java.util.ArrayList<org.eclipse.ecf.provider.etcd3.grpc.api.kv.Event>();
-              mutable_bitField0_ |= 0x00000001;
-            }
-            events_.add(
-                input.readMessage(org.eclipse.ecf.provider.etcd3.grpc.api.kv.Event.parser(), extensionRegistry));
-            break;
-          }
-          default: {
-            if (!parseUnknownField(
-                input, unknownFields, extensionRegistry, tag)) {
-              done = true;
-            }
-            break;
-          }
-        }
-      }
-    } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-      throw e.setUnfinishedMessage(this);
-    } catch (java.io.IOException e) {
-      throw new com.google.protobuf.InvalidProtocolBufferException(
-          e).setUnfinishedMessage(this);
-    } finally {
-      if (((mutable_bitField0_ & 0x00000001) != 0)) {
-        events_ = java.util.Collections.unmodifiableList(events_);
-      }
-      this.unknownFields = unknownFields.build();
-      makeExtensionsImmutable();
-    }
-  }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
     return org.eclipse.ecf.provider.etcd3.grpc.api.ECFEtcdProto.internal_static_etcdserverpb_WatchResponse_descriptor;
@@ -157,11 +63,11 @@ private static final long serialVersionUID = 0L;
    */
   @java.lang.Override
   public org.eclipse.ecf.provider.etcd3.grpc.api.ResponseHeaderOrBuilder getHeaderOrBuilder() {
-    return getHeader();
+    return header_ == null ? org.eclipse.ecf.provider.etcd3.grpc.api.ResponseHeader.getDefaultInstance() : header_;
   }
 
   public static final int WATCH_ID_FIELD_NUMBER = 2;
-  private long watchId_;
+  private long watchId_ = 0L;
   /**
    * <pre>
    * watch_id is the ID of the watcher that corresponds to the response.
@@ -176,7 +82,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int CREATED_FIELD_NUMBER = 3;
-  private boolean created_;
+  private boolean created_ = false;
   /**
    * <pre>
    * created is set to true if the response is for a create watch request.
@@ -194,7 +100,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int CANCELED_FIELD_NUMBER = 4;
-  private boolean canceled_;
+  private boolean canceled_ = false;
   /**
    * <pre>
    * canceled is set to true if the response is for a cancel watch request.
@@ -210,13 +116,15 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int COMPACT_REVISION_FIELD_NUMBER = 5;
-  private long compactRevision_;
+  private long compactRevision_ = 0L;
   /**
    * <pre>
    * compact_revision is set to the minimum index if a watcher tries to watch
    * at a compacted index.
+   *
    * This happens when creating a watcher at a compacted revision or the watcher cannot
    * catch up with the progress of the key-value store.
+   *
    * The client should treat the watcher as canceled and should not try to create any
    * watcher with the same start_revision again.
    * </pre>
@@ -230,7 +138,8 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int CANCEL_REASON_FIELD_NUMBER = 6;
-  private volatile java.lang.Object cancelReason_;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object cancelReason_ = "";
   /**
    * <pre>
    * cancel_reason indicates the reason for canceling the watcher.
@@ -276,6 +185,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int EVENTS_FIELD_NUMBER = 11;
+  @SuppressWarnings("serial")
   private java.util.List<org.eclipse.ecf.provider.etcd3.grpc.api.kv.Event> events_;
   /**
    * <code>repeated .mvccpb.Event events = 11;</code>
@@ -344,13 +254,13 @@ private static final long serialVersionUID = 0L;
     if (compactRevision_ != 0L) {
       output.writeInt64(5, compactRevision_);
     }
-    if (!getCancelReasonBytes().isEmpty()) {
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(cancelReason_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 6, cancelReason_);
     }
     for (int i = 0; i < events_.size(); i++) {
       output.writeMessage(11, events_.get(i));
     }
-    unknownFields.writeTo(output);
+    getUnknownFields().writeTo(output);
   }
 
   @java.lang.Override
@@ -379,14 +289,14 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeInt64Size(5, compactRevision_);
     }
-    if (!getCancelReasonBytes().isEmpty()) {
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(cancelReason_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, cancelReason_);
     }
     for (int i = 0; i < events_.size(); i++) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(11, events_.get(i));
     }
-    size += unknownFields.getSerializedSize();
+    size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
   }
@@ -418,7 +328,7 @@ private static final long serialVersionUID = 0L;
         .equals(other.getCancelReason())) return false;
     if (!getEventsList()
         .equals(other.getEventsList())) return false;
-    if (!unknownFields.equals(other.unknownFields)) return false;
+    if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
 
@@ -451,7 +361,7 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + EVENTS_FIELD_NUMBER;
       hash = (53 * hash) + getEventsList().hashCode();
     }
-    hash = (29 * hash) + unknownFields.hashCode();
+    hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
   }
@@ -568,45 +478,35 @@ private static final long serialVersionUID = 0L;
 
     // Construct using org.eclipse.ecf.provider.etcd3.grpc.api.WatchResponse.newBuilder()
     private Builder() {
-      maybeForceBuilderInitialization();
+
     }
 
     private Builder(
         com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       super(parent);
-      maybeForceBuilderInitialization();
-    }
-    private void maybeForceBuilderInitialization() {
-      if (com.google.protobuf.GeneratedMessageV3
-              .alwaysUseFieldBuilders) {
-        getEventsFieldBuilder();
-      }
+
     }
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      if (headerBuilder_ == null) {
-        header_ = null;
-      } else {
-        header_ = null;
+      bitField0_ = 0;
+      header_ = null;
+      if (headerBuilder_ != null) {
+        headerBuilder_.dispose();
         headerBuilder_ = null;
       }
       watchId_ = 0L;
-
       created_ = false;
-
       canceled_ = false;
-
       compactRevision_ = 0L;
-
       cancelReason_ = "";
-
       if (eventsBuilder_ == null) {
         events_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000001);
       } else {
+        events_ = null;
         eventsBuilder_.clear();
       }
+      bitField0_ = (bitField0_ & ~0x00000040);
       return this;
     }
 
@@ -633,62 +533,48 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public org.eclipse.ecf.provider.etcd3.grpc.api.WatchResponse buildPartial() {
       org.eclipse.ecf.provider.etcd3.grpc.api.WatchResponse result = new org.eclipse.ecf.provider.etcd3.grpc.api.WatchResponse(this);
-      int from_bitField0_ = bitField0_;
-      if (headerBuilder_ == null) {
-        result.header_ = header_;
-      } else {
-        result.header_ = headerBuilder_.build();
-      }
-      result.watchId_ = watchId_;
-      result.created_ = created_;
-      result.canceled_ = canceled_;
-      result.compactRevision_ = compactRevision_;
-      result.cancelReason_ = cancelReason_;
+      buildPartialRepeatedFields(result);
+      if (bitField0_ != 0) { buildPartial0(result); }
+      onBuilt();
+      return result;
+    }
+
+    private void buildPartialRepeatedFields(org.eclipse.ecf.provider.etcd3.grpc.api.WatchResponse result) {
       if (eventsBuilder_ == null) {
-        if (((bitField0_ & 0x00000001) != 0)) {
+        if (((bitField0_ & 0x00000040) != 0)) {
           events_ = java.util.Collections.unmodifiableList(events_);
-          bitField0_ = (bitField0_ & ~0x00000001);
+          bitField0_ = (bitField0_ & ~0x00000040);
         }
         result.events_ = events_;
       } else {
         result.events_ = eventsBuilder_.build();
       }
-      onBuilt();
-      return result;
     }
 
-    @java.lang.Override
-    public Builder clone() {
-      return super.clone();
+    private void buildPartial0(org.eclipse.ecf.provider.etcd3.grpc.api.WatchResponse result) {
+      int from_bitField0_ = bitField0_;
+      if (((from_bitField0_ & 0x00000001) != 0)) {
+        result.header_ = headerBuilder_ == null
+            ? header_
+            : headerBuilder_.build();
+      }
+      if (((from_bitField0_ & 0x00000002) != 0)) {
+        result.watchId_ = watchId_;
+      }
+      if (((from_bitField0_ & 0x00000004) != 0)) {
+        result.created_ = created_;
+      }
+      if (((from_bitField0_ & 0x00000008) != 0)) {
+        result.canceled_ = canceled_;
+      }
+      if (((from_bitField0_ & 0x00000010) != 0)) {
+        result.compactRevision_ = compactRevision_;
+      }
+      if (((from_bitField0_ & 0x00000020) != 0)) {
+        result.cancelReason_ = cancelReason_;
+      }
     }
-    @java.lang.Override
-    public Builder setField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
-      return super.setField(field, value);
-    }
-    @java.lang.Override
-    public Builder clearField(
-        com.google.protobuf.Descriptors.FieldDescriptor field) {
-      return super.clearField(field);
-    }
-    @java.lang.Override
-    public Builder clearOneof(
-        com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-      return super.clearOneof(oneof);
-    }
-    @java.lang.Override
-    public Builder setRepeatedField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, java.lang.Object value) {
-      return super.setRepeatedField(field, index, value);
-    }
-    @java.lang.Override
-    public Builder addRepeatedField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
-      return super.addRepeatedField(field, value);
-    }
+
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
       if (other instanceof org.eclipse.ecf.provider.etcd3.grpc.api.WatchResponse) {
@@ -718,13 +604,14 @@ private static final long serialVersionUID = 0L;
       }
       if (!other.getCancelReason().isEmpty()) {
         cancelReason_ = other.cancelReason_;
+        bitField0_ |= 0x00000020;
         onChanged();
       }
       if (eventsBuilder_ == null) {
         if (!other.events_.isEmpty()) {
           if (events_.isEmpty()) {
             events_ = other.events_;
-            bitField0_ = (bitField0_ & ~0x00000001);
+            bitField0_ = (bitField0_ & ~0x00000040);
           } else {
             ensureEventsIsMutable();
             events_.addAll(other.events_);
@@ -737,7 +624,7 @@ private static final long serialVersionUID = 0L;
             eventsBuilder_.dispose();
             eventsBuilder_ = null;
             events_ = other.events_;
-            bitField0_ = (bitField0_ & ~0x00000001);
+            bitField0_ = (bitField0_ & ~0x00000040);
             eventsBuilder_ = 
               com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                  getEventsFieldBuilder() : null;
@@ -746,7 +633,7 @@ private static final long serialVersionUID = 0L;
           }
         }
       }
-      this.mergeUnknownFields(other.unknownFields);
+      this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
       return this;
     }
@@ -761,17 +648,75 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      org.eclipse.ecf.provider.etcd3.grpc.api.WatchResponse parsedMessage = null;
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       try {
-        parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              input.readMessage(
+                  getHeaderFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              bitField0_ |= 0x00000001;
+              break;
+            } // case 10
+            case 16: {
+              watchId_ = input.readInt64();
+              bitField0_ |= 0x00000002;
+              break;
+            } // case 16
+            case 24: {
+              created_ = input.readBool();
+              bitField0_ |= 0x00000004;
+              break;
+            } // case 24
+            case 32: {
+              canceled_ = input.readBool();
+              bitField0_ |= 0x00000008;
+              break;
+            } // case 32
+            case 40: {
+              compactRevision_ = input.readInt64();
+              bitField0_ |= 0x00000010;
+              break;
+            } // case 40
+            case 50: {
+              cancelReason_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00000020;
+              break;
+            } // case 50
+            case 90: {
+              org.eclipse.ecf.provider.etcd3.grpc.api.kv.Event m =
+                  input.readMessage(
+                      org.eclipse.ecf.provider.etcd3.grpc.api.kv.Event.parser(),
+                      extensionRegistry);
+              if (eventsBuilder_ == null) {
+                ensureEventsIsMutable();
+                events_.add(m);
+              } else {
+                eventsBuilder_.addMessage(m);
+              }
+              break;
+            } // case 90
+            default: {
+              if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                done = true; // was an endgroup tag
+              }
+              break;
+            } // default:
+          } // switch (tag)
+        } // while (!done)
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (org.eclipse.ecf.provider.etcd3.grpc.api.WatchResponse) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
-        if (parsedMessage != null) {
-          mergeFrom(parsedMessage);
-        }
-      }
+        onChanged();
+      } // finally
       return this;
     }
     private int bitField0_;
@@ -784,7 +729,7 @@ private static final long serialVersionUID = 0L;
      * @return Whether the header field is set.
      */
     public boolean hasHeader() {
-      return headerBuilder_ != null || header_ != null;
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>.etcdserverpb.ResponseHeader header = 1;</code>
@@ -806,11 +751,11 @@ private static final long serialVersionUID = 0L;
           throw new NullPointerException();
         }
         header_ = value;
-        onChanged();
       } else {
         headerBuilder_.setMessage(value);
       }
-
+      bitField0_ |= 0x00000001;
+      onChanged();
       return this;
     }
     /**
@@ -820,11 +765,11 @@ private static final long serialVersionUID = 0L;
         org.eclipse.ecf.provider.etcd3.grpc.api.ResponseHeader.Builder builderForValue) {
       if (headerBuilder_ == null) {
         header_ = builderForValue.build();
-        onChanged();
       } else {
         headerBuilder_.setMessage(builderForValue.build());
       }
-
+      bitField0_ |= 0x00000001;
+      onChanged();
       return this;
     }
     /**
@@ -832,38 +777,38 @@ private static final long serialVersionUID = 0L;
      */
     public Builder mergeHeader(org.eclipse.ecf.provider.etcd3.grpc.api.ResponseHeader value) {
       if (headerBuilder_ == null) {
-        if (header_ != null) {
-          header_ =
-            org.eclipse.ecf.provider.etcd3.grpc.api.ResponseHeader.newBuilder(header_).mergeFrom(value).buildPartial();
+        if (((bitField0_ & 0x00000001) != 0) &&
+          header_ != null &&
+          header_ != org.eclipse.ecf.provider.etcd3.grpc.api.ResponseHeader.getDefaultInstance()) {
+          getHeaderBuilder().mergeFrom(value);
         } else {
           header_ = value;
         }
-        onChanged();
       } else {
         headerBuilder_.mergeFrom(value);
       }
-
+      bitField0_ |= 0x00000001;
+      onChanged();
       return this;
     }
     /**
      * <code>.etcdserverpb.ResponseHeader header = 1;</code>
      */
     public Builder clearHeader() {
-      if (headerBuilder_ == null) {
-        header_ = null;
-        onChanged();
-      } else {
-        header_ = null;
+      bitField0_ = (bitField0_ & ~0x00000001);
+      header_ = null;
+      if (headerBuilder_ != null) {
+        headerBuilder_.dispose();
         headerBuilder_ = null;
       }
-
+      onChanged();
       return this;
     }
     /**
      * <code>.etcdserverpb.ResponseHeader header = 1;</code>
      */
     public org.eclipse.ecf.provider.etcd3.grpc.api.ResponseHeader.Builder getHeaderBuilder() {
-      
+      bitField0_ |= 0x00000001;
       onChanged();
       return getHeaderFieldBuilder().getBuilder();
     }
@@ -918,8 +863,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setWatchId(long value) {
-      
+
       watchId_ = value;
+      bitField0_ |= 0x00000002;
       onChanged();
       return this;
     }
@@ -932,7 +878,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearWatchId() {
-      
+      bitField0_ = (bitField0_ & ~0x00000002);
       watchId_ = 0L;
       onChanged();
       return this;
@@ -967,8 +913,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setCreated(boolean value) {
-      
+
       created_ = value;
+      bitField0_ |= 0x00000004;
       onChanged();
       return this;
     }
@@ -984,7 +931,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearCreated() {
-      
+      bitField0_ = (bitField0_ & ~0x00000004);
       created_ = false;
       onChanged();
       return this;
@@ -1015,8 +962,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setCanceled(boolean value) {
-      
+
       canceled_ = value;
+      bitField0_ |= 0x00000008;
       onChanged();
       return this;
     }
@@ -1030,7 +978,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearCanceled() {
-      
+      bitField0_ = (bitField0_ & ~0x00000008);
       canceled_ = false;
       onChanged();
       return this;
@@ -1041,8 +989,10 @@ private static final long serialVersionUID = 0L;
      * <pre>
      * compact_revision is set to the minimum index if a watcher tries to watch
      * at a compacted index.
+     *
      * This happens when creating a watcher at a compacted revision or the watcher cannot
      * catch up with the progress of the key-value store.
+     *
      * The client should treat the watcher as canceled and should not try to create any
      * watcher with the same start_revision again.
      * </pre>
@@ -1058,8 +1008,10 @@ private static final long serialVersionUID = 0L;
      * <pre>
      * compact_revision is set to the minimum index if a watcher tries to watch
      * at a compacted index.
+     *
      * This happens when creating a watcher at a compacted revision or the watcher cannot
      * catch up with the progress of the key-value store.
+     *
      * The client should treat the watcher as canceled and should not try to create any
      * watcher with the same start_revision again.
      * </pre>
@@ -1069,8 +1021,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setCompactRevision(long value) {
-      
+
       compactRevision_ = value;
+      bitField0_ |= 0x00000010;
       onChanged();
       return this;
     }
@@ -1078,8 +1031,10 @@ private static final long serialVersionUID = 0L;
      * <pre>
      * compact_revision is set to the minimum index if a watcher tries to watch
      * at a compacted index.
+     *
      * This happens when creating a watcher at a compacted revision or the watcher cannot
      * catch up with the progress of the key-value store.
+     *
      * The client should treat the watcher as canceled and should not try to create any
      * watcher with the same start_revision again.
      * </pre>
@@ -1088,7 +1043,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearCompactRevision() {
-      
+      bitField0_ = (bitField0_ & ~0x00000010);
       compactRevision_ = 0L;
       onChanged();
       return this;
@@ -1147,11 +1102,9 @@ private static final long serialVersionUID = 0L;
      */
     public Builder setCancelReason(
         java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
+      if (value == null) { throw new NullPointerException(); }
       cancelReason_ = value;
+      bitField0_ |= 0x00000020;
       onChanged();
       return this;
     }
@@ -1164,8 +1117,8 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearCancelReason() {
-      
       cancelReason_ = getDefaultInstance().getCancelReason();
+      bitField0_ = (bitField0_ & ~0x00000020);
       onChanged();
       return this;
     }
@@ -1180,12 +1133,10 @@ private static final long serialVersionUID = 0L;
      */
     public Builder setCancelReasonBytes(
         com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
       cancelReason_ = value;
+      bitField0_ |= 0x00000020;
       onChanged();
       return this;
     }
@@ -1193,9 +1144,9 @@ private static final long serialVersionUID = 0L;
     private java.util.List<org.eclipse.ecf.provider.etcd3.grpc.api.kv.Event> events_ =
       java.util.Collections.emptyList();
     private void ensureEventsIsMutable() {
-      if (!((bitField0_ & 0x00000001) != 0)) {
+      if (!((bitField0_ & 0x00000040) != 0)) {
         events_ = new java.util.ArrayList<org.eclipse.ecf.provider.etcd3.grpc.api.kv.Event>(events_);
-        bitField0_ |= 0x00000001;
+        bitField0_ |= 0x00000040;
        }
     }
 
@@ -1345,7 +1296,7 @@ private static final long serialVersionUID = 0L;
     public Builder clearEvents() {
       if (eventsBuilder_ == null) {
         events_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000001);
+        bitField0_ = (bitField0_ & ~0x00000040);
         onChanged();
       } else {
         eventsBuilder_.clear();
@@ -1422,7 +1373,7 @@ private static final long serialVersionUID = 0L;
         eventsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
             org.eclipse.ecf.provider.etcd3.grpc.api.kv.Event, org.eclipse.ecf.provider.etcd3.grpc.api.kv.Event.Builder, org.eclipse.ecf.provider.etcd3.grpc.api.kv.EventOrBuilder>(
                 events_,
-                ((bitField0_ & 0x00000001) != 0),
+                ((bitField0_ & 0x00000040) != 0),
                 getParentForChildren(),
                 isClean());
         events_ = null;
@@ -1462,7 +1413,18 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new WatchResponse(input, extensionRegistry);
+      Builder builder = newBuilder();
+      try {
+        builder.mergeFrom(input, extensionRegistry);
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(builder.buildPartial());
+      } catch (com.google.protobuf.UninitializedMessageException e) {
+        throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(e)
+            .setUnfinishedMessage(builder.buildPartial());
+      }
+      return builder.buildPartial();
     }
   };
 

@@ -161,8 +161,28 @@ public final class Rx3LeaseGrpc {
          *  Range gets the keys in the range from the key-value store.
          * </pre>
          */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantResponse> leaseGrant(org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantRequest request) {
+            return leaseGrant(io.reactivex.rxjava3.core.Single.just(request));
+        }
+
+        /**
+         * <pre>
+         *  Range gets the keys in the range from the key-value store.
+         * </pre>
+         */
         public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantResponse> leaseGrant(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantRequest> request) {
             throw new io.grpc.StatusRuntimeException(io.grpc.Status.UNIMPLEMENTED);
+        }
+
+        /**
+         * <pre>
+         *  Put puts the given key into the key-value store.
+         *  A put request increments the revision of the key-value store
+         *  and generates one event in the event history.
+         * </pre>
+         */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseRevokeResponse> leaseRevoke(org.eclipse.ecf.provider.etcd3.grpc.api.LeaseRevokeRequest request) {
+            return leaseRevoke(io.reactivex.rxjava3.core.Single.just(request));
         }
 
         /**
@@ -176,6 +196,7 @@ public final class Rx3LeaseGrpc {
             throw new io.grpc.StatusRuntimeException(io.grpc.Status.UNIMPLEMENTED);
         }
 
+
         /**
          * <pre>
          *  DeleteRange deletes the given range from the key-value store.
@@ -185,6 +206,18 @@ public final class Rx3LeaseGrpc {
          */
         public io.reactivex.rxjava3.core.Flowable<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseKeepAliveResponse> leaseKeepAlive(io.reactivex.rxjava3.core.Flowable<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseKeepAliveRequest> request) {
             throw new io.grpc.StatusRuntimeException(io.grpc.Status.UNIMPLEMENTED);
+        }
+
+        /**
+         * <pre>
+         *  Txn processes multiple requests in a single transaction.
+         *  A txn request increments the revision of the key-value store
+         *  and generates events with the same revision for every completed request.
+         *  It is not allowed to modify the same key several times within one txn.
+         * </pre>
+         */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseTimeToLiveResponse> leaseTimeToLive(org.eclipse.ecf.provider.etcd3.grpc.api.LeaseTimeToLiveRequest request) {
+            return leaseTimeToLive(io.reactivex.rxjava3.core.Single.just(request));
         }
 
         /**
@@ -236,6 +269,10 @@ public final class Rx3LeaseGrpc {
             return null;
         }
 
+        protected Throwable onErrorMap(Throwable throwable) {
+            return com.salesforce.rx3grpc.stub.ServerCalls.prepareError(throwable);
+        }
+
     }
 
     public static final int METHODID_LEASE_GRANT = 0;
@@ -263,32 +300,32 @@ public final class Rx3LeaseGrpc {
                 case METHODID_LEASE_GRANT:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.LeaseGrantRequest single) {
                                     return serviceImpl.leaseGrant(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_LEASE_REVOKE:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.LeaseRevokeRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseRevokeResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseRevokeRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseRevokeResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseRevokeRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseRevokeResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseRevokeResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseRevokeRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseRevokeResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.LeaseRevokeRequest single) {
                                     return serviceImpl.leaseRevoke(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_LEASE_TIME_TO_LIVE:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.LeaseTimeToLiveRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseTimeToLiveResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseTimeToLiveRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseTimeToLiveResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseTimeToLiveRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseTimeToLiveResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseTimeToLiveResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseTimeToLiveRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseTimeToLiveResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.LeaseTimeToLiveRequest single) {
                                     return serviceImpl.leaseTimeToLive(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 default:
                     throw new java.lang.AssertionError();
@@ -302,7 +339,7 @@ public final class Rx3LeaseGrpc {
                 case METHODID_LEASE_KEEP_ALIVE:
                     return (io.grpc.stub.StreamObserver<Req>) com.salesforce.rx3grpc.stub.ServerCalls.manyToMany(
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.LeaseKeepAliveResponse>) responseObserver,
-                            serviceImpl::leaseKeepAlive, serviceImpl.getCallOptions(methodId));
+                            serviceImpl::leaseKeepAlive, serviceImpl::onErrorMap, serviceImpl.getCallOptions(methodId));
                 default:
                     throw new java.lang.AssertionError();
             }

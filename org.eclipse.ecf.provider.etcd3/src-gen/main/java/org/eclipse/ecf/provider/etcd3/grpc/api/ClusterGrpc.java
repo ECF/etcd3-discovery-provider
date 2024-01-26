@@ -5,8 +5,9 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
 /**
  */
 @javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.39.0)",
+    value = "by gRPC proto compiler (version 1.54.0)",
     comments = "Source: rpc.proto")
+@io.grpc.stub.annotations.GrpcGenerated
 public final class ClusterGrpc {
 
   private ClusterGrpc() {}
@@ -184,14 +185,14 @@ public final class ClusterGrpc {
 
   /**
    */
-  public static abstract class ClusterImplBase implements io.grpc.BindableService {
+  public interface AsyncService {
 
     /**
      * <pre>
      * MemberAdd adds a member into the cluster.
      * </pre>
      */
-    public void memberAdd(org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddRequest request,
+    default void memberAdd(org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getMemberAddMethod(), responseObserver);
     }
@@ -201,7 +202,7 @@ public final class ClusterGrpc {
      * MemberRemove removes an existing member from the cluster.
      * </pre>
      */
-    public void memberRemove(org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveRequest request,
+    default void memberRemove(org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getMemberRemoveMethod(), responseObserver);
     }
@@ -211,7 +212,7 @@ public final class ClusterGrpc {
      * MemberUpdate updates the member configuration.
      * </pre>
      */
-    public void memberUpdate(org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateRequest request,
+    default void memberUpdate(org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getMemberUpdateMethod(), responseObserver);
     }
@@ -221,48 +222,28 @@ public final class ClusterGrpc {
      * MemberList lists all the members in the cluster.
      * </pre>
      */
-    public void memberList(org.eclipse.ecf.provider.etcd3.grpc.api.MemberListRequest request,
+    default void memberList(org.eclipse.ecf.provider.etcd3.grpc.api.MemberListRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.MemberListResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getMemberListMethod(), responseObserver);
-    }
-
-    @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
-      return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
-          .addMethod(
-            getMemberAddMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddRequest,
-                org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddResponse>(
-                  this, METHODID_MEMBER_ADD)))
-          .addMethod(
-            getMemberRemoveMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveRequest,
-                org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveResponse>(
-                  this, METHODID_MEMBER_REMOVE)))
-          .addMethod(
-            getMemberUpdateMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateRequest,
-                org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateResponse>(
-                  this, METHODID_MEMBER_UPDATE)))
-          .addMethod(
-            getMemberListMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                org.eclipse.ecf.provider.etcd3.grpc.api.MemberListRequest,
-                org.eclipse.ecf.provider.etcd3.grpc.api.MemberListResponse>(
-                  this, METHODID_MEMBER_LIST)))
-          .build();
     }
   }
 
   /**
+   * Base class for the server implementation of the service Cluster.
    */
-  public static final class ClusterStub extends io.grpc.stub.AbstractAsyncStub<ClusterStub> {
+  public static abstract class ClusterImplBase
+      implements io.grpc.BindableService, AsyncService {
+
+    @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
+      return ClusterGrpc.bindService(this);
+    }
+  }
+
+  /**
+   * A stub to allow clients to do asynchronous rpc calls to service Cluster.
+   */
+  public static final class ClusterStub
+      extends io.grpc.stub.AbstractAsyncStub<ClusterStub> {
     private ClusterStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
@@ -320,8 +301,10 @@ public final class ClusterGrpc {
   }
 
   /**
+   * A stub to allow clients to do synchronous rpc calls to service Cluster.
    */
-  public static final class ClusterBlockingStub extends io.grpc.stub.AbstractBlockingStub<ClusterBlockingStub> {
+  public static final class ClusterBlockingStub
+      extends io.grpc.stub.AbstractBlockingStub<ClusterBlockingStub> {
     private ClusterBlockingStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
@@ -375,8 +358,10 @@ public final class ClusterGrpc {
   }
 
   /**
+   * A stub to allow clients to do ListenableFuture-style rpc calls to service Cluster.
    */
-  public static final class ClusterFutureStub extends io.grpc.stub.AbstractFutureStub<ClusterFutureStub> {
+  public static final class ClusterFutureStub
+      extends io.grpc.stub.AbstractFutureStub<ClusterFutureStub> {
     private ClusterFutureStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
@@ -443,10 +428,10 @@ public final class ClusterGrpc {
       io.grpc.stub.ServerCalls.ServerStreamingMethod<Req, Resp>,
       io.grpc.stub.ServerCalls.ClientStreamingMethod<Req, Resp>,
       io.grpc.stub.ServerCalls.BidiStreamingMethod<Req, Resp> {
-    private final ClusterImplBase serviceImpl;
+    private final AsyncService serviceImpl;
     private final int methodId;
 
-    MethodHandlers(ClusterImplBase serviceImpl, int methodId) {
+    MethodHandlers(AsyncService serviceImpl, int methodId) {
       this.serviceImpl = serviceImpl;
       this.methodId = methodId;
     }
@@ -485,6 +470,39 @@ public final class ClusterGrpc {
           throw new AssertionError();
       }
     }
+  }
+
+  public static final io.grpc.ServerServiceDefinition bindService(AsyncService service) {
+    return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
+        .addMethod(
+          getMemberAddMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddRequest,
+              org.eclipse.ecf.provider.etcd3.grpc.api.MemberAddResponse>(
+                service, METHODID_MEMBER_ADD)))
+        .addMethod(
+          getMemberRemoveMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveRequest,
+              org.eclipse.ecf.provider.etcd3.grpc.api.MemberRemoveResponse>(
+                service, METHODID_MEMBER_REMOVE)))
+        .addMethod(
+          getMemberUpdateMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateRequest,
+              org.eclipse.ecf.provider.etcd3.grpc.api.MemberUpdateResponse>(
+                service, METHODID_MEMBER_UPDATE)))
+        .addMethod(
+          getMemberListMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              org.eclipse.ecf.provider.etcd3.grpc.api.MemberListRequest,
+              org.eclipse.ecf.provider.etcd3.grpc.api.MemberListResponse>(
+                service, METHODID_MEMBER_LIST)))
+        .build();
   }
 
   private static abstract class ClusterBaseDescriptorSupplier

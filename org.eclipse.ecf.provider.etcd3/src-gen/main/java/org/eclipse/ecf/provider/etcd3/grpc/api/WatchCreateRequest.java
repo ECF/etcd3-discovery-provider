@@ -28,100 +28,6 @@ private static final long serialVersionUID = 0L;
     return new WatchCreateRequest();
   }
 
-  @java.lang.Override
-  public final com.google.protobuf.UnknownFieldSet
-  getUnknownFields() {
-    return this.unknownFields;
-  }
-  private WatchCreateRequest(
-      com.google.protobuf.CodedInputStream input,
-      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-      throws com.google.protobuf.InvalidProtocolBufferException {
-    this();
-    if (extensionRegistry == null) {
-      throw new java.lang.NullPointerException();
-    }
-    int mutable_bitField0_ = 0;
-    com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-        com.google.protobuf.UnknownFieldSet.newBuilder();
-    try {
-      boolean done = false;
-      while (!done) {
-        int tag = input.readTag();
-        switch (tag) {
-          case 0:
-            done = true;
-            break;
-          case 10: {
-
-            key_ = input.readBytes();
-            break;
-          }
-          case 18: {
-
-            rangeEnd_ = input.readBytes();
-            break;
-          }
-          case 24: {
-
-            startRevision_ = input.readInt64();
-            break;
-          }
-          case 32: {
-
-            progressNotify_ = input.readBool();
-            break;
-          }
-          case 40: {
-            int rawValue = input.readEnum();
-            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-              filters_ = new java.util.ArrayList<java.lang.Integer>();
-              mutable_bitField0_ |= 0x00000001;
-            }
-            filters_.add(rawValue);
-            break;
-          }
-          case 42: {
-            int length = input.readRawVarint32();
-            int oldLimit = input.pushLimit(length);
-            while(input.getBytesUntilLimit() > 0) {
-              int rawValue = input.readEnum();
-              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                filters_ = new java.util.ArrayList<java.lang.Integer>();
-                mutable_bitField0_ |= 0x00000001;
-              }
-              filters_.add(rawValue);
-            }
-            input.popLimit(oldLimit);
-            break;
-          }
-          case 48: {
-
-            prevKv_ = input.readBool();
-            break;
-          }
-          default: {
-            if (!parseUnknownField(
-                input, unknownFields, extensionRegistry, tag)) {
-              done = true;
-            }
-            break;
-          }
-        }
-      }
-    } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-      throw e.setUnfinishedMessage(this);
-    } catch (java.io.IOException e) {
-      throw new com.google.protobuf.InvalidProtocolBufferException(
-          e).setUnfinishedMessage(this);
-    } finally {
-      if (((mutable_bitField0_ & 0x00000001) != 0)) {
-        filters_ = java.util.Collections.unmodifiableList(filters_);
-      }
-      this.unknownFields = unknownFields.build();
-      makeExtensionsImmutable();
-    }
-  }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
     return org.eclipse.ecf.provider.etcd3.grpc.api.ECFEtcdProto.internal_static_etcdserverpb_WatchCreateRequest_descriptor;
@@ -260,7 +166,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int KEY_FIELD_NUMBER = 1;
-  private com.google.protobuf.ByteString key_;
+  private com.google.protobuf.ByteString key_ = com.google.protobuf.ByteString.EMPTY;
   /**
    * <pre>
    * key is the key to register for watching.
@@ -275,7 +181,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int RANGE_END_FIELD_NUMBER = 2;
-  private com.google.protobuf.ByteString rangeEnd_;
+  private com.google.protobuf.ByteString rangeEnd_ = com.google.protobuf.ByteString.EMPTY;
   /**
    * <pre>
    * range_end is the end of the range [key, range_end) to watch. If range_end is not given,
@@ -294,7 +200,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int START_REVISION_FIELD_NUMBER = 3;
-  private long startRevision_;
+  private long startRevision_ = 0L;
   /**
    * <pre>
    * start_revision is an optional revision to watch from (inclusive). No start_revision is "now".
@@ -309,7 +215,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int PROGRESS_NOTIFY_FIELD_NUMBER = 4;
-  private boolean progressNotify_;
+  private boolean progressNotify_ = false;
   /**
    * <pre>
    * progress_notify is set so that the etcd server will periodically send a WatchResponse with
@@ -327,14 +233,14 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int FILTERS_FIELD_NUMBER = 5;
+  @SuppressWarnings("serial")
   private java.util.List<java.lang.Integer> filters_;
   private static final com.google.protobuf.Internal.ListAdapter.Converter<
       java.lang.Integer, org.eclipse.ecf.provider.etcd3.grpc.api.WatchCreateRequest.FilterType> filters_converter_ =
           new com.google.protobuf.Internal.ListAdapter.Converter<
               java.lang.Integer, org.eclipse.ecf.provider.etcd3.grpc.api.WatchCreateRequest.FilterType>() {
             public org.eclipse.ecf.provider.etcd3.grpc.api.WatchCreateRequest.FilterType convert(java.lang.Integer from) {
-              @SuppressWarnings("deprecation")
-              org.eclipse.ecf.provider.etcd3.grpc.api.WatchCreateRequest.FilterType result = org.eclipse.ecf.provider.etcd3.grpc.api.WatchCreateRequest.FilterType.valueOf(from);
+              org.eclipse.ecf.provider.etcd3.grpc.api.WatchCreateRequest.FilterType result = org.eclipse.ecf.provider.etcd3.grpc.api.WatchCreateRequest.FilterType.forNumber(from);
               return result == null ? org.eclipse.ecf.provider.etcd3.grpc.api.WatchCreateRequest.FilterType.UNRECOGNIZED : result;
             }
           };
@@ -405,7 +311,7 @@ private static final long serialVersionUID = 0L;
   private int filtersMemoizedSerializedSize;
 
   public static final int PREV_KV_FIELD_NUMBER = 6;
-  private boolean prevKv_;
+  private boolean prevKv_ = false;
   /**
    * <pre>
    * If prev_kv is set, created watcher gets the previous KV before the event happens.
@@ -457,7 +363,7 @@ private static final long serialVersionUID = 0L;
     if (prevKv_ != false) {
       output.writeBool(6, prevKv_);
     }
-    unknownFields.writeTo(output);
+    getUnknownFields().writeTo(output);
   }
 
   @java.lang.Override
@@ -498,7 +404,7 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeBoolSize(6, prevKv_);
     }
-    size += unknownFields.getSerializedSize();
+    size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
   }
@@ -524,7 +430,7 @@ private static final long serialVersionUID = 0L;
     if (!filters_.equals(other.filters_)) return false;
     if (getPrevKv()
         != other.getPrevKv()) return false;
-    if (!unknownFields.equals(other.unknownFields)) return false;
+    if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
 
@@ -552,7 +458,7 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + PREV_KV_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
         getPrevKv());
-    hash = (29 * hash) + unknownFields.hashCode();
+    hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
   }
@@ -669,34 +575,25 @@ private static final long serialVersionUID = 0L;
 
     // Construct using org.eclipse.ecf.provider.etcd3.grpc.api.WatchCreateRequest.newBuilder()
     private Builder() {
-      maybeForceBuilderInitialization();
+
     }
 
     private Builder(
         com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       super(parent);
-      maybeForceBuilderInitialization();
-    }
-    private void maybeForceBuilderInitialization() {
-      if (com.google.protobuf.GeneratedMessageV3
-              .alwaysUseFieldBuilders) {
-      }
+
     }
     @java.lang.Override
     public Builder clear() {
       super.clear();
+      bitField0_ = 0;
       key_ = com.google.protobuf.ByteString.EMPTY;
-
       rangeEnd_ = com.google.protobuf.ByteString.EMPTY;
-
       startRevision_ = 0L;
-
       progressNotify_ = false;
-
       filters_ = java.util.Collections.emptyList();
-      bitField0_ = (bitField0_ & ~0x00000001);
+      bitField0_ = (bitField0_ & ~0x00000010);
       prevKv_ = false;
-
       return this;
     }
 
@@ -723,53 +620,39 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public org.eclipse.ecf.provider.etcd3.grpc.api.WatchCreateRequest buildPartial() {
       org.eclipse.ecf.provider.etcd3.grpc.api.WatchCreateRequest result = new org.eclipse.ecf.provider.etcd3.grpc.api.WatchCreateRequest(this);
-      int from_bitField0_ = bitField0_;
-      result.key_ = key_;
-      result.rangeEnd_ = rangeEnd_;
-      result.startRevision_ = startRevision_;
-      result.progressNotify_ = progressNotify_;
-      if (((bitField0_ & 0x00000001) != 0)) {
-        filters_ = java.util.Collections.unmodifiableList(filters_);
-        bitField0_ = (bitField0_ & ~0x00000001);
-      }
-      result.filters_ = filters_;
-      result.prevKv_ = prevKv_;
+      buildPartialRepeatedFields(result);
+      if (bitField0_ != 0) { buildPartial0(result); }
       onBuilt();
       return result;
     }
 
-    @java.lang.Override
-    public Builder clone() {
-      return super.clone();
+    private void buildPartialRepeatedFields(org.eclipse.ecf.provider.etcd3.grpc.api.WatchCreateRequest result) {
+      if (((bitField0_ & 0x00000010) != 0)) {
+        filters_ = java.util.Collections.unmodifiableList(filters_);
+        bitField0_ = (bitField0_ & ~0x00000010);
+      }
+      result.filters_ = filters_;
     }
-    @java.lang.Override
-    public Builder setField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
-      return super.setField(field, value);
+
+    private void buildPartial0(org.eclipse.ecf.provider.etcd3.grpc.api.WatchCreateRequest result) {
+      int from_bitField0_ = bitField0_;
+      if (((from_bitField0_ & 0x00000001) != 0)) {
+        result.key_ = key_;
+      }
+      if (((from_bitField0_ & 0x00000002) != 0)) {
+        result.rangeEnd_ = rangeEnd_;
+      }
+      if (((from_bitField0_ & 0x00000004) != 0)) {
+        result.startRevision_ = startRevision_;
+      }
+      if (((from_bitField0_ & 0x00000008) != 0)) {
+        result.progressNotify_ = progressNotify_;
+      }
+      if (((from_bitField0_ & 0x00000020) != 0)) {
+        result.prevKv_ = prevKv_;
+      }
     }
-    @java.lang.Override
-    public Builder clearField(
-        com.google.protobuf.Descriptors.FieldDescriptor field) {
-      return super.clearField(field);
-    }
-    @java.lang.Override
-    public Builder clearOneof(
-        com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-      return super.clearOneof(oneof);
-    }
-    @java.lang.Override
-    public Builder setRepeatedField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, java.lang.Object value) {
-      return super.setRepeatedField(field, index, value);
-    }
-    @java.lang.Override
-    public Builder addRepeatedField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
-      return super.addRepeatedField(field, value);
-    }
+
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
       if (other instanceof org.eclipse.ecf.provider.etcd3.grpc.api.WatchCreateRequest) {
@@ -797,7 +680,7 @@ private static final long serialVersionUID = 0L;
       if (!other.filters_.isEmpty()) {
         if (filters_.isEmpty()) {
           filters_ = other.filters_;
-          bitField0_ = (bitField0_ & ~0x00000001);
+          bitField0_ = (bitField0_ & ~0x00000010);
         } else {
           ensureFiltersIsMutable();
           filters_.addAll(other.filters_);
@@ -807,7 +690,7 @@ private static final long serialVersionUID = 0L;
       if (other.getPrevKv() != false) {
         setPrevKv(other.getPrevKv());
       }
-      this.mergeUnknownFields(other.unknownFields);
+      this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
       return this;
     }
@@ -822,17 +705,72 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      org.eclipse.ecf.provider.etcd3.grpc.api.WatchCreateRequest parsedMessage = null;
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       try {
-        parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              key_ = input.readBytes();
+              bitField0_ |= 0x00000001;
+              break;
+            } // case 10
+            case 18: {
+              rangeEnd_ = input.readBytes();
+              bitField0_ |= 0x00000002;
+              break;
+            } // case 18
+            case 24: {
+              startRevision_ = input.readInt64();
+              bitField0_ |= 0x00000004;
+              break;
+            } // case 24
+            case 32: {
+              progressNotify_ = input.readBool();
+              bitField0_ |= 0x00000008;
+              break;
+            } // case 32
+            case 40: {
+              int tmpRaw = input.readEnum();
+              ensureFiltersIsMutable();
+              filters_.add(tmpRaw);
+              break;
+            } // case 40
+            case 42: {
+              int length = input.readRawVarint32();
+              int oldLimit = input.pushLimit(length);
+              while(input.getBytesUntilLimit() > 0) {
+                int tmpRaw = input.readEnum();
+                ensureFiltersIsMutable();
+                filters_.add(tmpRaw);
+              }
+              input.popLimit(oldLimit);
+              break;
+            } // case 42
+            case 48: {
+              prevKv_ = input.readBool();
+              bitField0_ |= 0x00000020;
+              break;
+            } // case 48
+            default: {
+              if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                done = true; // was an endgroup tag
+              }
+              break;
+            } // default:
+          } // switch (tag)
+        } // while (!done)
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (org.eclipse.ecf.provider.etcd3.grpc.api.WatchCreateRequest) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
-        if (parsedMessage != null) {
-          mergeFrom(parsedMessage);
-        }
-      }
+        onChanged();
+      } // finally
       return this;
     }
     private int bitField0_;
@@ -860,11 +798,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setKey(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
+      if (value == null) { throw new NullPointerException(); }
       key_ = value;
+      bitField0_ |= 0x00000001;
       onChanged();
       return this;
     }
@@ -877,7 +813,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearKey() {
-      
+      bitField0_ = (bitField0_ & ~0x00000001);
       key_ = getDefaultInstance().getKey();
       onChanged();
       return this;
@@ -914,11 +850,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setRangeEnd(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
+      if (value == null) { throw new NullPointerException(); }
       rangeEnd_ = value;
+      bitField0_ |= 0x00000002;
       onChanged();
       return this;
     }
@@ -935,7 +869,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearRangeEnd() {
-      
+      bitField0_ = (bitField0_ & ~0x00000002);
       rangeEnd_ = getDefaultInstance().getRangeEnd();
       onChanged();
       return this;
@@ -964,8 +898,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setStartRevision(long value) {
-      
+
       startRevision_ = value;
+      bitField0_ |= 0x00000004;
       onChanged();
       return this;
     }
@@ -978,7 +913,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearStartRevision() {
-      
+      bitField0_ = (bitField0_ & ~0x00000004);
       startRevision_ = 0L;
       onChanged();
       return this;
@@ -1013,8 +948,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setProgressNotify(boolean value) {
-      
+
       progressNotify_ = value;
+      bitField0_ |= 0x00000008;
       onChanged();
       return this;
     }
@@ -1030,7 +966,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearProgressNotify() {
-      
+      bitField0_ = (bitField0_ & ~0x00000008);
       progressNotify_ = false;
       onChanged();
       return this;
@@ -1039,9 +975,9 @@ private static final long serialVersionUID = 0L;
     private java.util.List<java.lang.Integer> filters_ =
       java.util.Collections.emptyList();
     private void ensureFiltersIsMutable() {
-      if (!((bitField0_ & 0x00000001) != 0)) {
+      if (!((bitField0_ & 0x00000010) != 0)) {
         filters_ = new java.util.ArrayList<java.lang.Integer>(filters_);
-        bitField0_ |= 0x00000001;
+        bitField0_ |= 0x00000010;
       }
     }
     /**
@@ -1145,7 +1081,7 @@ private static final long serialVersionUID = 0L;
      */
     public Builder clearFilters() {
       filters_ = java.util.Collections.emptyList();
-      bitField0_ = (bitField0_ & ~0x00000001);
+      bitField0_ = (bitField0_ & ~0x00000010);
       onChanged();
       return this;
     }
@@ -1179,8 +1115,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>repeated .etcdserverpb.WatchCreateRequest.FilterType filters = 5;</code>
-     * @param index The index of the value to return.
-     * @return The enum numeric value on the wire of filters at the given index.
+     * @param index The index to set the value at.
+     * @param value The enum numeric value on the wire for filters to set.
      * @return This builder for chaining.
      */
     public Builder setFiltersValue(
@@ -1249,8 +1185,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setPrevKv(boolean value) {
-      
+
       prevKv_ = value;
+      bitField0_ |= 0x00000020;
       onChanged();
       return this;
     }
@@ -1264,7 +1201,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearPrevKv() {
-      
+      bitField0_ = (bitField0_ & ~0x00000020);
       prevKv_ = false;
       onChanged();
       return this;
@@ -1302,7 +1239,18 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new WatchCreateRequest(input, extensionRegistry);
+      Builder builder = newBuilder();
+      try {
+        builder.mergeFrom(input, extensionRegistry);
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(builder.buildPartial());
+      } catch (com.google.protobuf.UninitializedMessageException e) {
+        throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(e)
+            .setUnfinishedMessage(builder.buildPartial());
+      }
+      return builder.buildPartial();
     }
   };
 

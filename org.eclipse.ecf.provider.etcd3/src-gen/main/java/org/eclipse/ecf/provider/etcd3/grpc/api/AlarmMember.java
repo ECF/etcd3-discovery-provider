@@ -26,59 +26,6 @@ private static final long serialVersionUID = 0L;
     return new AlarmMember();
   }
 
-  @java.lang.Override
-  public final com.google.protobuf.UnknownFieldSet
-  getUnknownFields() {
-    return this.unknownFields;
-  }
-  private AlarmMember(
-      com.google.protobuf.CodedInputStream input,
-      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-      throws com.google.protobuf.InvalidProtocolBufferException {
-    this();
-    if (extensionRegistry == null) {
-      throw new java.lang.NullPointerException();
-    }
-    com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-        com.google.protobuf.UnknownFieldSet.newBuilder();
-    try {
-      boolean done = false;
-      while (!done) {
-        int tag = input.readTag();
-        switch (tag) {
-          case 0:
-            done = true;
-            break;
-          case 8: {
-
-            memberID_ = input.readUInt64();
-            break;
-          }
-          case 16: {
-            int rawValue = input.readEnum();
-
-            alarm_ = rawValue;
-            break;
-          }
-          default: {
-            if (!parseUnknownField(
-                input, unknownFields, extensionRegistry, tag)) {
-              done = true;
-            }
-            break;
-          }
-        }
-      }
-    } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-      throw e.setUnfinishedMessage(this);
-    } catch (java.io.IOException e) {
-      throw new com.google.protobuf.InvalidProtocolBufferException(
-          e).setUnfinishedMessage(this);
-    } finally {
-      this.unknownFields = unknownFields.build();
-      makeExtensionsImmutable();
-    }
-  }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
     return org.eclipse.ecf.provider.etcd3.grpc.api.ECFEtcdProto.internal_static_etcdserverpb_AlarmMember_descriptor;
@@ -93,7 +40,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int MEMBERID_FIELD_NUMBER = 1;
-  private long memberID_;
+  private long memberID_ = 0L;
   /**
    * <pre>
    * memberID is the ID of the member associated with the raised alarm.
@@ -108,7 +55,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int ALARM_FIELD_NUMBER = 2;
-  private int alarm_;
+  private int alarm_ = 0;
   /**
    * <pre>
    * alarm is the type of alarm which has been raised.
@@ -129,8 +76,7 @@ private static final long serialVersionUID = 0L;
    * @return The alarm.
    */
   @java.lang.Override public org.eclipse.ecf.provider.etcd3.grpc.api.AlarmType getAlarm() {
-    @SuppressWarnings("deprecation")
-    org.eclipse.ecf.provider.etcd3.grpc.api.AlarmType result = org.eclipse.ecf.provider.etcd3.grpc.api.AlarmType.valueOf(alarm_);
+    org.eclipse.ecf.provider.etcd3.grpc.api.AlarmType result = org.eclipse.ecf.provider.etcd3.grpc.api.AlarmType.forNumber(alarm_);
     return result == null ? org.eclipse.ecf.provider.etcd3.grpc.api.AlarmType.UNRECOGNIZED : result;
   }
 
@@ -154,7 +100,7 @@ private static final long serialVersionUID = 0L;
     if (alarm_ != org.eclipse.ecf.provider.etcd3.grpc.api.AlarmType.NONE.getNumber()) {
       output.writeEnum(2, alarm_);
     }
-    unknownFields.writeTo(output);
+    getUnknownFields().writeTo(output);
   }
 
   @java.lang.Override
@@ -171,7 +117,7 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeEnumSize(2, alarm_);
     }
-    size += unknownFields.getSerializedSize();
+    size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
   }
@@ -189,7 +135,7 @@ private static final long serialVersionUID = 0L;
     if (getMemberID()
         != other.getMemberID()) return false;
     if (alarm_ != other.alarm_) return false;
-    if (!unknownFields.equals(other.unknownFields)) return false;
+    if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
 
@@ -205,7 +151,7 @@ private static final long serialVersionUID = 0L;
         getMemberID());
     hash = (37 * hash) + ALARM_FIELD_NUMBER;
     hash = (53 * hash) + alarm_;
-    hash = (29 * hash) + unknownFields.hashCode();
+    hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
   }
@@ -322,26 +268,20 @@ private static final long serialVersionUID = 0L;
 
     // Construct using org.eclipse.ecf.provider.etcd3.grpc.api.AlarmMember.newBuilder()
     private Builder() {
-      maybeForceBuilderInitialization();
+
     }
 
     private Builder(
         com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       super(parent);
-      maybeForceBuilderInitialization();
-    }
-    private void maybeForceBuilderInitialization() {
-      if (com.google.protobuf.GeneratedMessageV3
-              .alwaysUseFieldBuilders) {
-      }
+
     }
     @java.lang.Override
     public Builder clear() {
       super.clear();
+      bitField0_ = 0;
       memberID_ = 0L;
-
       alarm_ = 0;
-
       return this;
     }
 
@@ -368,44 +308,21 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public org.eclipse.ecf.provider.etcd3.grpc.api.AlarmMember buildPartial() {
       org.eclipse.ecf.provider.etcd3.grpc.api.AlarmMember result = new org.eclipse.ecf.provider.etcd3.grpc.api.AlarmMember(this);
-      result.memberID_ = memberID_;
-      result.alarm_ = alarm_;
+      if (bitField0_ != 0) { buildPartial0(result); }
       onBuilt();
       return result;
     }
 
-    @java.lang.Override
-    public Builder clone() {
-      return super.clone();
+    private void buildPartial0(org.eclipse.ecf.provider.etcd3.grpc.api.AlarmMember result) {
+      int from_bitField0_ = bitField0_;
+      if (((from_bitField0_ & 0x00000001) != 0)) {
+        result.memberID_ = memberID_;
+      }
+      if (((from_bitField0_ & 0x00000002) != 0)) {
+        result.alarm_ = alarm_;
+      }
     }
-    @java.lang.Override
-    public Builder setField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
-      return super.setField(field, value);
-    }
-    @java.lang.Override
-    public Builder clearField(
-        com.google.protobuf.Descriptors.FieldDescriptor field) {
-      return super.clearField(field);
-    }
-    @java.lang.Override
-    public Builder clearOneof(
-        com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-      return super.clearOneof(oneof);
-    }
-    @java.lang.Override
-    public Builder setRepeatedField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, java.lang.Object value) {
-      return super.setRepeatedField(field, index, value);
-    }
-    @java.lang.Override
-    public Builder addRepeatedField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
-      return super.addRepeatedField(field, value);
-    }
+
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
       if (other instanceof org.eclipse.ecf.provider.etcd3.grpc.api.AlarmMember) {
@@ -424,7 +341,7 @@ private static final long serialVersionUID = 0L;
       if (other.alarm_ != 0) {
         setAlarmValue(other.getAlarmValue());
       }
-      this.mergeUnknownFields(other.unknownFields);
+      this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
       return this;
     }
@@ -439,19 +356,43 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      org.eclipse.ecf.provider.etcd3.grpc.api.AlarmMember parsedMessage = null;
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       try {
-        parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              memberID_ = input.readUInt64();
+              bitField0_ |= 0x00000001;
+              break;
+            } // case 8
+            case 16: {
+              alarm_ = input.readEnum();
+              bitField0_ |= 0x00000002;
+              break;
+            } // case 16
+            default: {
+              if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                done = true; // was an endgroup tag
+              }
+              break;
+            } // default:
+          } // switch (tag)
+        } // while (!done)
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (org.eclipse.ecf.provider.etcd3.grpc.api.AlarmMember) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
-        if (parsedMessage != null) {
-          mergeFrom(parsedMessage);
-        }
-      }
+        onChanged();
+      } // finally
       return this;
     }
+    private int bitField0_;
 
     private long memberID_ ;
     /**
@@ -476,8 +417,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setMemberID(long value) {
-      
+
       memberID_ = value;
+      bitField0_ |= 0x00000001;
       onChanged();
       return this;
     }
@@ -490,7 +432,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearMemberID() {
-      
+      bitField0_ = (bitField0_ & ~0x00000001);
       memberID_ = 0L;
       onChanged();
       return this;
@@ -518,8 +460,8 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setAlarmValue(int value) {
-      
       alarm_ = value;
+      bitField0_ |= 0x00000002;
       onChanged();
       return this;
     }
@@ -533,8 +475,7 @@ private static final long serialVersionUID = 0L;
      */
     @java.lang.Override
     public org.eclipse.ecf.provider.etcd3.grpc.api.AlarmType getAlarm() {
-      @SuppressWarnings("deprecation")
-      org.eclipse.ecf.provider.etcd3.grpc.api.AlarmType result = org.eclipse.ecf.provider.etcd3.grpc.api.AlarmType.valueOf(alarm_);
+      org.eclipse.ecf.provider.etcd3.grpc.api.AlarmType result = org.eclipse.ecf.provider.etcd3.grpc.api.AlarmType.forNumber(alarm_);
       return result == null ? org.eclipse.ecf.provider.etcd3.grpc.api.AlarmType.UNRECOGNIZED : result;
     }
     /**
@@ -550,7 +491,7 @@ private static final long serialVersionUID = 0L;
       if (value == null) {
         throw new NullPointerException();
       }
-      
+      bitField0_ |= 0x00000002;
       alarm_ = value.getNumber();
       onChanged();
       return this;
@@ -564,7 +505,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearAlarm() {
-      
+      bitField0_ = (bitField0_ & ~0x00000002);
       alarm_ = 0;
       onChanged();
       return this;
@@ -602,7 +543,18 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new AlarmMember(input, extensionRegistry);
+      Builder builder = newBuilder();
+      try {
+        builder.mergeFrom(input, extensionRegistry);
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(builder.buildPartial());
+      } catch (com.google.protobuf.UninitializedMessageException e) {
+        throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(e)
+            .setUnfinishedMessage(builder.buildPartial());
+      }
+      return builder.buildPartial();
     }
   };
 

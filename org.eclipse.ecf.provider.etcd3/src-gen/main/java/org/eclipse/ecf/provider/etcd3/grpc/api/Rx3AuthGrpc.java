@@ -542,6 +542,15 @@ public final class Rx3AuthGrpc {
          *  Range gets the keys in the range from the key-value store.
          * </pre>
          */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthEnableResponse> authEnable(org.eclipse.ecf.provider.etcd3.grpc.api.AuthEnableRequest request) {
+            return authEnable(io.reactivex.rxjava3.core.Single.just(request));
+        }
+
+        /**
+         * <pre>
+         *  Range gets the keys in the range from the key-value store.
+         * </pre>
+         */
         public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthEnableResponse> authEnable(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthEnableRequest> request) {
             throw new io.grpc.StatusRuntimeException(io.grpc.Status.UNIMPLEMENTED);
         }
@@ -553,8 +562,30 @@ public final class Rx3AuthGrpc {
          *  and generates one event in the event history.
          * </pre>
          */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthDisableResponse> authDisable(org.eclipse.ecf.provider.etcd3.grpc.api.AuthDisableRequest request) {
+            return authDisable(io.reactivex.rxjava3.core.Single.just(request));
+        }
+
+        /**
+         * <pre>
+         *  Put puts the given key into the key-value store.
+         *  A put request increments the revision of the key-value store
+         *  and generates one event in the event history.
+         * </pre>
+         */
         public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthDisableResponse> authDisable(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthDisableRequest> request) {
             throw new io.grpc.StatusRuntimeException(io.grpc.Status.UNIMPLEMENTED);
+        }
+
+        /**
+         * <pre>
+         *  DeleteRange deletes the given range from the key-value store.
+         *  A delete request increments the revision of the key-value store
+         *  and generates a delete event in the event history for every deleted key.
+         * </pre>
+         */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthenticateResponse> authenticate(org.eclipse.ecf.provider.etcd3.grpc.api.AuthenticateRequest request) {
+            return authenticate(io.reactivex.rxjava3.core.Single.just(request));
         }
 
         /**
@@ -576,8 +607,31 @@ public final class Rx3AuthGrpc {
          *  It is not allowed to modify the same key several times within one txn.
          * </pre>
          */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserAddResponse> userAdd(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserAddRequest request) {
+            return userAdd(io.reactivex.rxjava3.core.Single.just(request));
+        }
+
+        /**
+         * <pre>
+         *  Txn processes multiple requests in a single transaction.
+         *  A txn request increments the revision of the key-value store
+         *  and generates events with the same revision for every completed request.
+         *  It is not allowed to modify the same key several times within one txn.
+         * </pre>
+         */
         public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserAddResponse> userAdd(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserAddRequest> request) {
             throw new io.grpc.StatusRuntimeException(io.grpc.Status.UNIMPLEMENTED);
+        }
+
+        /**
+         * <pre>
+         *  Compact compacts the event history in the etcd key-value store. The key-value
+         *  store should be periodically compacted or the event history will continue to grow
+         *  indefinitely.
+         * </pre>
+         */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGetResponse> userGet(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGetRequest request) {
+            return userGet(io.reactivex.rxjava3.core.Single.just(request));
         }
 
         /**
@@ -596,8 +650,26 @@ public final class Rx3AuthGrpc {
          *  Snapshot sends a snapshot of the entire backend from a member over a stream to a client.
          * </pre>
          */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserListResponse> userList(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserListRequest request) {
+            return userList(io.reactivex.rxjava3.core.Single.just(request));
+        }
+
+        /**
+         * <pre>
+         *  Snapshot sends a snapshot of the entire backend from a member over a stream to a client.
+         * </pre>
+         */
         public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserListResponse> userList(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserListRequest> request) {
             throw new io.grpc.StatusRuntimeException(io.grpc.Status.UNIMPLEMENTED);
+        }
+
+        /**
+         * <pre>
+         *  MoveLeader requests current leader node to transfer its leadership to transferee.
+         * </pre>
+         */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserDeleteResponse> userDelete(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserDeleteRequest request) {
+            return userDelete(io.reactivex.rxjava3.core.Single.just(request));
         }
 
         /**
@@ -614,8 +686,26 @@ public final class Rx3AuthGrpc {
          *  UserChangePassword changes the password of a specified user.
          * </pre>
          */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserChangePasswordResponse> userChangePassword(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserChangePasswordRequest request) {
+            return userChangePassword(io.reactivex.rxjava3.core.Single.just(request));
+        }
+
+        /**
+         * <pre>
+         *  UserChangePassword changes the password of a specified user.
+         * </pre>
+         */
         public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserChangePasswordResponse> userChangePassword(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserChangePasswordRequest> request) {
             throw new io.grpc.StatusRuntimeException(io.grpc.Status.UNIMPLEMENTED);
+        }
+
+        /**
+         * <pre>
+         *  UserGrant grants a role to a specified user.
+         * </pre>
+         */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGrantRoleResponse> userGrantRole(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGrantRoleRequest request) {
+            return userGrantRole(io.reactivex.rxjava3.core.Single.just(request));
         }
 
         /**
@@ -632,8 +722,26 @@ public final class Rx3AuthGrpc {
          *  UserRevokeRole revokes a role of specified user.
          * </pre>
          */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserRevokeRoleResponse> userRevokeRole(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserRevokeRoleRequest request) {
+            return userRevokeRole(io.reactivex.rxjava3.core.Single.just(request));
+        }
+
+        /**
+         * <pre>
+         *  UserRevokeRole revokes a role of specified user.
+         * </pre>
+         */
         public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserRevokeRoleResponse> userRevokeRole(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserRevokeRoleRequest> request) {
             throw new io.grpc.StatusRuntimeException(io.grpc.Status.UNIMPLEMENTED);
+        }
+
+        /**
+         * <pre>
+         *  RoleAdd adds a new role.
+         * </pre>
+         */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleAddResponse> roleAdd(org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleAddRequest request) {
+            return roleAdd(io.reactivex.rxjava3.core.Single.just(request));
         }
 
         /**
@@ -650,8 +758,26 @@ public final class Rx3AuthGrpc {
          *  RoleGet gets detailed role information.
          * </pre>
          */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGetResponse> roleGet(org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGetRequest request) {
+            return roleGet(io.reactivex.rxjava3.core.Single.just(request));
+        }
+
+        /**
+         * <pre>
+         *  RoleGet gets detailed role information.
+         * </pre>
+         */
         public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGetResponse> roleGet(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGetRequest> request) {
             throw new io.grpc.StatusRuntimeException(io.grpc.Status.UNIMPLEMENTED);
+        }
+
+        /**
+         * <pre>
+         *  RoleList gets lists of all roles.
+         * </pre>
+         */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleListResponse> roleList(org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleListRequest request) {
+            return roleList(io.reactivex.rxjava3.core.Single.just(request));
         }
 
         /**
@@ -668,6 +794,15 @@ public final class Rx3AuthGrpc {
          *  RoleDelete deletes a specified role.
          * </pre>
          */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleDeleteResponse> roleDelete(org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleDeleteRequest request) {
+            return roleDelete(io.reactivex.rxjava3.core.Single.just(request));
+        }
+
+        /**
+         * <pre>
+         *  RoleDelete deletes a specified role.
+         * </pre>
+         */
         public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleDeleteResponse> roleDelete(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleDeleteRequest> request) {
             throw new io.grpc.StatusRuntimeException(io.grpc.Status.UNIMPLEMENTED);
         }
@@ -677,8 +812,26 @@ public final class Rx3AuthGrpc {
          *  RoleGrantPermission grants a permission of a specified key or range to a specified role.
          * </pre>
          */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionResponse> roleGrantPermission(org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionRequest request) {
+            return roleGrantPermission(io.reactivex.rxjava3.core.Single.just(request));
+        }
+
+        /**
+         * <pre>
+         *  RoleGrantPermission grants a permission of a specified key or range to a specified role.
+         * </pre>
+         */
         public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionResponse> roleGrantPermission(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionRequest> request) {
             throw new io.grpc.StatusRuntimeException(io.grpc.Status.UNIMPLEMENTED);
+        }
+
+        /**
+         * <pre>
+         *  RoleRevokePermission revokes a key or range permission of a specified role.
+         * </pre>
+         */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleRevokePermissionResponse> roleRevokePermission(org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleRevokePermissionRequest request) {
+            return roleRevokePermission(io.reactivex.rxjava3.core.Single.just(request));
         }
 
         /**
@@ -811,6 +964,10 @@ public final class Rx3AuthGrpc {
             return null;
         }
 
+        protected Throwable onErrorMap(Throwable throwable) {
+            return com.salesforce.rx3grpc.stub.ServerCalls.prepareError(throwable);
+        }
+
     }
 
     public static final int METHODID_AUTH_ENABLE = 0;
@@ -850,162 +1007,162 @@ public final class Rx3AuthGrpc {
                 case METHODID_AUTH_ENABLE:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.AuthEnableRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthEnableResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthEnableRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthEnableResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.AuthEnableRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthEnableResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthEnableResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthEnableRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthEnableResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.AuthEnableRequest single) {
                                     return serviceImpl.authEnable(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_AUTH_DISABLE:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.AuthDisableRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthDisableResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthDisableRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthDisableResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.AuthDisableRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthDisableResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthDisableResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthDisableRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthDisableResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.AuthDisableRequest single) {
                                     return serviceImpl.authDisable(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_AUTHENTICATE:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.AuthenticateRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthenticateResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthenticateRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthenticateResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.AuthenticateRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthenticateResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthenticateResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthenticateRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthenticateResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.AuthenticateRequest single) {
                                     return serviceImpl.authenticate(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_USER_ADD:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserAddRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserAddResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserAddRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserAddResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserAddRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserAddResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserAddResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserAddRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserAddResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserAddRequest single) {
                                     return serviceImpl.userAdd(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_USER_GET:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGetRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGetResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGetRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGetResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGetRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGetResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGetResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGetRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGetResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGetRequest single) {
                                     return serviceImpl.userGet(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_USER_LIST:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserListRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserListResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserListRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserListResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserListRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserListResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserListResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserListRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserListResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserListRequest single) {
                                     return serviceImpl.userList(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_USER_DELETE:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserDeleteRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserDeleteResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserDeleteRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserDeleteResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserDeleteRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserDeleteResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserDeleteResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserDeleteRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserDeleteResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserDeleteRequest single) {
                                     return serviceImpl.userDelete(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_USER_CHANGE_PASSWORD:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserChangePasswordRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserChangePasswordResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserChangePasswordRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserChangePasswordResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserChangePasswordRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserChangePasswordResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserChangePasswordResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserChangePasswordRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserChangePasswordResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserChangePasswordRequest single) {
                                     return serviceImpl.userChangePassword(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_USER_GRANT_ROLE:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGrantRoleRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGrantRoleResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGrantRoleRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGrantRoleResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGrantRoleRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGrantRoleResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGrantRoleResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGrantRoleRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGrantRoleResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGrantRoleRequest single) {
                                     return serviceImpl.userGrantRole(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_USER_REVOKE_ROLE:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserRevokeRoleRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserRevokeRoleResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserRevokeRoleRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserRevokeRoleResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserRevokeRoleRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserRevokeRoleResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserRevokeRoleResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserRevokeRoleRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserRevokeRoleResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserRevokeRoleRequest single) {
                                     return serviceImpl.userRevokeRole(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_ROLE_ADD:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleAddRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleAddResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleAddRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleAddResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleAddRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleAddResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleAddResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleAddRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleAddResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleAddRequest single) {
                                     return serviceImpl.roleAdd(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_ROLE_GET:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGetRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGetResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGetRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGetResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGetRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGetResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGetResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGetRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGetResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGetRequest single) {
                                     return serviceImpl.roleGet(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_ROLE_LIST:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleListRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleListResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleListRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleListResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleListRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleListResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleListResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleListRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleListResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleListRequest single) {
                                     return serviceImpl.roleList(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_ROLE_DELETE:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleDeleteRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleDeleteResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleDeleteRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleDeleteResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleDeleteRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleDeleteResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleDeleteResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleDeleteRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleDeleteResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleDeleteRequest single) {
                                     return serviceImpl.roleDelete(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_ROLE_GRANT_PERMISSION:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionRequest single) {
                                     return serviceImpl.roleGrantPermission(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_ROLE_REVOKE_PERMISSION:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleRevokePermissionRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleRevokePermissionResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleRevokePermissionRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleRevokePermissionResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleRevokePermissionRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleRevokePermissionResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleRevokePermissionResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleRevokePermissionRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleRevokePermissionResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleRevokePermissionRequest single) {
                                     return serviceImpl.roleRevokePermission(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 default:
                     throw new java.lang.AssertionError();

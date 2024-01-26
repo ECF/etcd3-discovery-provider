@@ -22,7 +22,8 @@ private static final long serialVersionUID = 0L;
   private User() {
     name_ = com.google.protobuf.ByteString.EMPTY;
     password_ = com.google.protobuf.ByteString.EMPTY;
-    roles_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    roles_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
   }
 
   @java.lang.Override
@@ -32,71 +33,6 @@ private static final long serialVersionUID = 0L;
     return new User();
   }
 
-  @java.lang.Override
-  public final com.google.protobuf.UnknownFieldSet
-  getUnknownFields() {
-    return this.unknownFields;
-  }
-  private User(
-      com.google.protobuf.CodedInputStream input,
-      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-      throws com.google.protobuf.InvalidProtocolBufferException {
-    this();
-    if (extensionRegistry == null) {
-      throw new java.lang.NullPointerException();
-    }
-    int mutable_bitField0_ = 0;
-    com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-        com.google.protobuf.UnknownFieldSet.newBuilder();
-    try {
-      boolean done = false;
-      while (!done) {
-        int tag = input.readTag();
-        switch (tag) {
-          case 0:
-            done = true;
-            break;
-          case 10: {
-
-            name_ = input.readBytes();
-            break;
-          }
-          case 18: {
-
-            password_ = input.readBytes();
-            break;
-          }
-          case 26: {
-            java.lang.String s = input.readStringRequireUtf8();
-            if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-              roles_ = new com.google.protobuf.LazyStringArrayList();
-              mutable_bitField0_ |= 0x00000001;
-            }
-            roles_.add(s);
-            break;
-          }
-          default: {
-            if (!parseUnknownField(
-                input, unknownFields, extensionRegistry, tag)) {
-              done = true;
-            }
-            break;
-          }
-        }
-      }
-    } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-      throw e.setUnfinishedMessage(this);
-    } catch (java.io.IOException e) {
-      throw new com.google.protobuf.InvalidProtocolBufferException(
-          e).setUnfinishedMessage(this);
-    } finally {
-      if (((mutable_bitField0_ & 0x00000001) != 0)) {
-        roles_ = roles_.getUnmodifiableView();
-      }
-      this.unknownFields = unknownFields.build();
-      makeExtensionsImmutable();
-    }
-  }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
     return org.eclipse.ecf.provider.etcd3.grpc.api.auth.Auth.internal_static_authpb_User_descriptor;
@@ -111,7 +47,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int NAME_FIELD_NUMBER = 1;
-  private com.google.protobuf.ByteString name_;
+  private com.google.protobuf.ByteString name_ = com.google.protobuf.ByteString.EMPTY;
   /**
    * <code>bytes name = 1;</code>
    * @return The name.
@@ -122,7 +58,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int PASSWORD_FIELD_NUMBER = 2;
-  private com.google.protobuf.ByteString password_;
+  private com.google.protobuf.ByteString password_ = com.google.protobuf.ByteString.EMPTY;
   /**
    * <code>bytes password = 2;</code>
    * @return The password.
@@ -133,7 +69,9 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int ROLES_FIELD_NUMBER = 3;
-  private com.google.protobuf.LazyStringList roles_;
+  @SuppressWarnings("serial")
+  private com.google.protobuf.LazyStringArrayList roles_ =
+      com.google.protobuf.LazyStringArrayList.emptyList();
   /**
    * <code>repeated string roles = 3;</code>
    * @return A list containing the roles.
@@ -190,7 +128,7 @@ private static final long serialVersionUID = 0L;
     for (int i = 0; i < roles_.size(); i++) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 3, roles_.getRaw(i));
     }
-    unknownFields.writeTo(output);
+    getUnknownFields().writeTo(output);
   }
 
   @java.lang.Override
@@ -215,7 +153,7 @@ private static final long serialVersionUID = 0L;
       size += dataSize;
       size += 1 * getRolesList().size();
     }
-    size += unknownFields.getSerializedSize();
+    size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
   }
@@ -236,7 +174,7 @@ private static final long serialVersionUID = 0L;
         .equals(other.getPassword())) return false;
     if (!getRolesList()
         .equals(other.getRolesList())) return false;
-    if (!unknownFields.equals(other.unknownFields)) return false;
+    if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
 
@@ -255,7 +193,7 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + ROLES_FIELD_NUMBER;
       hash = (53 * hash) + getRolesList().hashCode();
     }
-    hash = (29 * hash) + unknownFields.hashCode();
+    hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
   }
@@ -376,28 +314,22 @@ private static final long serialVersionUID = 0L;
 
     // Construct using org.eclipse.ecf.provider.etcd3.grpc.api.auth.User.newBuilder()
     private Builder() {
-      maybeForceBuilderInitialization();
+
     }
 
     private Builder(
         com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       super(parent);
-      maybeForceBuilderInitialization();
-    }
-    private void maybeForceBuilderInitialization() {
-      if (com.google.protobuf.GeneratedMessageV3
-              .alwaysUseFieldBuilders) {
-      }
+
     }
     @java.lang.Override
     public Builder clear() {
       super.clear();
+      bitField0_ = 0;
       name_ = com.google.protobuf.ByteString.EMPTY;
-
       password_ = com.google.protobuf.ByteString.EMPTY;
-
-      roles_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      bitField0_ = (bitField0_ & ~0x00000001);
+      roles_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
       return this;
     }
 
@@ -424,50 +356,25 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public org.eclipse.ecf.provider.etcd3.grpc.api.auth.User buildPartial() {
       org.eclipse.ecf.provider.etcd3.grpc.api.auth.User result = new org.eclipse.ecf.provider.etcd3.grpc.api.auth.User(this);
-      int from_bitField0_ = bitField0_;
-      result.name_ = name_;
-      result.password_ = password_;
-      if (((bitField0_ & 0x00000001) != 0)) {
-        roles_ = roles_.getUnmodifiableView();
-        bitField0_ = (bitField0_ & ~0x00000001);
-      }
-      result.roles_ = roles_;
+      if (bitField0_ != 0) { buildPartial0(result); }
       onBuilt();
       return result;
     }
 
-    @java.lang.Override
-    public Builder clone() {
-      return super.clone();
+    private void buildPartial0(org.eclipse.ecf.provider.etcd3.grpc.api.auth.User result) {
+      int from_bitField0_ = bitField0_;
+      if (((from_bitField0_ & 0x00000001) != 0)) {
+        result.name_ = name_;
+      }
+      if (((from_bitField0_ & 0x00000002) != 0)) {
+        result.password_ = password_;
+      }
+      if (((from_bitField0_ & 0x00000004) != 0)) {
+        roles_.makeImmutable();
+        result.roles_ = roles_;
+      }
     }
-    @java.lang.Override
-    public Builder setField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
-      return super.setField(field, value);
-    }
-    @java.lang.Override
-    public Builder clearField(
-        com.google.protobuf.Descriptors.FieldDescriptor field) {
-      return super.clearField(field);
-    }
-    @java.lang.Override
-    public Builder clearOneof(
-        com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-      return super.clearOneof(oneof);
-    }
-    @java.lang.Override
-    public Builder setRepeatedField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, java.lang.Object value) {
-      return super.setRepeatedField(field, index, value);
-    }
-    @java.lang.Override
-    public Builder addRepeatedField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
-      return super.addRepeatedField(field, value);
-    }
+
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
       if (other instanceof org.eclipse.ecf.provider.etcd3.grpc.api.auth.User) {
@@ -489,14 +396,14 @@ private static final long serialVersionUID = 0L;
       if (!other.roles_.isEmpty()) {
         if (roles_.isEmpty()) {
           roles_ = other.roles_;
-          bitField0_ = (bitField0_ & ~0x00000001);
+          bitField0_ |= 0x00000004;
         } else {
           ensureRolesIsMutable();
           roles_.addAll(other.roles_);
         }
         onChanged();
       }
-      this.mergeUnknownFields(other.unknownFields);
+      this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
       return this;
     }
@@ -511,17 +418,46 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      org.eclipse.ecf.provider.etcd3.grpc.api.auth.User parsedMessage = null;
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       try {
-        parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              name_ = input.readBytes();
+              bitField0_ |= 0x00000001;
+              break;
+            } // case 10
+            case 18: {
+              password_ = input.readBytes();
+              bitField0_ |= 0x00000002;
+              break;
+            } // case 18
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+              ensureRolesIsMutable();
+              roles_.add(s);
+              break;
+            } // case 26
+            default: {
+              if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                done = true; // was an endgroup tag
+              }
+              break;
+            } // default:
+          } // switch (tag)
+        } // while (!done)
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (org.eclipse.ecf.provider.etcd3.grpc.api.auth.User) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
-        if (parsedMessage != null) {
-          mergeFrom(parsedMessage);
-        }
-      }
+        onChanged();
+      } // finally
       return this;
     }
     private int bitField0_;
@@ -541,11 +477,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setName(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
+      if (value == null) { throw new NullPointerException(); }
       name_ = value;
+      bitField0_ |= 0x00000001;
       onChanged();
       return this;
     }
@@ -554,7 +488,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearName() {
-      
+      bitField0_ = (bitField0_ & ~0x00000001);
       name_ = getDefaultInstance().getName();
       onChanged();
       return this;
@@ -575,11 +509,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setPassword(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
+      if (value == null) { throw new NullPointerException(); }
       password_ = value;
+      bitField0_ |= 0x00000002;
       onChanged();
       return this;
     }
@@ -588,18 +520,19 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearPassword() {
-      
+      bitField0_ = (bitField0_ & ~0x00000002);
       password_ = getDefaultInstance().getPassword();
       onChanged();
       return this;
     }
 
-    private com.google.protobuf.LazyStringList roles_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    private com.google.protobuf.LazyStringArrayList roles_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
     private void ensureRolesIsMutable() {
-      if (!((bitField0_ & 0x00000001) != 0)) {
+      if (!roles_.isModifiable()) {
         roles_ = new com.google.protobuf.LazyStringArrayList(roles_);
-        bitField0_ |= 0x00000001;
-       }
+      }
+      bitField0_ |= 0x00000004;
     }
     /**
      * <code>repeated string roles = 3;</code>
@@ -607,7 +540,8 @@ private static final long serialVersionUID = 0L;
      */
     public com.google.protobuf.ProtocolStringList
         getRolesList() {
-      return roles_.getUnmodifiableView();
+      roles_.makeImmutable();
+      return roles_;
     }
     /**
      * <code>repeated string roles = 3;</code>
@@ -641,11 +575,10 @@ private static final long serialVersionUID = 0L;
      */
     public Builder setRoles(
         int index, java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureRolesIsMutable();
+      if (value == null) { throw new NullPointerException(); }
+      ensureRolesIsMutable();
       roles_.set(index, value);
+      bitField0_ |= 0x00000004;
       onChanged();
       return this;
     }
@@ -656,11 +589,10 @@ private static final long serialVersionUID = 0L;
      */
     public Builder addRoles(
         java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureRolesIsMutable();
+      if (value == null) { throw new NullPointerException(); }
+      ensureRolesIsMutable();
       roles_.add(value);
+      bitField0_ |= 0x00000004;
       onChanged();
       return this;
     }
@@ -674,6 +606,7 @@ private static final long serialVersionUID = 0L;
       ensureRolesIsMutable();
       com.google.protobuf.AbstractMessageLite.Builder.addAll(
           values, roles_);
+      bitField0_ |= 0x00000004;
       onChanged();
       return this;
     }
@@ -682,8 +615,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearRoles() {
-      roles_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      bitField0_ = (bitField0_ & ~0x00000001);
+      roles_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
+      bitField0_ = (bitField0_ & ~0x00000004);;
       onChanged();
       return this;
     }
@@ -694,12 +628,11 @@ private static final long serialVersionUID = 0L;
      */
     public Builder addRolesBytes(
         com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
       ensureRolesIsMutable();
       roles_.add(value);
+      bitField0_ |= 0x00000004;
       onChanged();
       return this;
     }
@@ -736,7 +669,18 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new User(input, extensionRegistry);
+      Builder builder = newBuilder();
+      try {
+        builder.mergeFrom(input, extensionRegistry);
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(builder.buildPartial());
+      } catch (com.google.protobuf.UninitializedMessageException e) {
+        throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(e)
+            .setUnfinishedMessage(builder.buildPartial());
+      }
+      return builder.buildPartial();
     }
   };
 

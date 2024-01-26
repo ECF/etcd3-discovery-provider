@@ -26,67 +26,6 @@ private static final long serialVersionUID = 0L;
     return new AuthRoleGrantPermissionRequest();
   }
 
-  @java.lang.Override
-  public final com.google.protobuf.UnknownFieldSet
-  getUnknownFields() {
-    return this.unknownFields;
-  }
-  private AuthRoleGrantPermissionRequest(
-      com.google.protobuf.CodedInputStream input,
-      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-      throws com.google.protobuf.InvalidProtocolBufferException {
-    this();
-    if (extensionRegistry == null) {
-      throw new java.lang.NullPointerException();
-    }
-    com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-        com.google.protobuf.UnknownFieldSet.newBuilder();
-    try {
-      boolean done = false;
-      while (!done) {
-        int tag = input.readTag();
-        switch (tag) {
-          case 0:
-            done = true;
-            break;
-          case 10: {
-            java.lang.String s = input.readStringRequireUtf8();
-
-            name_ = s;
-            break;
-          }
-          case 18: {
-            org.eclipse.ecf.provider.etcd3.grpc.api.auth.Permission.Builder subBuilder = null;
-            if (perm_ != null) {
-              subBuilder = perm_.toBuilder();
-            }
-            perm_ = input.readMessage(org.eclipse.ecf.provider.etcd3.grpc.api.auth.Permission.parser(), extensionRegistry);
-            if (subBuilder != null) {
-              subBuilder.mergeFrom(perm_);
-              perm_ = subBuilder.buildPartial();
-            }
-
-            break;
-          }
-          default: {
-            if (!parseUnknownField(
-                input, unknownFields, extensionRegistry, tag)) {
-              done = true;
-            }
-            break;
-          }
-        }
-      }
-    } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-      throw e.setUnfinishedMessage(this);
-    } catch (java.io.IOException e) {
-      throw new com.google.protobuf.InvalidProtocolBufferException(
-          e).setUnfinishedMessage(this);
-    } finally {
-      this.unknownFields = unknownFields.build();
-      makeExtensionsImmutable();
-    }
-  }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
     return org.eclipse.ecf.provider.etcd3.grpc.api.ECFEtcdProto.internal_static_etcdserverpb_AuthRoleGrantPermissionRequest_descriptor;
@@ -101,7 +40,8 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int NAME_FIELD_NUMBER = 1;
-  private volatile java.lang.Object name_;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object name_ = "";
   /**
    * <pre>
    * name is the name of the role which will be granted the permission.
@@ -181,7 +121,7 @@ private static final long serialVersionUID = 0L;
    */
   @java.lang.Override
   public org.eclipse.ecf.provider.etcd3.grpc.api.auth.PermissionOrBuilder getPermOrBuilder() {
-    return getPerm();
+    return perm_ == null ? org.eclipse.ecf.provider.etcd3.grpc.api.auth.Permission.getDefaultInstance() : perm_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -198,13 +138,13 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (!getNameBytes().isEmpty()) {
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
     }
     if (perm_ != null) {
       output.writeMessage(2, getPerm());
     }
-    unknownFields.writeTo(output);
+    getUnknownFields().writeTo(output);
   }
 
   @java.lang.Override
@@ -213,14 +153,14 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (!getNameBytes().isEmpty()) {
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
     }
     if (perm_ != null) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(2, getPerm());
     }
-    size += unknownFields.getSerializedSize();
+    size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
   }
@@ -242,7 +182,7 @@ private static final long serialVersionUID = 0L;
       if (!getPerm()
           .equals(other.getPerm())) return false;
     }
-    if (!unknownFields.equals(other.unknownFields)) return false;
+    if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
 
@@ -259,7 +199,7 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + PERM_FIELD_NUMBER;
       hash = (53 * hash) + getPerm().hashCode();
     }
-    hash = (29 * hash) + unknownFields.hashCode();
+    hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
   }
@@ -376,28 +316,22 @@ private static final long serialVersionUID = 0L;
 
     // Construct using org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionRequest.newBuilder()
     private Builder() {
-      maybeForceBuilderInitialization();
+
     }
 
     private Builder(
         com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       super(parent);
-      maybeForceBuilderInitialization();
-    }
-    private void maybeForceBuilderInitialization() {
-      if (com.google.protobuf.GeneratedMessageV3
-              .alwaysUseFieldBuilders) {
-      }
+
     }
     @java.lang.Override
     public Builder clear() {
       super.clear();
+      bitField0_ = 0;
       name_ = "";
-
-      if (permBuilder_ == null) {
-        perm_ = null;
-      } else {
-        perm_ = null;
+      perm_ = null;
+      if (permBuilder_ != null) {
+        permBuilder_.dispose();
         permBuilder_ = null;
       }
       return this;
@@ -426,48 +360,23 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionRequest buildPartial() {
       org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionRequest result = new org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionRequest(this);
-      result.name_ = name_;
-      if (permBuilder_ == null) {
-        result.perm_ = perm_;
-      } else {
-        result.perm_ = permBuilder_.build();
-      }
+      if (bitField0_ != 0) { buildPartial0(result); }
       onBuilt();
       return result;
     }
 
-    @java.lang.Override
-    public Builder clone() {
-      return super.clone();
+    private void buildPartial0(org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionRequest result) {
+      int from_bitField0_ = bitField0_;
+      if (((from_bitField0_ & 0x00000001) != 0)) {
+        result.name_ = name_;
+      }
+      if (((from_bitField0_ & 0x00000002) != 0)) {
+        result.perm_ = permBuilder_ == null
+            ? perm_
+            : permBuilder_.build();
+      }
     }
-    @java.lang.Override
-    public Builder setField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
-      return super.setField(field, value);
-    }
-    @java.lang.Override
-    public Builder clearField(
-        com.google.protobuf.Descriptors.FieldDescriptor field) {
-      return super.clearField(field);
-    }
-    @java.lang.Override
-    public Builder clearOneof(
-        com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-      return super.clearOneof(oneof);
-    }
-    @java.lang.Override
-    public Builder setRepeatedField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, java.lang.Object value) {
-      return super.setRepeatedField(field, index, value);
-    }
-    @java.lang.Override
-    public Builder addRepeatedField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
-      return super.addRepeatedField(field, value);
-    }
+
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
       if (other instanceof org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionRequest) {
@@ -482,12 +391,13 @@ private static final long serialVersionUID = 0L;
       if (other == org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionRequest.getDefaultInstance()) return this;
       if (!other.getName().isEmpty()) {
         name_ = other.name_;
+        bitField0_ |= 0x00000001;
         onChanged();
       }
       if (other.hasPerm()) {
         mergePerm(other.getPerm());
       }
-      this.mergeUnknownFields(other.unknownFields);
+      this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
       return this;
     }
@@ -502,19 +412,45 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionRequest parsedMessage = null;
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       try {
-        parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              name_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00000001;
+              break;
+            } // case 10
+            case 18: {
+              input.readMessage(
+                  getPermFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              bitField0_ |= 0x00000002;
+              break;
+            } // case 18
+            default: {
+              if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                done = true; // was an endgroup tag
+              }
+              break;
+            } // default:
+          } // switch (tag)
+        } // while (!done)
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionRequest) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
-        if (parsedMessage != null) {
-          mergeFrom(parsedMessage);
-        }
-      }
+        onChanged();
+      } // finally
       return this;
     }
+    private int bitField0_;
 
     private java.lang.Object name_ = "";
     /**
@@ -569,11 +505,9 @@ private static final long serialVersionUID = 0L;
      */
     public Builder setName(
         java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
+      if (value == null) { throw new NullPointerException(); }
       name_ = value;
+      bitField0_ |= 0x00000001;
       onChanged();
       return this;
     }
@@ -586,8 +520,8 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearName() {
-      
       name_ = getDefaultInstance().getName();
+      bitField0_ = (bitField0_ & ~0x00000001);
       onChanged();
       return this;
     }
@@ -602,12 +536,10 @@ private static final long serialVersionUID = 0L;
      */
     public Builder setNameBytes(
         com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
       name_ = value;
+      bitField0_ |= 0x00000001;
       onChanged();
       return this;
     }
@@ -624,7 +556,7 @@ private static final long serialVersionUID = 0L;
      * @return Whether the perm field is set.
      */
     public boolean hasPerm() {
-      return permBuilder_ != null || perm_ != null;
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <pre>
@@ -654,11 +586,11 @@ private static final long serialVersionUID = 0L;
           throw new NullPointerException();
         }
         perm_ = value;
-        onChanged();
       } else {
         permBuilder_.setMessage(value);
       }
-
+      bitField0_ |= 0x00000002;
+      onChanged();
       return this;
     }
     /**
@@ -672,11 +604,11 @@ private static final long serialVersionUID = 0L;
         org.eclipse.ecf.provider.etcd3.grpc.api.auth.Permission.Builder builderForValue) {
       if (permBuilder_ == null) {
         perm_ = builderForValue.build();
-        onChanged();
       } else {
         permBuilder_.setMessage(builderForValue.build());
       }
-
+      bitField0_ |= 0x00000002;
+      onChanged();
       return this;
     }
     /**
@@ -688,17 +620,18 @@ private static final long serialVersionUID = 0L;
      */
     public Builder mergePerm(org.eclipse.ecf.provider.etcd3.grpc.api.auth.Permission value) {
       if (permBuilder_ == null) {
-        if (perm_ != null) {
-          perm_ =
-            org.eclipse.ecf.provider.etcd3.grpc.api.auth.Permission.newBuilder(perm_).mergeFrom(value).buildPartial();
+        if (((bitField0_ & 0x00000002) != 0) &&
+          perm_ != null &&
+          perm_ != org.eclipse.ecf.provider.etcd3.grpc.api.auth.Permission.getDefaultInstance()) {
+          getPermBuilder().mergeFrom(value);
         } else {
           perm_ = value;
         }
-        onChanged();
       } else {
         permBuilder_.mergeFrom(value);
       }
-
+      bitField0_ |= 0x00000002;
+      onChanged();
       return this;
     }
     /**
@@ -709,14 +642,13 @@ private static final long serialVersionUID = 0L;
      * <code>.authpb.Permission perm = 2;</code>
      */
     public Builder clearPerm() {
-      if (permBuilder_ == null) {
-        perm_ = null;
-        onChanged();
-      } else {
-        perm_ = null;
+      bitField0_ = (bitField0_ & ~0x00000002);
+      perm_ = null;
+      if (permBuilder_ != null) {
+        permBuilder_.dispose();
         permBuilder_ = null;
       }
-
+      onChanged();
       return this;
     }
     /**
@@ -727,7 +659,7 @@ private static final long serialVersionUID = 0L;
      * <code>.authpb.Permission perm = 2;</code>
      */
     public org.eclipse.ecf.provider.etcd3.grpc.api.auth.Permission.Builder getPermBuilder() {
-      
+      bitField0_ |= 0x00000002;
       onChanged();
       return getPermFieldBuilder().getBuilder();
     }
@@ -799,7 +731,18 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new AuthRoleGrantPermissionRequest(input, extensionRegistry);
+      Builder builder = newBuilder();
+      try {
+        builder.mergeFrom(input, extensionRegistry);
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(builder.buildPartial());
+      } catch (com.google.protobuf.UninitializedMessageException e) {
+        throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(e)
+            .setUnfinishedMessage(builder.buildPartial());
+      }
+      return builder.buildPartial();
     }
   };
 

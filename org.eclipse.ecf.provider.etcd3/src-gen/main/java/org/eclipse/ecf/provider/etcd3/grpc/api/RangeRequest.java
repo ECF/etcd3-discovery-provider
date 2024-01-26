@@ -29,115 +29,6 @@ private static final long serialVersionUID = 0L;
     return new RangeRequest();
   }
 
-  @java.lang.Override
-  public final com.google.protobuf.UnknownFieldSet
-  getUnknownFields() {
-    return this.unknownFields;
-  }
-  private RangeRequest(
-      com.google.protobuf.CodedInputStream input,
-      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-      throws com.google.protobuf.InvalidProtocolBufferException {
-    this();
-    if (extensionRegistry == null) {
-      throw new java.lang.NullPointerException();
-    }
-    com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-        com.google.protobuf.UnknownFieldSet.newBuilder();
-    try {
-      boolean done = false;
-      while (!done) {
-        int tag = input.readTag();
-        switch (tag) {
-          case 0:
-            done = true;
-            break;
-          case 10: {
-
-            key_ = input.readBytes();
-            break;
-          }
-          case 18: {
-
-            rangeEnd_ = input.readBytes();
-            break;
-          }
-          case 24: {
-
-            limit_ = input.readInt64();
-            break;
-          }
-          case 32: {
-
-            revision_ = input.readInt64();
-            break;
-          }
-          case 40: {
-            int rawValue = input.readEnum();
-
-            sortOrder_ = rawValue;
-            break;
-          }
-          case 48: {
-            int rawValue = input.readEnum();
-
-            sortTarget_ = rawValue;
-            break;
-          }
-          case 56: {
-
-            serializable_ = input.readBool();
-            break;
-          }
-          case 64: {
-
-            keysOnly_ = input.readBool();
-            break;
-          }
-          case 72: {
-
-            countOnly_ = input.readBool();
-            break;
-          }
-          case 80: {
-
-            minModRevision_ = input.readInt64();
-            break;
-          }
-          case 88: {
-
-            maxModRevision_ = input.readInt64();
-            break;
-          }
-          case 96: {
-
-            minCreateRevision_ = input.readInt64();
-            break;
-          }
-          case 104: {
-
-            maxCreateRevision_ = input.readInt64();
-            break;
-          }
-          default: {
-            if (!parseUnknownField(
-                input, unknownFields, extensionRegistry, tag)) {
-              done = true;
-            }
-            break;
-          }
-        }
-      }
-    } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-      throw e.setUnfinishedMessage(this);
-    } catch (java.io.IOException e) {
-      throw new com.google.protobuf.InvalidProtocolBufferException(
-          e).setUnfinishedMessage(this);
-    } finally {
-      this.unknownFields = unknownFields.build();
-      makeExtensionsImmutable();
-    }
-  }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
     return org.eclipse.ecf.provider.etcd3.grpc.api.ECFEtcdProto.internal_static_etcdserverpb_RangeRequest_descriptor;
@@ -428,7 +319,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int KEY_FIELD_NUMBER = 1;
-  private com.google.protobuf.ByteString key_;
+  private com.google.protobuf.ByteString key_ = com.google.protobuf.ByteString.EMPTY;
   /**
    * <pre>
    * key is the first key for the range. If range_end is not given, the request only looks up key.
@@ -443,7 +334,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int RANGE_END_FIELD_NUMBER = 2;
-  private com.google.protobuf.ByteString rangeEnd_;
+  private com.google.protobuf.ByteString rangeEnd_ = com.google.protobuf.ByteString.EMPTY;
   /**
    * <pre>
    * range_end is the upper bound on the requested range [key, range_end).
@@ -462,7 +353,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int LIMIT_FIELD_NUMBER = 3;
-  private long limit_;
+  private long limit_ = 0L;
   /**
    * <pre>
    * limit is a limit on the number of keys returned for the request. When limit is set to 0,
@@ -478,7 +369,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int REVISION_FIELD_NUMBER = 4;
-  private long revision_;
+  private long revision_ = 0L;
   /**
    * <pre>
    * revision is the point-in-time of the key-value store to use for the range.
@@ -495,7 +386,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int SORT_ORDER_FIELD_NUMBER = 5;
-  private int sortOrder_;
+  private int sortOrder_ = 0;
   /**
    * <pre>
    * sort_order is the order for returned sorted results.
@@ -516,13 +407,12 @@ private static final long serialVersionUID = 0L;
    * @return The sortOrder.
    */
   @java.lang.Override public org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest.SortOrder getSortOrder() {
-    @SuppressWarnings("deprecation")
-    org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest.SortOrder result = org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest.SortOrder.valueOf(sortOrder_);
+    org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest.SortOrder result = org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest.SortOrder.forNumber(sortOrder_);
     return result == null ? org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest.SortOrder.UNRECOGNIZED : result;
   }
 
   public static final int SORT_TARGET_FIELD_NUMBER = 6;
-  private int sortTarget_;
+  private int sortTarget_ = 0;
   /**
    * <pre>
    * sort_target is the key-value field to use for sorting.
@@ -543,13 +433,12 @@ private static final long serialVersionUID = 0L;
    * @return The sortTarget.
    */
   @java.lang.Override public org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest.SortTarget getSortTarget() {
-    @SuppressWarnings("deprecation")
-    org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest.SortTarget result = org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest.SortTarget.valueOf(sortTarget_);
+    org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest.SortTarget result = org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest.SortTarget.forNumber(sortTarget_);
     return result == null ? org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest.SortTarget.UNRECOGNIZED : result;
   }
 
   public static final int SERIALIZABLE_FIELD_NUMBER = 7;
-  private boolean serializable_;
+  private boolean serializable_ = false;
   /**
    * <pre>
    * serializable sets the range request to use serializable member-local reads.
@@ -569,7 +458,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int KEYS_ONLY_FIELD_NUMBER = 8;
-  private boolean keysOnly_;
+  private boolean keysOnly_ = false;
   /**
    * <pre>
    * keys_only when set returns only the keys and not the values.
@@ -584,7 +473,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int COUNT_ONLY_FIELD_NUMBER = 9;
-  private boolean countOnly_;
+  private boolean countOnly_ = false;
   /**
    * <pre>
    * count_only when set returns only the count of the keys in the range.
@@ -599,7 +488,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int MIN_MOD_REVISION_FIELD_NUMBER = 10;
-  private long minModRevision_;
+  private long minModRevision_ = 0L;
   /**
    * <pre>
    * min_mod_revision is the lower bound for returned key mod revisions; all keys with
@@ -615,7 +504,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int MAX_MOD_REVISION_FIELD_NUMBER = 11;
-  private long maxModRevision_;
+  private long maxModRevision_ = 0L;
   /**
    * <pre>
    * max_mod_revision is the upper bound for returned key mod revisions; all keys with
@@ -631,7 +520,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int MIN_CREATE_REVISION_FIELD_NUMBER = 12;
-  private long minCreateRevision_;
+  private long minCreateRevision_ = 0L;
   /**
    * <pre>
    * min_create_revision is the lower bound for returned key create revisions; all keys with
@@ -647,7 +536,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int MAX_CREATE_REVISION_FIELD_NUMBER = 13;
-  private long maxCreateRevision_;
+  private long maxCreateRevision_ = 0L;
   /**
    * <pre>
    * max_create_revision is the upper bound for returned key create revisions; all keys with
@@ -715,7 +604,7 @@ private static final long serialVersionUID = 0L;
     if (maxCreateRevision_ != 0L) {
       output.writeInt64(13, maxCreateRevision_);
     }
-    unknownFields.writeTo(output);
+    getUnknownFields().writeTo(output);
   }
 
   @java.lang.Override
@@ -776,7 +665,7 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeInt64Size(13, maxCreateRevision_);
     }
-    size += unknownFields.getSerializedSize();
+    size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
   }
@@ -815,7 +704,7 @@ private static final long serialVersionUID = 0L;
         != other.getMinCreateRevision()) return false;
     if (getMaxCreateRevision()
         != other.getMaxCreateRevision()) return false;
-    if (!unknownFields.equals(other.unknownFields)) return false;
+    if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
 
@@ -861,7 +750,7 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + MAX_CREATE_REVISION_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getMaxCreateRevision());
-    hash = (29 * hash) + unknownFields.hashCode();
+    hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
   }
@@ -978,48 +867,31 @@ private static final long serialVersionUID = 0L;
 
     // Construct using org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest.newBuilder()
     private Builder() {
-      maybeForceBuilderInitialization();
+
     }
 
     private Builder(
         com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       super(parent);
-      maybeForceBuilderInitialization();
-    }
-    private void maybeForceBuilderInitialization() {
-      if (com.google.protobuf.GeneratedMessageV3
-              .alwaysUseFieldBuilders) {
-      }
+
     }
     @java.lang.Override
     public Builder clear() {
       super.clear();
+      bitField0_ = 0;
       key_ = com.google.protobuf.ByteString.EMPTY;
-
       rangeEnd_ = com.google.protobuf.ByteString.EMPTY;
-
       limit_ = 0L;
-
       revision_ = 0L;
-
       sortOrder_ = 0;
-
       sortTarget_ = 0;
-
       serializable_ = false;
-
       keysOnly_ = false;
-
       countOnly_ = false;
-
       minModRevision_ = 0L;
-
       maxModRevision_ = 0L;
-
       minCreateRevision_ = 0L;
-
       maxCreateRevision_ = 0L;
-
       return this;
     }
 
@@ -1046,55 +918,54 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest buildPartial() {
       org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest result = new org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest(this);
-      result.key_ = key_;
-      result.rangeEnd_ = rangeEnd_;
-      result.limit_ = limit_;
-      result.revision_ = revision_;
-      result.sortOrder_ = sortOrder_;
-      result.sortTarget_ = sortTarget_;
-      result.serializable_ = serializable_;
-      result.keysOnly_ = keysOnly_;
-      result.countOnly_ = countOnly_;
-      result.minModRevision_ = minModRevision_;
-      result.maxModRevision_ = maxModRevision_;
-      result.minCreateRevision_ = minCreateRevision_;
-      result.maxCreateRevision_ = maxCreateRevision_;
+      if (bitField0_ != 0) { buildPartial0(result); }
       onBuilt();
       return result;
     }
 
-    @java.lang.Override
-    public Builder clone() {
-      return super.clone();
+    private void buildPartial0(org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest result) {
+      int from_bitField0_ = bitField0_;
+      if (((from_bitField0_ & 0x00000001) != 0)) {
+        result.key_ = key_;
+      }
+      if (((from_bitField0_ & 0x00000002) != 0)) {
+        result.rangeEnd_ = rangeEnd_;
+      }
+      if (((from_bitField0_ & 0x00000004) != 0)) {
+        result.limit_ = limit_;
+      }
+      if (((from_bitField0_ & 0x00000008) != 0)) {
+        result.revision_ = revision_;
+      }
+      if (((from_bitField0_ & 0x00000010) != 0)) {
+        result.sortOrder_ = sortOrder_;
+      }
+      if (((from_bitField0_ & 0x00000020) != 0)) {
+        result.sortTarget_ = sortTarget_;
+      }
+      if (((from_bitField0_ & 0x00000040) != 0)) {
+        result.serializable_ = serializable_;
+      }
+      if (((from_bitField0_ & 0x00000080) != 0)) {
+        result.keysOnly_ = keysOnly_;
+      }
+      if (((from_bitField0_ & 0x00000100) != 0)) {
+        result.countOnly_ = countOnly_;
+      }
+      if (((from_bitField0_ & 0x00000200) != 0)) {
+        result.minModRevision_ = minModRevision_;
+      }
+      if (((from_bitField0_ & 0x00000400) != 0)) {
+        result.maxModRevision_ = maxModRevision_;
+      }
+      if (((from_bitField0_ & 0x00000800) != 0)) {
+        result.minCreateRevision_ = minCreateRevision_;
+      }
+      if (((from_bitField0_ & 0x00001000) != 0)) {
+        result.maxCreateRevision_ = maxCreateRevision_;
+      }
     }
-    @java.lang.Override
-    public Builder setField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
-      return super.setField(field, value);
-    }
-    @java.lang.Override
-    public Builder clearField(
-        com.google.protobuf.Descriptors.FieldDescriptor field) {
-      return super.clearField(field);
-    }
-    @java.lang.Override
-    public Builder clearOneof(
-        com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-      return super.clearOneof(oneof);
-    }
-    @java.lang.Override
-    public Builder setRepeatedField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        int index, java.lang.Object value) {
-      return super.setRepeatedField(field, index, value);
-    }
-    @java.lang.Override
-    public Builder addRepeatedField(
-        com.google.protobuf.Descriptors.FieldDescriptor field,
-        java.lang.Object value) {
-      return super.addRepeatedField(field, value);
-    }
+
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
       if (other instanceof org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest) {
@@ -1146,7 +1017,7 @@ private static final long serialVersionUID = 0L;
       if (other.getMaxCreateRevision() != 0L) {
         setMaxCreateRevision(other.getMaxCreateRevision());
       }
-      this.mergeUnknownFields(other.unknownFields);
+      this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
       return this;
     }
@@ -1161,19 +1032,98 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest parsedMessage = null;
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       try {
-        parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              key_ = input.readBytes();
+              bitField0_ |= 0x00000001;
+              break;
+            } // case 10
+            case 18: {
+              rangeEnd_ = input.readBytes();
+              bitField0_ |= 0x00000002;
+              break;
+            } // case 18
+            case 24: {
+              limit_ = input.readInt64();
+              bitField0_ |= 0x00000004;
+              break;
+            } // case 24
+            case 32: {
+              revision_ = input.readInt64();
+              bitField0_ |= 0x00000008;
+              break;
+            } // case 32
+            case 40: {
+              sortOrder_ = input.readEnum();
+              bitField0_ |= 0x00000010;
+              break;
+            } // case 40
+            case 48: {
+              sortTarget_ = input.readEnum();
+              bitField0_ |= 0x00000020;
+              break;
+            } // case 48
+            case 56: {
+              serializable_ = input.readBool();
+              bitField0_ |= 0x00000040;
+              break;
+            } // case 56
+            case 64: {
+              keysOnly_ = input.readBool();
+              bitField0_ |= 0x00000080;
+              break;
+            } // case 64
+            case 72: {
+              countOnly_ = input.readBool();
+              bitField0_ |= 0x00000100;
+              break;
+            } // case 72
+            case 80: {
+              minModRevision_ = input.readInt64();
+              bitField0_ |= 0x00000200;
+              break;
+            } // case 80
+            case 88: {
+              maxModRevision_ = input.readInt64();
+              bitField0_ |= 0x00000400;
+              break;
+            } // case 88
+            case 96: {
+              minCreateRevision_ = input.readInt64();
+              bitField0_ |= 0x00000800;
+              break;
+            } // case 96
+            case 104: {
+              maxCreateRevision_ = input.readInt64();
+              bitField0_ |= 0x00001000;
+              break;
+            } // case 104
+            default: {
+              if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                done = true; // was an endgroup tag
+              }
+              break;
+            } // default:
+          } // switch (tag)
+        } // while (!done)
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
-        if (parsedMessage != null) {
-          mergeFrom(parsedMessage);
-        }
-      }
+        onChanged();
+      } // finally
       return this;
     }
+    private int bitField0_;
 
     private com.google.protobuf.ByteString key_ = com.google.protobuf.ByteString.EMPTY;
     /**
@@ -1198,11 +1148,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setKey(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
+      if (value == null) { throw new NullPointerException(); }
       key_ = value;
+      bitField0_ |= 0x00000001;
       onChanged();
       return this;
     }
@@ -1215,7 +1163,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearKey() {
-      
+      bitField0_ = (bitField0_ & ~0x00000001);
       key_ = getDefaultInstance().getKey();
       onChanged();
       return this;
@@ -1252,11 +1200,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setRangeEnd(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
+      if (value == null) { throw new NullPointerException(); }
       rangeEnd_ = value;
+      bitField0_ |= 0x00000002;
       onChanged();
       return this;
     }
@@ -1273,7 +1219,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearRangeEnd() {
-      
+      bitField0_ = (bitField0_ & ~0x00000002);
       rangeEnd_ = getDefaultInstance().getRangeEnd();
       onChanged();
       return this;
@@ -1304,8 +1250,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setLimit(long value) {
-      
+
       limit_ = value;
+      bitField0_ |= 0x00000004;
       onChanged();
       return this;
     }
@@ -1319,7 +1266,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearLimit() {
-      
+      bitField0_ = (bitField0_ & ~0x00000004);
       limit_ = 0L;
       onChanged();
       return this;
@@ -1352,8 +1299,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setRevision(long value) {
-      
+
       revision_ = value;
+      bitField0_ |= 0x00000008;
       onChanged();
       return this;
     }
@@ -1368,7 +1316,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearRevision() {
-      
+      bitField0_ = (bitField0_ & ~0x00000008);
       revision_ = 0L;
       onChanged();
       return this;
@@ -1396,8 +1344,8 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setSortOrderValue(int value) {
-      
       sortOrder_ = value;
+      bitField0_ |= 0x00000010;
       onChanged();
       return this;
     }
@@ -1411,8 +1359,7 @@ private static final long serialVersionUID = 0L;
      */
     @java.lang.Override
     public org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest.SortOrder getSortOrder() {
-      @SuppressWarnings("deprecation")
-      org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest.SortOrder result = org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest.SortOrder.valueOf(sortOrder_);
+      org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest.SortOrder result = org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest.SortOrder.forNumber(sortOrder_);
       return result == null ? org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest.SortOrder.UNRECOGNIZED : result;
     }
     /**
@@ -1428,7 +1375,7 @@ private static final long serialVersionUID = 0L;
       if (value == null) {
         throw new NullPointerException();
       }
-      
+      bitField0_ |= 0x00000010;
       sortOrder_ = value.getNumber();
       onChanged();
       return this;
@@ -1442,7 +1389,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearSortOrder() {
-      
+      bitField0_ = (bitField0_ & ~0x00000010);
       sortOrder_ = 0;
       onChanged();
       return this;
@@ -1470,8 +1417,8 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setSortTargetValue(int value) {
-      
       sortTarget_ = value;
+      bitField0_ |= 0x00000020;
       onChanged();
       return this;
     }
@@ -1485,8 +1432,7 @@ private static final long serialVersionUID = 0L;
      */
     @java.lang.Override
     public org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest.SortTarget getSortTarget() {
-      @SuppressWarnings("deprecation")
-      org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest.SortTarget result = org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest.SortTarget.valueOf(sortTarget_);
+      org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest.SortTarget result = org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest.SortTarget.forNumber(sortTarget_);
       return result == null ? org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest.SortTarget.UNRECOGNIZED : result;
     }
     /**
@@ -1502,7 +1448,7 @@ private static final long serialVersionUID = 0L;
       if (value == null) {
         throw new NullPointerException();
       }
-      
+      bitField0_ |= 0x00000020;
       sortTarget_ = value.getNumber();
       onChanged();
       return this;
@@ -1516,7 +1462,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearSortTarget() {
-      
+      bitField0_ = (bitField0_ & ~0x00000020);
       sortTarget_ = 0;
       onChanged();
       return this;
@@ -1555,8 +1501,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setSerializable(boolean value) {
-      
+
       serializable_ = value;
+      bitField0_ |= 0x00000040;
       onChanged();
       return this;
     }
@@ -1574,7 +1521,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearSerializable() {
-      
+      bitField0_ = (bitField0_ & ~0x00000040);
       serializable_ = false;
       onChanged();
       return this;
@@ -1603,8 +1550,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setKeysOnly(boolean value) {
-      
+
       keysOnly_ = value;
+      bitField0_ |= 0x00000080;
       onChanged();
       return this;
     }
@@ -1617,7 +1565,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearKeysOnly() {
-      
+      bitField0_ = (bitField0_ & ~0x00000080);
       keysOnly_ = false;
       onChanged();
       return this;
@@ -1646,8 +1594,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setCountOnly(boolean value) {
-      
+
       countOnly_ = value;
+      bitField0_ |= 0x00000100;
       onChanged();
       return this;
     }
@@ -1660,7 +1609,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearCountOnly() {
-      
+      bitField0_ = (bitField0_ & ~0x00000100);
       countOnly_ = false;
       onChanged();
       return this;
@@ -1691,8 +1640,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setMinModRevision(long value) {
-      
+
       minModRevision_ = value;
+      bitField0_ |= 0x00000200;
       onChanged();
       return this;
     }
@@ -1706,7 +1656,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearMinModRevision() {
-      
+      bitField0_ = (bitField0_ & ~0x00000200);
       minModRevision_ = 0L;
       onChanged();
       return this;
@@ -1737,8 +1687,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setMaxModRevision(long value) {
-      
+
       maxModRevision_ = value;
+      bitField0_ |= 0x00000400;
       onChanged();
       return this;
     }
@@ -1752,7 +1703,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearMaxModRevision() {
-      
+      bitField0_ = (bitField0_ & ~0x00000400);
       maxModRevision_ = 0L;
       onChanged();
       return this;
@@ -1783,8 +1734,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setMinCreateRevision(long value) {
-      
+
       minCreateRevision_ = value;
+      bitField0_ |= 0x00000800;
       onChanged();
       return this;
     }
@@ -1798,7 +1750,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearMinCreateRevision() {
-      
+      bitField0_ = (bitField0_ & ~0x00000800);
       minCreateRevision_ = 0L;
       onChanged();
       return this;
@@ -1829,8 +1781,9 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setMaxCreateRevision(long value) {
-      
+
       maxCreateRevision_ = value;
+      bitField0_ |= 0x00001000;
       onChanged();
       return this;
     }
@@ -1844,7 +1797,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearMaxCreateRevision() {
-      
+      bitField0_ = (bitField0_ & ~0x00001000);
       maxCreateRevision_ = 0L;
       onChanged();
       return this;
@@ -1882,7 +1835,18 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new RangeRequest(input, extensionRegistry);
+      Builder builder = newBuilder();
+      try {
+        builder.mergeFrom(input, extensionRegistry);
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(builder.buildPartial());
+      } catch (com.google.protobuf.UninitializedMessageException e) {
+        throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(e)
+            .setUnfinishedMessage(builder.buildPartial());
+      }
+      return builder.buildPartial();
     }
   };
 

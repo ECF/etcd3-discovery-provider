@@ -7,13 +7,13 @@
 -buildpath: \
 	org.apache.tomcat:annotations-api,\
 	com.google.guava:guava,\
-	com.salesforce.servicelibs:rx3grpc-stub,\
-	com.salesforce.servicelibs:reactive-grpc-common,\
-	io.grpc:grpc-api,\
-	io.grpc:grpc-protobuf,\
-	io.grpc:grpc-stub,\
-	io.grpc:grpc-context,\
-	io.reactivex.rxjava3:rxjava,\
+	com.salesforce.servicelibs.reactive-grpc-common,\
+	com.salesforce.servicelibs.rx3grpc-stub,\
+	wrapped.io.grpc.grpc-api,\
+	wrapped.io.grpc.grpc-protobuf,\
+	wrapped.io.grpc.grpc-stub,\
+	wrapped.io.grpc.grpc-context,\
+	io.reactivex.rxjava3.rxjava,\
 	org.osgi.framework,\
 	org.eclipse.ecf,\
 	org.eclipse.ecf.discovery,\
@@ -24,18 +24,18 @@
 	org.eclipse.core.jobs,\
 	org.json,\
 	org.eclipse.equinox.concurrent,\
-	com.google.protobuf,\
-	org.reactivestreams.reactive-streams,\
-	slf4j.api
+	wrapped.com.google.protobuf.protobuf-java,\
+	slf4j.api,\
+	reactive-streams
 
-javac.source=1.8
-javac.target=1.8
+javac.source=17
+javac.target=17
 
 package-version = 1.0.2
-Bundle-Version: 1.1.0.${tstamp}
+Bundle-Version: 1.2.0.${tstamp}
 
 -runfw: org.apache.felix.framework;version='[7.0.0,7.0.0]'
--runee: JavaSE-1.8
+-runee: JavaSE-17
 
 Import-Package: com.google.common.util.concurrent;version="26.0", org.osgi.framework, *
 

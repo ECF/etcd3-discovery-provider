@@ -212,6 +212,15 @@ public final class Rx3KVGrpc {
          *  Range gets the keys in the range from the key-value store.
          * </pre>
          */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.RangeResponse> range(org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest request) {
+            return range(io.reactivex.rxjava3.core.Single.just(request));
+        }
+
+        /**
+         * <pre>
+         *  Range gets the keys in the range from the key-value store.
+         * </pre>
+         */
         public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.RangeResponse> range(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest> request) {
             throw new io.grpc.StatusRuntimeException(io.grpc.Status.UNIMPLEMENTED);
         }
@@ -223,8 +232,30 @@ public final class Rx3KVGrpc {
          *  and generates one event in the event history.
          * </pre>
          */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.PutResponse> put(org.eclipse.ecf.provider.etcd3.grpc.api.PutRequest request) {
+            return put(io.reactivex.rxjava3.core.Single.just(request));
+        }
+
+        /**
+         * <pre>
+         *  Put puts the given key into the key-value store.
+         *  A put request increments the revision of the key-value store
+         *  and generates one event in the event history.
+         * </pre>
+         */
         public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.PutResponse> put(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.PutRequest> request) {
             throw new io.grpc.StatusRuntimeException(io.grpc.Status.UNIMPLEMENTED);
+        }
+
+        /**
+         * <pre>
+         *  DeleteRange deletes the given range from the key-value store.
+         *  A delete request increments the revision of the key-value store
+         *  and generates a delete event in the event history for every deleted key.
+         * </pre>
+         */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeResponse> deleteRange(org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeRequest request) {
+            return deleteRange(io.reactivex.rxjava3.core.Single.just(request));
         }
 
         /**
@@ -246,8 +277,31 @@ public final class Rx3KVGrpc {
          *  It is not allowed to modify the same key several times within one txn.
          * </pre>
          */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.TxnResponse> txn(org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequest request) {
+            return txn(io.reactivex.rxjava3.core.Single.just(request));
+        }
+
+        /**
+         * <pre>
+         *  Txn processes multiple requests in a single transaction.
+         *  A txn request increments the revision of the key-value store
+         *  and generates events with the same revision for every completed request.
+         *  It is not allowed to modify the same key several times within one txn.
+         * </pre>
+         */
         public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.TxnResponse> txn(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequest> request) {
             throw new io.grpc.StatusRuntimeException(io.grpc.Status.UNIMPLEMENTED);
+        }
+
+        /**
+         * <pre>
+         *  Compact compacts the event history in the etcd key-value store. The key-value
+         *  store should be periodically compacted or the event history will continue to grow
+         *  indefinitely.
+         * </pre>
+         */
+        public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.CompactionResponse> compact(org.eclipse.ecf.provider.etcd3.grpc.api.CompactionRequest request) {
+            return compact(io.reactivex.rxjava3.core.Single.just(request));
         }
 
         /**
@@ -305,6 +359,10 @@ public final class Rx3KVGrpc {
             return null;
         }
 
+        protected Throwable onErrorMap(Throwable throwable) {
+            return com.salesforce.rx3grpc.stub.ServerCalls.prepareError(throwable);
+        }
+
     }
 
     public static final int METHODID_RANGE = 0;
@@ -333,52 +391,52 @@ public final class Rx3KVGrpc {
                 case METHODID_RANGE:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.RangeResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.RangeResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.RangeResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.RangeResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.RangeResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.RangeRequest single) {
                                     return serviceImpl.range(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_PUT:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.PutRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.PutResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.PutRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.PutResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.PutRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.PutResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.PutResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.PutRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.PutResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.PutRequest single) {
                                     return serviceImpl.put(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_DELETE_RANGE:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.DeleteRangeRequest single) {
                                     return serviceImpl.deleteRange(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_TXN:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.TxnResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.TxnResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.TxnResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.TxnResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.TxnResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequest single) {
                                     return serviceImpl.txn(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 case METHODID_COMPACT:
                     com.salesforce.rx3grpc.stub.ServerCalls.oneToOne((org.eclipse.ecf.provider.etcd3.grpc.api.CompactionRequest) request,
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.CompactionResponse>) responseObserver,
-                            new com.salesforce.reactivegrpc.common.Function<io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.CompactionRequest>, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.CompactionResponse>>() {
+                            new com.salesforce.reactivegrpc.common.Function<org.eclipse.ecf.provider.etcd3.grpc.api.CompactionRequest, io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.CompactionResponse>>() {
                                 @java.lang.Override
-                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.CompactionResponse> apply(io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.CompactionRequest> single) {
+                                public io.reactivex.rxjava3.core.Single<org.eclipse.ecf.provider.etcd3.grpc.api.CompactionResponse> apply(org.eclipse.ecf.provider.etcd3.grpc.api.CompactionRequest single) {
                                     return serviceImpl.compact(single);
                                 }
-                            });
+                            }, serviceImpl::onErrorMap);
                     break;
                 default:
                     throw new java.lang.AssertionError();

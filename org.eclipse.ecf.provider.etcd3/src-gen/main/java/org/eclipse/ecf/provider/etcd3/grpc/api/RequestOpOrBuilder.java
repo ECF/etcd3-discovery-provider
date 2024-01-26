@@ -67,5 +67,5 @@ public interface RequestOpOrBuilder extends
    */
   org.eclipse.ecf.provider.etcd3.grpc.api.TxnRequestOrBuilder getRequestTxnOrBuilder();
 
-  public org.eclipse.ecf.provider.etcd3.grpc.api.RequestOp.RequestCase getRequestCase();
+  org.eclipse.ecf.provider.etcd3.grpc.api.RequestOp.RequestCase getRequestCase();
 }

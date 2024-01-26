@@ -54,6 +54,7 @@ public final class Rx3WatchGrpc {
 
     public static abstract class WatchImplBase implements io.grpc.BindableService {
 
+
         /**
          * <pre>
          *  Range gets the keys in the range from the key-value store.
@@ -77,6 +78,10 @@ public final class Rx3WatchGrpc {
 
         protected io.grpc.CallOptions getCallOptions(int methodId) {
             return null;
+        }
+
+        protected Throwable onErrorMap(Throwable throwable) {
+            return com.salesforce.rx3grpc.stub.ServerCalls.prepareError(throwable);
         }
 
     }
@@ -112,7 +117,7 @@ public final class Rx3WatchGrpc {
                 case METHODID_WATCH:
                     return (io.grpc.stub.StreamObserver<Req>) com.salesforce.rx3grpc.stub.ServerCalls.manyToMany(
                             (io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.WatchResponse>) responseObserver,
-                            serviceImpl::watch, serviceImpl.getCallOptions(methodId));
+                            serviceImpl::watch, serviceImpl::onErrorMap, serviceImpl.getCallOptions(methodId));
                 default:
                     throw new java.lang.AssertionError();
             }

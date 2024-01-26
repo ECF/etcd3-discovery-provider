@@ -5,8 +5,9 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
 /**
  */
 @javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.39.0)",
+    value = "by gRPC proto compiler (version 1.54.0)",
     comments = "Source: rpc.proto")
+@io.grpc.stub.annotations.GrpcGenerated
 public final class AuthGrpc {
 
   private AuthGrpc() {}
@@ -556,14 +557,14 @@ public final class AuthGrpc {
 
   /**
    */
-  public static abstract class AuthImplBase implements io.grpc.BindableService {
+  public interface AsyncService {
 
     /**
      * <pre>
      * AuthEnable enables authentication.
      * </pre>
      */
-    public void authEnable(org.eclipse.ecf.provider.etcd3.grpc.api.AuthEnableRequest request,
+    default void authEnable(org.eclipse.ecf.provider.etcd3.grpc.api.AuthEnableRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthEnableResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getAuthEnableMethod(), responseObserver);
     }
@@ -573,7 +574,7 @@ public final class AuthGrpc {
      * AuthDisable disables authentication.
      * </pre>
      */
-    public void authDisable(org.eclipse.ecf.provider.etcd3.grpc.api.AuthDisableRequest request,
+    default void authDisable(org.eclipse.ecf.provider.etcd3.grpc.api.AuthDisableRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthDisableResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getAuthDisableMethod(), responseObserver);
     }
@@ -583,7 +584,7 @@ public final class AuthGrpc {
      * Authenticate processes an authenticate request.
      * </pre>
      */
-    public void authenticate(org.eclipse.ecf.provider.etcd3.grpc.api.AuthenticateRequest request,
+    default void authenticate(org.eclipse.ecf.provider.etcd3.grpc.api.AuthenticateRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthenticateResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getAuthenticateMethod(), responseObserver);
     }
@@ -593,7 +594,7 @@ public final class AuthGrpc {
      * UserAdd adds a new user.
      * </pre>
      */
-    public void userAdd(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserAddRequest request,
+    default void userAdd(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserAddRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserAddResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUserAddMethod(), responseObserver);
     }
@@ -603,7 +604,7 @@ public final class AuthGrpc {
      * UserGet gets detailed user information.
      * </pre>
      */
-    public void userGet(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGetRequest request,
+    default void userGet(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGetRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGetResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUserGetMethod(), responseObserver);
     }
@@ -613,7 +614,7 @@ public final class AuthGrpc {
      * UserList gets a list of all users.
      * </pre>
      */
-    public void userList(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserListRequest request,
+    default void userList(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserListRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserListResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUserListMethod(), responseObserver);
     }
@@ -623,7 +624,7 @@ public final class AuthGrpc {
      * UserDelete deletes a specified user.
      * </pre>
      */
-    public void userDelete(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserDeleteRequest request,
+    default void userDelete(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserDeleteRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserDeleteResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUserDeleteMethod(), responseObserver);
     }
@@ -633,7 +634,7 @@ public final class AuthGrpc {
      * UserChangePassword changes the password of a specified user.
      * </pre>
      */
-    public void userChangePassword(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserChangePasswordRequest request,
+    default void userChangePassword(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserChangePasswordRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserChangePasswordResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUserChangePasswordMethod(), responseObserver);
     }
@@ -643,7 +644,7 @@ public final class AuthGrpc {
      * UserGrant grants a role to a specified user.
      * </pre>
      */
-    public void userGrantRole(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGrantRoleRequest request,
+    default void userGrantRole(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGrantRoleRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGrantRoleResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUserGrantRoleMethod(), responseObserver);
     }
@@ -653,7 +654,7 @@ public final class AuthGrpc {
      * UserRevokeRole revokes a role of specified user.
      * </pre>
      */
-    public void userRevokeRole(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserRevokeRoleRequest request,
+    default void userRevokeRole(org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserRevokeRoleRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserRevokeRoleResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUserRevokeRoleMethod(), responseObserver);
     }
@@ -663,7 +664,7 @@ public final class AuthGrpc {
      * RoleAdd adds a new role.
      * </pre>
      */
-    public void roleAdd(org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleAddRequest request,
+    default void roleAdd(org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleAddRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleAddResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRoleAddMethod(), responseObserver);
     }
@@ -673,7 +674,7 @@ public final class AuthGrpc {
      * RoleGet gets detailed role information.
      * </pre>
      */
-    public void roleGet(org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGetRequest request,
+    default void roleGet(org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGetRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGetResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRoleGetMethod(), responseObserver);
     }
@@ -683,7 +684,7 @@ public final class AuthGrpc {
      * RoleList gets lists of all roles.
      * </pre>
      */
-    public void roleList(org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleListRequest request,
+    default void roleList(org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleListRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleListResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRoleListMethod(), responseObserver);
     }
@@ -693,7 +694,7 @@ public final class AuthGrpc {
      * RoleDelete deletes a specified role.
      * </pre>
      */
-    public void roleDelete(org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleDeleteRequest request,
+    default void roleDelete(org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleDeleteRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleDeleteResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRoleDeleteMethod(), responseObserver);
     }
@@ -703,7 +704,7 @@ public final class AuthGrpc {
      * RoleGrantPermission grants a permission of a specified key or range to a specified role.
      * </pre>
      */
-    public void roleGrantPermission(org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionRequest request,
+    default void roleGrantPermission(org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRoleGrantPermissionMethod(), responseObserver);
     }
@@ -713,132 +714,28 @@ public final class AuthGrpc {
      * RoleRevokePermission revokes a key or range permission of a specified role.
      * </pre>
      */
-    public void roleRevokePermission(org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleRevokePermissionRequest request,
+    default void roleRevokePermission(org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleRevokePermissionRequest request,
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleRevokePermissionResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRoleRevokePermissionMethod(), responseObserver);
-    }
-
-    @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
-      return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
-          .addMethod(
-            getAuthEnableMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthEnableRequest,
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthEnableResponse>(
-                  this, METHODID_AUTH_ENABLE)))
-          .addMethod(
-            getAuthDisableMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthDisableRequest,
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthDisableResponse>(
-                  this, METHODID_AUTH_DISABLE)))
-          .addMethod(
-            getAuthenticateMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthenticateRequest,
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthenticateResponse>(
-                  this, METHODID_AUTHENTICATE)))
-          .addMethod(
-            getUserAddMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserAddRequest,
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserAddResponse>(
-                  this, METHODID_USER_ADD)))
-          .addMethod(
-            getUserGetMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGetRequest,
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGetResponse>(
-                  this, METHODID_USER_GET)))
-          .addMethod(
-            getUserListMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserListRequest,
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserListResponse>(
-                  this, METHODID_USER_LIST)))
-          .addMethod(
-            getUserDeleteMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserDeleteRequest,
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserDeleteResponse>(
-                  this, METHODID_USER_DELETE)))
-          .addMethod(
-            getUserChangePasswordMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserChangePasswordRequest,
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserChangePasswordResponse>(
-                  this, METHODID_USER_CHANGE_PASSWORD)))
-          .addMethod(
-            getUserGrantRoleMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGrantRoleRequest,
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGrantRoleResponse>(
-                  this, METHODID_USER_GRANT_ROLE)))
-          .addMethod(
-            getUserRevokeRoleMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserRevokeRoleRequest,
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserRevokeRoleResponse>(
-                  this, METHODID_USER_REVOKE_ROLE)))
-          .addMethod(
-            getRoleAddMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleAddRequest,
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleAddResponse>(
-                  this, METHODID_ROLE_ADD)))
-          .addMethod(
-            getRoleGetMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGetRequest,
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGetResponse>(
-                  this, METHODID_ROLE_GET)))
-          .addMethod(
-            getRoleListMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleListRequest,
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleListResponse>(
-                  this, METHODID_ROLE_LIST)))
-          .addMethod(
-            getRoleDeleteMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleDeleteRequest,
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleDeleteResponse>(
-                  this, METHODID_ROLE_DELETE)))
-          .addMethod(
-            getRoleGrantPermissionMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionRequest,
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionResponse>(
-                  this, METHODID_ROLE_GRANT_PERMISSION)))
-          .addMethod(
-            getRoleRevokePermissionMethod(),
-            io.grpc.stub.ServerCalls.asyncUnaryCall(
-              new MethodHandlers<
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleRevokePermissionRequest,
-                org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleRevokePermissionResponse>(
-                  this, METHODID_ROLE_REVOKE_PERMISSION)))
-          .build();
     }
   }
 
   /**
+   * Base class for the server implementation of the service Auth.
    */
-  public static final class AuthStub extends io.grpc.stub.AbstractAsyncStub<AuthStub> {
+  public static abstract class AuthImplBase
+      implements io.grpc.BindableService, AsyncService {
+
+    @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
+      return AuthGrpc.bindService(this);
+    }
+  }
+
+  /**
+   * A stub to allow clients to do asynchronous rpc calls to service Auth.
+   */
+  public static final class AuthStub
+      extends io.grpc.stub.AbstractAsyncStub<AuthStub> {
     private AuthStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
@@ -1028,8 +925,10 @@ public final class AuthGrpc {
   }
 
   /**
+   * A stub to allow clients to do synchronous rpc calls to service Auth.
    */
-  public static final class AuthBlockingStub extends io.grpc.stub.AbstractBlockingStub<AuthBlockingStub> {
+  public static final class AuthBlockingStub
+      extends io.grpc.stub.AbstractBlockingStub<AuthBlockingStub> {
     private AuthBlockingStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
@@ -1203,8 +1102,10 @@ public final class AuthGrpc {
   }
 
   /**
+   * A stub to allow clients to do ListenableFuture-style rpc calls to service Auth.
    */
-  public static final class AuthFutureStub extends io.grpc.stub.AbstractFutureStub<AuthFutureStub> {
+  public static final class AuthFutureStub
+      extends io.grpc.stub.AbstractFutureStub<AuthFutureStub> {
     private AuthFutureStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
@@ -1415,10 +1316,10 @@ public final class AuthGrpc {
       io.grpc.stub.ServerCalls.ServerStreamingMethod<Req, Resp>,
       io.grpc.stub.ServerCalls.ClientStreamingMethod<Req, Resp>,
       io.grpc.stub.ServerCalls.BidiStreamingMethod<Req, Resp> {
-    private final AuthImplBase serviceImpl;
+    private final AsyncService serviceImpl;
     private final int methodId;
 
-    MethodHandlers(AuthImplBase serviceImpl, int methodId) {
+    MethodHandlers(AsyncService serviceImpl, int methodId) {
       this.serviceImpl = serviceImpl;
       this.methodId = methodId;
     }
@@ -1505,6 +1406,123 @@ public final class AuthGrpc {
           throw new AssertionError();
       }
     }
+  }
+
+  public static final io.grpc.ServerServiceDefinition bindService(AsyncService service) {
+    return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
+        .addMethod(
+          getAuthEnableMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthEnableRequest,
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthEnableResponse>(
+                service, METHODID_AUTH_ENABLE)))
+        .addMethod(
+          getAuthDisableMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthDisableRequest,
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthDisableResponse>(
+                service, METHODID_AUTH_DISABLE)))
+        .addMethod(
+          getAuthenticateMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthenticateRequest,
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthenticateResponse>(
+                service, METHODID_AUTHENTICATE)))
+        .addMethod(
+          getUserAddMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserAddRequest,
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserAddResponse>(
+                service, METHODID_USER_ADD)))
+        .addMethod(
+          getUserGetMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGetRequest,
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGetResponse>(
+                service, METHODID_USER_GET)))
+        .addMethod(
+          getUserListMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserListRequest,
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserListResponse>(
+                service, METHODID_USER_LIST)))
+        .addMethod(
+          getUserDeleteMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserDeleteRequest,
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserDeleteResponse>(
+                service, METHODID_USER_DELETE)))
+        .addMethod(
+          getUserChangePasswordMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserChangePasswordRequest,
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserChangePasswordResponse>(
+                service, METHODID_USER_CHANGE_PASSWORD)))
+        .addMethod(
+          getUserGrantRoleMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGrantRoleRequest,
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserGrantRoleResponse>(
+                service, METHODID_USER_GRANT_ROLE)))
+        .addMethod(
+          getUserRevokeRoleMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserRevokeRoleRequest,
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthUserRevokeRoleResponse>(
+                service, METHODID_USER_REVOKE_ROLE)))
+        .addMethod(
+          getRoleAddMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleAddRequest,
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleAddResponse>(
+                service, METHODID_ROLE_ADD)))
+        .addMethod(
+          getRoleGetMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGetRequest,
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGetResponse>(
+                service, METHODID_ROLE_GET)))
+        .addMethod(
+          getRoleListMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleListRequest,
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleListResponse>(
+                service, METHODID_ROLE_LIST)))
+        .addMethod(
+          getRoleDeleteMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleDeleteRequest,
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleDeleteResponse>(
+                service, METHODID_ROLE_DELETE)))
+        .addMethod(
+          getRoleGrantPermissionMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionRequest,
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleGrantPermissionResponse>(
+                service, METHODID_ROLE_GRANT_PERMISSION)))
+        .addMethod(
+          getRoleRevokePermissionMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleRevokePermissionRequest,
+              org.eclipse.ecf.provider.etcd3.grpc.api.AuthRoleRevokePermissionResponse>(
+                service, METHODID_ROLE_REVOKE_PERMISSION)))
+        .build();
   }
 
   private static abstract class AuthBaseDescriptorSupplier

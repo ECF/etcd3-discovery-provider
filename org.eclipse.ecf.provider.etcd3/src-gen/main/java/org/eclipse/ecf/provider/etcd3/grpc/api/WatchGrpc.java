@@ -5,8 +5,9 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
 /**
  */
 @javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.39.0)",
+    value = "by gRPC proto compiler (version 1.54.0)",
     comments = "Source: rpc.proto")
+@io.grpc.stub.annotations.GrpcGenerated
 public final class WatchGrpc {
 
   private WatchGrpc() {}
@@ -91,7 +92,7 @@ public final class WatchGrpc {
 
   /**
    */
-  public static abstract class WatchImplBase implements io.grpc.BindableService {
+  public interface AsyncService {
 
     /**
      * <pre>
@@ -102,27 +103,28 @@ public final class WatchGrpc {
      * last compaction revision.
      * </pre>
      */
-    public io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.WatchRequest> watch(
+    default io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.WatchRequest> watch(
         io.grpc.stub.StreamObserver<org.eclipse.ecf.provider.etcd3.grpc.api.WatchResponse> responseObserver) {
       return io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall(getWatchMethod(), responseObserver);
-    }
-
-    @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
-      return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
-          .addMethod(
-            getWatchMethod(),
-            io.grpc.stub.ServerCalls.asyncBidiStreamingCall(
-              new MethodHandlers<
-                org.eclipse.ecf.provider.etcd3.grpc.api.WatchRequest,
-                org.eclipse.ecf.provider.etcd3.grpc.api.WatchResponse>(
-                  this, METHODID_WATCH)))
-          .build();
     }
   }
 
   /**
+   * Base class for the server implementation of the service Watch.
    */
-  public static final class WatchStub extends io.grpc.stub.AbstractAsyncStub<WatchStub> {
+  public static abstract class WatchImplBase
+      implements io.grpc.BindableService, AsyncService {
+
+    @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
+      return WatchGrpc.bindService(this);
+    }
+  }
+
+  /**
+   * A stub to allow clients to do asynchronous rpc calls to service Watch.
+   */
+  public static final class WatchStub
+      extends io.grpc.stub.AbstractAsyncStub<WatchStub> {
     private WatchStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
@@ -151,8 +153,10 @@ public final class WatchGrpc {
   }
 
   /**
+   * A stub to allow clients to do synchronous rpc calls to service Watch.
    */
-  public static final class WatchBlockingStub extends io.grpc.stub.AbstractBlockingStub<WatchBlockingStub> {
+  public static final class WatchBlockingStub
+      extends io.grpc.stub.AbstractBlockingStub<WatchBlockingStub> {
     private WatchBlockingStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
@@ -166,8 +170,10 @@ public final class WatchGrpc {
   }
 
   /**
+   * A stub to allow clients to do ListenableFuture-style rpc calls to service Watch.
    */
-  public static final class WatchFutureStub extends io.grpc.stub.AbstractFutureStub<WatchFutureStub> {
+  public static final class WatchFutureStub
+      extends io.grpc.stub.AbstractFutureStub<WatchFutureStub> {
     private WatchFutureStub(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
@@ -187,10 +193,10 @@ public final class WatchGrpc {
       io.grpc.stub.ServerCalls.ServerStreamingMethod<Req, Resp>,
       io.grpc.stub.ServerCalls.ClientStreamingMethod<Req, Resp>,
       io.grpc.stub.ServerCalls.BidiStreamingMethod<Req, Resp> {
-    private final WatchImplBase serviceImpl;
+    private final AsyncService serviceImpl;
     private final int methodId;
 
-    MethodHandlers(WatchImplBase serviceImpl, int methodId) {
+    MethodHandlers(AsyncService serviceImpl, int methodId) {
       this.serviceImpl = serviceImpl;
       this.methodId = methodId;
     }
@@ -216,6 +222,18 @@ public final class WatchGrpc {
           throw new AssertionError();
       }
     }
+  }
+
+  public static final io.grpc.ServerServiceDefinition bindService(AsyncService service) {
+    return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
+        .addMethod(
+          getWatchMethod(),
+          io.grpc.stub.ServerCalls.asyncBidiStreamingCall(
+            new MethodHandlers<
+              org.eclipse.ecf.provider.etcd3.grpc.api.WatchRequest,
+              org.eclipse.ecf.provider.etcd3.grpc.api.WatchResponse>(
+                service, METHODID_WATCH)))
+        .build();
   }
 
   private static abstract class WatchBaseDescriptorSupplier
