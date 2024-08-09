@@ -302,6 +302,7 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 				ContainerConnectException e1 = new ContainerConnectException(
 						"Cannot connect to Etcd3 server "+ uri, e);
 				e1.setStackTrace(e.getStackTrace());
+				logEtcdError("connect","Etcd3 connection error", e);
 				throw e1;
 			}
 

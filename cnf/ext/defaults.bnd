@@ -49,7 +49,12 @@
  	url = https://raw.githubusercontent.com/ECF/grpc-RemoteServicesProvider/master/build/; \
 	pretty = true; \
 	name = ECF gRPC Distribution Provider
-		
+	
+-plugin.repository: \
+      aQute.bnd.repository.p2.provider.P2Repository;\
+          name="Eclipse Local";\
+          url="file:///c:/eclipse.4.28/eclipse/";\
+          location="${workspace}/cnf/cache/stable/EclipseLocal"
 -runsystemcapabilities.dflt:    ${native_capability}
 
 debug-bundles: \

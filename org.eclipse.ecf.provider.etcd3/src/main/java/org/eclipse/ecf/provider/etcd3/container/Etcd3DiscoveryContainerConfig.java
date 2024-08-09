@@ -16,11 +16,13 @@ import org.eclipse.ecf.core.identity.IDCreateException;
 import org.eclipse.ecf.core.identity.IDFactory;
 import org.eclipse.ecf.discovery.DiscoveryContainerConfig;
 import org.eclipse.ecf.discovery.identity.ServiceIDFactory;
+import org.eclipse.ecf.provider.etcd3.Activator;
 import org.eclipse.ecf.provider.etcd3.identity.Etcd3Namespace;
 import org.eclipse.ecf.provider.etcd3.identity.Etcd3ServiceID;
 
 import io.grpc.Channel;
 import io.grpc.ManagedChannelBuilder;
+import org.osgi.util.tracker.ServiceTracker;
 
 public class Etcd3DiscoveryContainerConfig extends DiscoveryContainerConfig {
 
