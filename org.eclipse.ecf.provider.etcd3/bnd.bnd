@@ -27,7 +27,6 @@
 	reactive-streams,\
 	osgi.core,\
 	org.osgi.service.component.annotations,\
-	biz.aQute.launchpad,\
 	json,\
 	wrapped.com.google.protobuf.protobuf-java
 
@@ -35,7 +34,7 @@ javac.source=17
 javac.target=17
 
 package-version = 1.0.2
-Bundle-Version: 1.3.0.${tstamp}
+Bundle-Version: 1.3.1.${tstamp}
 
 -runfw: org.apache.felix.framework;version='[7.0.5,7.0.5]'
 -runee: JavaSE-17
@@ -57,6 +56,34 @@ Export-Package: \
 	
 -privatepackage: org.eclipse.ecf.provider.etcd3
 
+-runrequires: \
+	bnd.identity;id='org.apache.aries.spifly.dynamic.bundle',\
+	bnd.identity;id='org.eclipse.ecf.provider.grpc',\
+	bnd.identity;id='org.eclipse.ecf.provider.grpc.console',\
+	osgi.identity;filter:='(osgi.identity=org.eclipse.ecf.osgi.services.distribution)',\
+	osgi.identity;filter:='(osgi.identity=org.eclipse.ecf.provider.etcd3)',\
+	osgi.identity;filter:='(osgi.identity=org.eclipse.ecf.osgi.services.remoteserviceadmin.console)',\
+	osgi.identity;filter:='(osgi.identity=org.apache.felix.log)',\
+	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.command)',\
+	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.shell)',\
+	bnd.identity;id='org.apache.felix.eventadmin',\
+	osgi.identity;filter:='(osgi.identity=org.eclipse.ecf.provider.etcd3)',\
+	bnd.identity;id='io.netty.resolver',\
+	bnd.identity;id='io.netty.codec-http2',\
+	bnd.identity;id='io.netty.transport',\
+	bnd.identity;id='io.netty.handler-proxy',\
+	bnd.identity;id='io.netty.codec-socks',\
+	bnd.identity;id='wrapped.io.grpc.grpc-netty',\
+	bnd.identity;id='wrapped.io.grpc.grpc-api',\
+	bnd.identity;id='wrapped.com.google.errorprone.error_prone_annotations',\
+	bnd.identity;id='wrapped.io.grpc.grpc-services',\
+	bnd.identity;id='wrapped.io.grpc.grpc-protobuf-lite',\
+	bnd.identity;id='wrapped.io.perfmark.perfmark-api',\
+	bnd.identity;id='wrapped.org.apache.tomcat.annotations-api',\
+	bnd.identity;id='wrapped.org.codehaus.mojo.animal-sniffer-annotations',\
+	bnd.identity;id='slf4j.simple'
+
+
 -runstartlevel: \
     order = leastdependencieslast, \
     begin = 1
@@ -64,7 +91,70 @@ Export-Package: \
 -runvm: -Decf.discovery.etcd3.usePlaintext=true\n\
 	-Decf.discovery.etcd3.hostname=localhost\n\
 	-Decf.discovery.etcd3.port=2379
+		
 -runprogramargs: console consoleLog
--runrequires: \
-	bnd.identity;id='org.eclipse.ecf.provider.etcd3',\
-	bnd.identity;id='wrapped.io.grpc.grpc-protobuf'
+-runbundles: \
+	wrapped.org.codehaus.mojo.animal-sniffer-annotations;version='[1.23.0,1.23.1)';startlevel=1,\
+	org.eclipse.ecf.provider.grpc.console;version='[1.0.3,1.0.4)';startlevel=11,\
+	org.eclipse.ecf.provider.grpc;version='[1.5.2,1.5.3)';startlevel=21,\
+	wrapped.io.grpc.grpc-services;version='[1.54.0,1.54.1)';startlevel=31,\
+	wrapped.io.grpc.grpc-core;version='[1.54.0,1.54.1)';startlevel=41,\
+	wrapped.io.grpc.grpc-api;version='[1.54.0,1.54.1)';startlevel=51,\
+	wrapped.io.grpc.grpc-netty;version='[1.54.0,1.54.1)';startlevel=61,\
+	wrapped.io.perfmark.perfmark-api;version='[0.26.0,0.26.1)';startlevel=71,\
+	wrapped.com.google.errorprone.error_prone_annotations;version='[2.9.0,2.9.1)';startlevel=81,\
+	org.eclipse.ecf.provider.etcd3;version=snapshot;startlevel=91,\
+	wrapped.io.grpc.grpc-protobuf;version='[1.54.0,1.54.1)';startlevel=101,\
+	wrapped.io.grpc.grpc-protobuf-lite;version='[1.54.0,1.54.1)';startlevel=111,\
+	wrapped.com.google.protobuf.protobuf-java;version='[3.22.2,3.22.3)';startlevel=121,\
+	slf4j.simple;version='[2.0.9,2.0.10)';startlevel=131,\
+	slf4j.api;version='[2.0.9,2.0.10)';startlevel=141,\
+	org.apache.felix.scr;version='[2.2.6,2.2.7)';startlevel=151,\
+	org.osgi.service.component;version='[1.5.1,1.5.2)';startlevel=161,\
+	json;version='[20230227.0.0,20230227.0.1)';startlevel=171,\
+	com.salesforce.servicelibs.rx3grpc-stub;version='[1.2.4,1.2.5)';startlevel=181,\
+	io.reactivex.rxjava3.rxjava;version='[3.1.6,3.1.7)';startlevel=191,\
+	com.salesforce.servicelibs.reactive-grpc-common;version='[1.2.4,1.2.5)';startlevel=201,\
+	wrapped.io.grpc.grpc-stub;version='[1.54.0,1.54.1)';startlevel=211,\
+	wrapped.org.apache.tomcat.annotations-api;version='[6.0.53,6.0.54)';startlevel=221,\
+	wrapped.io.grpc.grpc-context;version='[1.54.0,1.54.1)';startlevel=231,\
+	reactive-streams;version='[1.0.4,1.0.5)';startlevel=241,\
+	com.google.guava;version='[31.1.0,31.1.1)';startlevel=251,\
+	com.google.guava.failureaccess;version='[1.0.1,1.0.2)';startlevel=261,\
+	org.eclipse.ecf.osgi.services.remoteserviceadmin.console;version='[1.3.1,1.3.2)';startlevel=271,\
+	org.eclipse.ecf.console;version='[1.4.0,1.4.1)';startlevel=281,\
+	org.eclipse.ecf.osgi.services.distribution;version='[2.1.700,2.1.701)';startlevel=291,\
+	org.eclipse.ecf.osgi.services.remoteserviceadmin;version='[4.9.3,4.9.4)';startlevel=301,\
+	org.osgi.service.remoteserviceadmin;version='[1.1.0,1.1.1)';startlevel=311,\
+	org.eclipse.ecf.remoteservice;version='[8.14.0,8.14.1)';startlevel=321,\
+	org.eclipse.ecf.remoteservice.asyncproxy;version='[2.1.200,2.1.201)';startlevel=331,\
+	osgi.promise;version='[8.1.0,8.1.1)';startlevel=341,\
+	org.eclipse.ecf.osgi.services.remoteserviceadmin.proxy;version='[1.0.102,1.0.103)';startlevel=351,\
+	org.eclipse.ecf.discovery;version='[5.2.0,5.2.1)';startlevel=361,\
+	org.eclipse.ecf;version='[3.11.0,3.11.1)';startlevel=371,\
+	org.eclipse.equinox.concurrent;version='[1.2.200,1.2.201)';startlevel=381,\
+	org.eclipse.core.jobs;version='[3.15.100,3.15.101)';startlevel=391,\
+	org.eclipse.ecf.identity;version='[3.10.0,3.10.1)';startlevel=401,\
+	org.eclipse.equinox.common;version='[3.15.100,3.15.101)';startlevel=411,\
+	org.eclipse.equinox.supplement;version='[1.10.700,1.10.701)';startlevel=421,\
+	org.apache.felix.gogo.shell;version='[1.1.4,1.1.5)';startlevel=431,\
+	org.apache.felix.gogo.command;version='[1.1.2,1.1.3)';startlevel=441,\
+	org.apache.felix.gogo.runtime;version='[1.1.6,1.1.7)';startlevel=451,\
+	org.apache.felix.eventadmin;version='[1.6.4,1.6.5)';startlevel=461,\
+	org.apache.felix.log;version='[1.3.0,1.3.1)';startlevel=471,\
+	org.apache.aries.spifly.dynamic.bundle;version='[1.3.6,1.3.7)';startlevel=2,\
+	org.objectweb.asm.util;version='[9.5.0,9.5.1)';startlevel=491,\
+	org.objectweb.asm.tree.analysis;version='[9.5.0,9.5.1)';startlevel=501,\
+	org.objectweb.asm.commons;version='[9.5.0,9.5.1)';startlevel=511,\
+	org.objectweb.asm.tree;version='[9.5.0,9.5.1)';startlevel=521,\
+	org.objectweb.asm;version='[9.7.0,9.7.1)';startlevel=531,\
+	io.netty.handler-proxy;version='[4.1.68,4.1.69)';startlevel=541,\
+	io.netty.codec-socks;version='[4.1.68,4.1.69)';startlevel=551,\
+	io.netty.codec-http2;version='[4.1.68,4.1.69)';startlevel=561,\
+	io.netty.codec-http;version='[4.1.68,4.1.69)';startlevel=571,\
+	io.netty.handler;version='[4.1.68,4.1.69)';startlevel=581,\
+	io.netty.codec;version='[4.1.68,4.1.69)';startlevel=591,\
+	io.netty.transport;version='[4.1.68,4.1.69)';startlevel=601,\
+	io.netty.resolver;version='[4.1.68,4.1.69)';startlevel=611,\
+	io.netty.buffer;version='[4.1.68,4.1.69)';startlevel=621,\
+	io.netty.common;version='[4.1.68,4.1.69)';startlevel=631
