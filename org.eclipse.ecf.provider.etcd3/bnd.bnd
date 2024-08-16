@@ -28,7 +28,8 @@
 	osgi.core,\
 	org.osgi.service.component.annotations,\
 	json,\
-	wrapped.com.google.protobuf.protobuf-java
+	wrapped.com.google.protobuf.protobuf-java,\
+	org.apache.felix.framework
 
 javac.source=17
 javac.target=17
