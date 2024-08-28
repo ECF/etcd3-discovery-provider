@@ -73,7 +73,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 
 	private static final Logger logger = LoggerFactory.getLogger(Etcd3DiscoveryContainer.class);
-	
+
 	class EtcdServiceInfoKey {
 		private final String sessId;
 		private final String serviceInfoId;
@@ -299,10 +299,10 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 
 			} catch (Exception e) {
 				URI uri = getEtcdConfig().getTargetLocation();
-				ContainerConnectException e1 = new ContainerConnectException(
-						"Cannot connect to Etcd3 server "+ uri, e);
+				ContainerConnectException e1 = new ContainerConnectException("Cannot connect to Etcd3 server " + uri,
+						e);
 				e1.setStackTrace(e.getStackTrace());
-				logEtcdError("connect","Etcd3 connection error", e);
+				logEtcdError("connect", "Etcd3 connection error", e);
 				throw e1;
 			}
 
@@ -373,7 +373,7 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 
 	private void handlePutWatchEvent(KeyValue keyValue) {
 		String key = keyValue.getKey().toStringUtf8();
-		debug("handlePutWatchEvent","key="+key);
+		debug("handlePutWatchEvent", "key=" + key);
 		EtcdServiceInfoKey siKey = parseServiceInfoKey(key);
 		if (siKey != null) {
 			if (!siKey.matchSessionId(getSessionId())) {
@@ -398,7 +398,7 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 
 	private void handleDeleteWatchEvent(KeyValue keyValue) {
 		String key = keyValue.getKey().toStringUtf8();
-		debug("handleDeleteWatchEvent","key="+key);
+		debug("handleDeleteWatchEvent", "key=" + key);
 		EtcdServiceInfoKey siKey = parseServiceInfoKey(key);
 		if (siKey != null) {
 			if (!siKey.matchSessionId(getSessionId())) {
@@ -471,11 +471,11 @@ public class Etcd3DiscoveryContainer extends AbstractDiscoveryContainerAdapter {
 	}
 
 	private void debug(String methodName, String message) {
-		logger.debug("methodName="+methodName+",msg="+message);
+		logger.debug("methodName=" + methodName + ",msg=" + message);
 	}
 
 	private void logEtcdError(String method, String message, Throwable e) {
-		logger.error("methodName="+method+",msg="+message,e);
+		logger.error("methodName=" + method + ",msg=" + message, e);
 	}
 
 	public IServiceInfo getServiceInfo(IServiceID aServiceID) {

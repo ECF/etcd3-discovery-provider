@@ -44,7 +44,7 @@ public class Etcd3ServiceInfo extends ServiceInfo {
 	public static final String BYTES_TYPE = "bytes"; //$NON-NLS-1$
 	public static final String STRING_TYPE = "string"; //$NON-NLS-1$
 	public static final String LIST_TYPE = "list"; //$NON-NLS-1$
-	public static final String SET_TYPE = "set";  //$NON-NLS-1$
+	public static final String SET_TYPE = "set"; //$NON-NLS-1$
 	public static final String DOUBLE_TYPE = "double";//$NON-NLS-1$
 	public static final String FLOAT_TYPE = "float";//$NON-NLS-1$
 	public static final String CHAR_TYPE = "char";//$NON-NLS-1$
@@ -126,7 +126,7 @@ public class Etcd3ServiceInfo extends ServiceInfo {
 				List newList = new ArrayList();
 				Object obj = jsonProperty.get(VALUE_KEY);
 				JSONArray sarr = (JSONArray) jsonProperty.get(VALUE_KEY);
-				for(int j=0; j < sarr.length(); j++) {
+				for (int j = 0; j < sarr.length(); j++) {
 					newList.add(sarr.get(j));
 				}
 				sProps.setProperty(name, newList);
@@ -134,7 +134,7 @@ public class Etcd3ServiceInfo extends ServiceInfo {
 				@SuppressWarnings("rawtypes")
 				Set s = new HashSet();
 				JSONArray sarr = (JSONArray) jsonProperty.get(VALUE_KEY);
-				for(int j=0; j < sarr.length(); j++) {
+				for (int j = 0; j < sarr.length(); j++) {
 					s.add(sarr.get(j));
 				}
 				sProps.setProperty(name, s);
@@ -246,8 +246,8 @@ public class Etcd3ServiceInfo extends ServiceInfo {
 					@SuppressWarnings("rawtypes")
 					List l = (List) value;
 					JSONArray array = new JSONArray();
-					for(int i=0; i < l.size(); i++) {
-						array.put(i,l.get(i));
+					for (int i = 0; i < l.size(); i++) {
+						array.put(i, l.get(i));
 					}
 					value = array;
 				} else if (SET_TYPE.equals(type)) {
@@ -255,11 +255,11 @@ public class Etcd3ServiceInfo extends ServiceInfo {
 					Set s = (Set) value;
 					JSONArray array = new JSONArray();
 					int i = 0;
-					for(Object o: s) {
-						array.put(i,o);
+					for (Object o : s) {
+						array.put(i, o);
 						i++;
 					}
-					value = array;					
+					value = array;
 				} else if (CHAR_TYPE.equals(type)) {
 					value = Character.toString((char) value);
 				} else if (LONG_TYPE.equals(type)) {

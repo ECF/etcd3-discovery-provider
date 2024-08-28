@@ -18,7 +18,7 @@ import org.eclipse.ecf.core.security.UnsupportedCallbackException;
 public class Etcd3ConfigConnectContext implements IConnectContext {
 
 	private final Etcd3DiscoveryContainerConfig config;
-	
+
 	public Etcd3ConfigConnectContext(Etcd3DiscoveryContainerConfig config) {
 		this.config = config;
 	}
@@ -26,7 +26,7 @@ public class Etcd3ConfigConnectContext implements IConnectContext {
 	public Etcd3DiscoveryContainerConfig getConfig() {
 		return config;
 	}
-	
+
 	@Override
 	public CallbackHandler getCallbackHandler() {
 		return null;

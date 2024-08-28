@@ -21,7 +21,10 @@ import org.eclipse.ecf.provider.etcd3.identity.Etcd3Namespace;
 import org.eclipse.ecf.provider.etcd3.identity.Etcd3ServiceID;
 
 import io.grpc.Channel;
+import io.grpc.Grpc;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.ChannelCredentials;
+
 import org.osgi.util.tracker.ServiceTracker;
 
 public class Etcd3DiscoveryContainerConfig extends DiscoveryContainerConfig {
@@ -70,7 +73,7 @@ public class Etcd3DiscoveryContainerConfig extends DiscoveryContainerConfig {
 	private String keyPrefix = ETCD_KEYPREFIX_DEFAULT;
 	private int keepAliveUpdateTime = ETCD_KEEPALIVE_UPDATE_TIME_DEFAULT.intValue();
 	private boolean usePlaintext = ETCD_USEPLAINTEXT_DEFAULT;
-	private boolean retry = ETCD_RETRY_DEFAULT;
+	private ChannelCredentials channelCredentials = null;
 
 	public static class Builder {
 
@@ -118,8 +121,11 @@ public class Etcd3DiscoveryContainerConfig extends DiscoveryContainerConfig {
 			return this;
 		}
 
-		public Builder setUseRetry() {
-			this.config.retry = true;
+		public Builder setChannelCredentials(ChannelCredentials credentials) {
+			if (credentials != null) {
+				this.config.usePlaintext = false;
+			}
+			this.config.channelCredentials = credentials;
 			return this;
 		}
 
@@ -168,12 +174,12 @@ public class Etcd3DiscoveryContainerConfig extends DiscoveryContainerConfig {
 		return sessionId;
 	}
 
-	public void setTTL(long ttl) {
-		this.ttl = ttl;
-	}
-
 	public long getTTL() {
 		return this.ttl;
+	}
+
+	public void setTTL(long ttl) {
+		this.ttl = ttl;
 	}
 
 	public String getKeyPrefix() {
@@ -182,6 +188,14 @@ public class Etcd3DiscoveryContainerConfig extends DiscoveryContainerConfig {
 
 	public void setKeyPrefix(String keyPrefix) {
 		this.keyPrefix = keyPrefix;
+	}
+
+	public ChannelCredentials getChannelCredentials() {
+		return this.channelCredentials;
+	}
+
+	public boolean usePlaintext() {
+		return this.usePlaintext;
 	}
 
 	public String getSessionKey() {
@@ -196,17 +210,30 @@ public class Etcd3DiscoveryContainerConfig extends DiscoveryContainerConfig {
 		return getTargetID().getLocation();
 	}
 
+	protected ManagedChannelBuilder<?> createAndConfigureManagedChannelBuilder() {
+		Activator.getDefault();
+		ServiceTracker<ManagedChannelBuilderConfigurer, ManagedChannelBuilderConfigurer> st = new ServiceTracker<ManagedChannelBuilderConfigurer, ManagedChannelBuilderConfigurer>(
+				Activator.getContext(), ManagedChannelBuilderConfigurer.class, null);
+		st.open();
+		ManagedChannelBuilderConfigurer configurer = st.getService();
+		st.close();
+		return (configurer != null) ? configurer.createAndConfigureManagedChannelBuilder(this) : null;
+	}
+
 	@SuppressWarnings("rawtypes")
 	protected ManagedChannelBuilder createManagedChannelBuilder() {
-		URI uri = getTargetLocation();
-		ManagedChannelBuilder mcBuilder = ManagedChannelBuilder.forAddress(uri.getHost(), uri.getPort());
-		if (this.usePlaintext) {
-			mcBuilder.usePlaintext();
+		ManagedChannelBuilder mcb = createAndConfigureManagedChannelBuilder();
+		if (mcb == null) {
+			URI uri = getTargetLocation();
+			ChannelCredentials channelCreds = getChannelCredentials();
+			mcb = (channelCreds == null) ? ManagedChannelBuilder.forAddress(uri.getHost(), uri.getPort())
+					: Grpc.newChannelBuilderForAddress(uri.getHost(), uri.getPort(), channelCreds);
+			if (usePlaintext()) {
+				mcb.usePlaintext();
+			}
+			mcb.enableRetry();
 		}
-		if (this.retry) {
-			mcBuilder.enableRetry();
-		}
-		return mcBuilder;
+		return mcb;
 	}
 
 	public Channel createChannel() {
