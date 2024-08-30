@@ -10,7 +10,7 @@ Released versions of this bundle are available at [Maven Central](https://search
 
 For this provider to work, an etcd server must be running at some available hostname and port before the process using the etcd provider is started.  Note that when the provider is started, it will immediately attempt to connect to the etcd server.  If that connection cannot be made it will result in an ERROR to the OSGi log.
 
-The entire list of configurable properties for the etcd provider is in [this class](https://github.com/ECF/etcd-provider/blob/master/bundles/org.eclipse.ecf.provider.etcd/src/org/eclipse/ecf/provider/etcd/EtcdDiscoveryContainerConfig.java)
+The entire list of configurable properties for the etcd provider is in [this class](https://github.com/ECF/etcd3-discovery-provider/blob/main/org.eclipse.ecf.provider.etcd3/src/main/java/org/eclipse/ecf/provider/etcd3/container/Etcd3DiscoveryContainerConfig.java)
 
 The most important properties are:
 
